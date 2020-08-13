@@ -135,7 +135,7 @@ $(function () {
 	/*================*/
 	if (!NetPing()) {
 	
-		if(!CookieEnable()){
+		if(CookieEnable()){
 			//————购物车显示产品个数
 			var cartnum = 0;
 			//判断cookice，读取购物车数量，如果购物车为空或者读取失败则0
