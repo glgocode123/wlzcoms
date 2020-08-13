@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="img/favicon.ico" rel="shortcut icon" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:700,900%7CDidact+Gothic" rel="stylesheet">
+    <title>WENLONGZHANG.com</title>
+    <style type="text/css">
+		.buy_div{
+			display: block;
+			-webkit-margin-before: 0.8em;
+			/*-webkit-margin-after: 2em;*/
+			-webkit-margin-start: 0px;
+			-webkit-margin-end: 0px;
+			margin: 0.8em 0 0 0;
+			padding: 0.57em 15px;
+			background-color:#f6f6f6;
+			z-index: 4;
+			position: fixed;
+			left: 0;
+			right:0;
+			bottom: 0;
+			margin-left:auto;
+			margin-right:auto;
+			width: 100%;
+			text-align: center;
+/*				max-width: 768px;*/
+		}
+
+		.col-2{
+			width: 100%;
+			float: left;
+		}
+
+		.btn-warning{
+			width: 80%;
+			background-color: darkorange;
+			/*color: #ef9236;*/
+			margin-left: 10px;
+			padding: 11px 20px;
+/*			font-size: 1.23em;*/
+		}
+		.selectItem ul li{
+			display: inline-block;
+		}
+		.selectItem ul li a{
+			padding: 0 15px;
+			display: block;
+			position: relative;
+			color: #222;
+			font-size: 10px;
+			height: 40px;
+			width: 100%;
+			line-height: 38px;
+			border: 1px solid #efefef;
+			margin: 0 4px;
+			background-color: #fff;
+			font-weight: bold;
+		}
+		.selectItem ul li a.active{ 
+			padding: 0 15px;  
+			display: block;
+			position: relative;
+			color: #fff;
+			font-size: 10px;
+			height: 40px;
+			width: 100%;
+			line-height: 38px;
+			border: 1px solid #222;
+			margin: 0 4px;
+			background-color: #222;
+			font-weight: bold;
+		}
+		.selectItem ul li a.outStock{
+			padding: 0 15px;  
+			display: block;
+			position: relative;
+			color: #999;
+			font-size: 10px;
+			height: 40px;
+			width: 100%;
+			line-height: 38px;
+			border: 1px solid #efefef;
+			margin: 0 4px;
+			background-color: #efefef;
+			font-weight: bold;
+		}
+		.form-wrapper{
+			padding: 0 20px;
+			margin-top: 30px;
+			margin-bottom: 0;
+		}
+	</style>
+</head>
+	<div class="buy_div is-mobile">
+		<div class="col-2">
+			<a href="http://mp.weixin.qq.com/s?__biz=MzAwNzY3MzUyMA==&amp;mid=209314797&amp;idx=1&amp;sn=45331f960f582fe5a57648c6b83a742d&amp;chksm=12f7c03225804924daa86aef01cd5461f86c5480e3d567fd1e1e12eedc5f0c22409a64dc03e8&amp;mpshare=1&amp;scene=23&amp;srcid=0818cGD36L5TG7ZaN4Dvr08c#rd"><img style="float: left;height: 45px;" src="img/btn-service.png"></a>
+			<button class="btn btn-warning btnNext">下一步</button>
+		</div>
+	</div>
+<body>
+    <!-- LOADER -->
+    <div id="loader-wrapper">
+        <div class="cssload-container">
+            <div class="cssload-whirlpool"><div class="isThePage"></div><div class="isMobPage"></div></div>
+        </div>
+    </div>
+    <!-- LOADER -->
+
+    <!-- HEADER -->
+    <header class="header-style header-style2 header-style3 header-style4">
+        <div class="hamburger-icon3">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header-content">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <a class="logo" href="index.html">
+                        <img src="img/logo.png" alt="#" />
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-10">
+                    <nav class="normal-s">
+                        <ul>
+                            <li>
+                                <a href="index.html">首页 Home</a>
+                            </li>
+                            <li>
+                                <a href="advance.html">预售 Advance</a>
+                            </li>
+                            <li class="dropdown-plus">
+                            	<a href="shop.html">商品 Shop</a>
+                                <span></span>
+                                <ul>
+                                    <li><a href="shop.html?type=1">新品 - NEW ARRIVAL</a></li>
+                                    <li><a href="shop.html?type=2">现货 - SPOT GOODS</a></li>
+                                    <li><a href="shop.html?type=3">特价 - OFF SALE</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="FAQ.html">问答 FAQ</a>
+                            </li>
+                            <li class="isShow">
+								<a class="mymember" href="javascript:void(0);">会员中心 Member</a>
+                            </li>
+                            <li class="mycart isShow is-mobile">
+								<a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;购物车&nbsp;&nbsp;(<span>0</span>)&nbsp;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="section">
+                    <p id="menuSlogan" style="font-size: 12px">" YOU DESERVE A BETTER LIFE "</p>
+                </div>
+                
+                <div class="category">
+                    <span class="small-1">营业时间 BUSINESS TIME</span>
+                    <ul>
+<!--                        <li class="active">营业时间 BUSINESS TIME</li>-->
+                        <li>OPEN：&nbsp;AM&nbsp;11:00</li>
+                        <li>CLOSE：&nbsp;PM&nbsp;21:00</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <span class="small-1">联系客服</span>
+                    <ul>
+<!--                        <li class="active">营业时间 BUSINESS TIME</li>-->
+                        <li class="wechatQRCode">微信商店及在线客服：</li>
+                        <li>常见问答请查看:<br /><a href="FAQ.html">《问答 FQA》</a></li>
+                        <li>客服工作时间为：<p>10：00-18：00</p></li>
+                    </ul>
+                </div>
+<!--
+                <div class="normal-3 section">
+                    <div class="empty-space h10-xs fl"></div>
+                    <div class="follow">
+						<a class="social" href="" target="_blank">
+							<i class="fa fa-wechat" aria-hidden="true"></i>
+						</a>
+						<a class="social" href="" target="_blank">
+							<i class="fa fa-qq" aria-hidden="true"></i>
+						</a>
+						<a class="social" href="" target="_blank">
+							<i class="fa fa-weibo" aria-hidden="true"></i>
+						</a>
+						<a class="social AddFavorite" href="javascript:void(0);" target="_self">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
+						</a>
+                    </div>
+                </div>
+-->
+            </div>
+<!--            <div class="mob-icon"></div> -->
+        </div>                                                          
+    </header>
+    <!-- HEADER -->
+
+    <!-- content -->
+    <div id="content-wrapper">
+        
+        <div class="empty-space h45-xs h65-sm"></div>
+        <div class="container-fluid-style2">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+                    <article>
+                        <h1 class="h1">选择分类 SELECT</h1>
+                    </article>
+                </div>
+            </div>
+<!--            <div class="empty-space h120-md h10-xs"></div>-->
+            <div class="contacts">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+                        <div class="form-wrapper text-center">
+                            <div class="empty-space h50-xs h40-md"></div>
+                            <h7 class="h7">COLOR</h7>
+                            <div class="empty-space h20-xs"></div>
+							<div class="selectItem" data-name="color">
+								<ul>
+									<li><a data-name="黑色">黑色</a></li>
+									<li><a data-name="白色">白色</a></li>
+									<li><a class="active" data-name="灰色">灰色</a></li>
+									<li><a data-name="彩色">彩色</a></li>
+								</ul>
+							</div>
+                            
+                            <div class="empty-space h35-xs"></div>
+                            <h7 class="h7">SIZE</h7>
+                            <div class="empty-space h20-xs"></div>
+							<div class="selectItem" data-name="size">
+								<ul>
+									<li><a class="outStock" data-name="S">S</a></li>
+									<li><a class="outStock" data-name="M">M</a></li>
+									<li><a class="active" data-name="L">L</a></li>
+									<li><a data-name="XL">XL</a></li>
+									<li><a data-name="XXL">XXL</a></li>
+								</ul>
+							</div>
+                            
+                            <div class="empty-space h50-xs is-unmobile"></div>
+                            <button class="btn-style1 is-unmobile btnNext" type="submit" style="width:100%; padding: 10px 0;">
+                            	<span>下一步</span>
+                            </button>
+                       
+                            <div class="empty-space h50-xs"></div>
+                        </div> 
+						<div class="form-wrapper text-center">
+                            <div class="empty-space h50-xs"></div>
+							<img style="width: 100%;" src="img/about-img-2.jpg" alt="">
+                            <div class="empty-space h50-xs"></div>
+						</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BLOCK "MAP" -->
+<!--
+            <div class="map-wrapper">
+                <div id="map-canvas" data-lat="40.722690" data-lng="-73.981735" data-zoom="13">
+                </div>
+                <div class="addresses-block">
+                    <a class="marker" data-lat="40.727126" data-lng="-73.984896" data-string="Here is some address or email or phone or something else..."></a>
+                </div>
+            </div>
+-->
+
+        </div>
+
+        <div class="empty-space h10-xs h40-md fl"></div>
+        <!-- footer -->
+        <footer class="footer-style">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="copyright normal-s">
+                            Copyright &copy; 2020 WENLONGZHANG.com All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer -->
+                
+    </div>
+    <!-- content -->
+
+    <!-- SUBMIT -->
+    <div class="submit text-popup overlay">
+        <div class="animation-wrapper full-size"></div>
+        <div class="content-wrapper full-size">
+            <div class="cell-view page-height">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <div class="h2 white"><b class="text-popup-title">submit</b></div>
+                            <div class="empty-space h15-xs"></div>
+                            <div class="white text-popup-message">
+                                The following fields should be filled:- Name - Email - Your Message
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="button-close"></a>
+    </div>
+
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/global.js"></script>
+
+    <!-- MAP -->
+    <!---<script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="js/map.js"></script>--->
+
+    <!-- CONTACT -->
+<!--    <script src="js/contact.form.js"></script>-->
+   
+   <script src="js/prodselect.page.js"></script>
+    
+    <script src="js/global.diy.js"></script>
+    <script src="js/browser.diy.js"></script>
+    
+    <script src="js/security.diy.js"></script>
+</body>
+</html>

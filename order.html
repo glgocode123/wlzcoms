@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/swiper.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="img/favicon.ico" rel="shortcut icon" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:700,900%7CDidact+Gothic" rel="stylesheet">
+    <title>WENLONGZHANG.com</title>
+    <style type="text/css">
+        .big{
+			padding-right: 100px;
+        }
+		.buy_div{
+			display: block;
+			-webkit-margin-before: 0.8em;
+			/*-webkit-margin-after: 2em;*/
+			-webkit-margin-start: 0px;
+			-webkit-margin-end: 0px;
+			margin: 0.8em 0 0 0;
+			padding: 0.57em 15px;
+			background-color:#f6f6f6;
+			z-index: 4;
+			position: fixed;
+			left: 0;
+			right:0;
+			bottom: 0;
+			margin-left:auto;
+			margin-right:auto;
+			width: 100%;
+			text-align: center;
+/*				max-width: 768px;*/
+		}
+
+		.col-2{
+			width: 100%;
+			float: left;
+		}
+
+		.btn-warning{
+			width: 80%;
+			background-color: darkorange;
+			/*color: #ef9236;*/
+			margin-left: 10px;
+			padding: 11px 20px;
+/*			font-size: 1.23em;*/
+		}
+		.form-wrapper{
+			padding: 0 20px;
+			margin-top: 30px;
+			margin-bottom: 0;
+		}
+	</style>
+</head>
+	<div class="buy_div is-mobile">
+		<div class="col-2">
+			<a href="http://mp.weixin.qq.com/s?__biz=MzAwNzY3MzUyMA==&amp;mid=209314797&amp;idx=1&amp;sn=45331f960f582fe5a57648c6b83a742d&amp;chksm=12f7c03225804924daa86aef01cd5461f86c5480e3d567fd1e1e12eedc5f0c22409a64dc03e8&amp;mpshare=1&amp;scene=23&amp;srcid=0818cGD36L5TG7ZaN4Dvr08c#rd"><img style="float: left;height: 45px;" src="img/btn-service.png"></a>
+			<button class="btn btn-warning btnNext">下一步</button>
+		</div>
+	</div>
+<body>
+    <!-- LOADER -->
+    <div id="loader-wrapper">
+        <div class="cssload-container">
+            <div class="cssload-whirlpool"><div class="isThePage"></div><div class="isMobPage"></div></div>
+        </div>
+    </div>
+    <!-- LOADER -->
+
+    <!-- HEADER -->
+    <header class="header-style header-style2 header-style3 header-style4">
+        <div class="hamburger-icon3">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header-content">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <a class="logo" href="index.html">
+                        <img src="img/logo.png" alt="#" />
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-10">
+                    <nav class="normal-s">
+                        <ul>
+                            <li>
+                                <a href="index.html">首页 Home</a>
+                            </li>
+                            <li>
+                                <a href="advance.html">预售 Advance</a>
+                            </li>
+                            <li class="dropdown-plus">
+                            	<a href="shop.html">商品 Shop</a>
+                                <span></span>
+                                <ul>
+                                    <li><a href="shop.html?type=1">新品 - NEW ARRIVAL</a></li>
+                                    <li><a href="shop.html?type=2">现货 - SPOT GOODS</a></li>
+                                    <li><a href="shop.html?type=3">特价 - OFF SALE</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="FAQ.html">问答 FAQ</a>
+                            </li>
+                            <li class="isShow">
+								<a class="mymember" href="javascript:void(0);">会员中心 Member</a>
+                            </li>
+                            <li class="mycart isShow is-mobile">
+								<a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;购物车&nbsp;&nbsp;(<span>0</span>)&nbsp;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="section">
+                    <p id="menuSlogan" style="font-size: 12px">" YOU DESERVE A BETTER LIFE "</p>
+                </div>
+                
+                <div class="category">
+                    <span class="small-1">营业时间 BUSINESS TIME</span>
+                    <ul>
+<!--                        <li class="active">营业时间 BUSINESS TIME</li>-->
+                        <li>OPEN：&nbsp;AM&nbsp;11:00</li>
+                        <li>CLOSE：&nbsp;PM&nbsp;21:00</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <span class="small-1">联系客服</span>
+                    <ul>
+<!--                        <li class="active">营业时间 BUSINESS TIME</li>-->
+                        <li class="wechatQRCode">微信商店及在线客服：</li>
+                        <li>常见问答请查看:<br /><a href="FAQ.html">《问答 FQA》</a></li>
+                        <li>客服工作时间为：<p>10：00-18：00</p></li>
+                    </ul>
+                </div>
+<!--
+                <div class="normal-3 section">
+                    <div class="empty-space h10-xs fl"></div>
+                    <div class="follow">
+						<a class="social" href="" target="_blank">
+							<i class="fa fa-wechat" aria-hidden="true"></i>
+						</a>
+						<a class="social" href="" target="_blank">
+							<i class="fa fa-qq" aria-hidden="true"></i>
+						</a>
+						<a class="social" href="" target="_blank">
+							<i class="fa fa-weibo" aria-hidden="true"></i>
+						</a>
+						<a class="social AddFavorite" href="javascript:void(0);" target="_self">
+							<i class="fa fa-bookmark" aria-hidden="true"></i>
+						</a>
+                    </div>
+                </div>
+-->
+            </div>
+<!--            <div class="mob-icon"></div> -->
+        </div>                                                          
+    </header>
+    <!-- HEADER -->
+    
+    <!-- content -->
+    <div id="content-wrapper">
+        
+        <div class="empty-space h35-xs h90-sm"></div>
+        <div class="container-fluid-style2">
+           
+            <div class="container-fluid-in-wrapper">
+                <div class="container-fluid-in">
+                   
+                    <div class="empty-space h50-xs h105-md"></div>
+
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                           
+                            <article>
+                                <h2 class="h1-2">ORDER CONFIRM</h2>
+                        <div class="empty-space h15-xs"></div>
+                        <p class="normal-l dark-grey">支付成功后，商品将1～2日内发货，彼时可在会员中心查看快递单号.</p>
+                            </article>
+                            <div class="empty-space h30-xs h60-md fl"></div>
+                            
+                            <div class="form-wrapper style2">
+                                <div class="empty-space h35-xs"></div>
+                                <h6 class="h7">收货地址</h6>
+                                <div class="empty-space h30-xs"></div>
+                                <form class="order-form">
+                                    <div class="input-wrapper">
+                                        <div class="input-style">
+                                            <input id="inputMob" name="mob" type="text" class="input" required>
+                                            <label for="inputMob">手机号...</label>
+                                        </div>
+                                        <div class="input-style">
+                                            <input id="inputName" name="name" type="text" class="input" required>
+                                            <label for="inputName">收货人...</label>
+                                        </div>
+                                        <div class="input-style textarea">
+                                            <textarea id="inputAddress" name="address" class="input" required></textarea>
+                                            <label for="inputAddress">收货地址...</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <div id="setProdList" class="comments-wrapper">
+                                <div class="empty-space h25-xs h45-md"></div>
+                                <div class="comment">
+                                    <img src="img/icon-img-1.jpg" alt="">
+                                    <div class="description">
+                                        <span class="big">TEEBACCO球鞋系列图案印花短袖T恤</span>
+                                        <span>价格：¥229.00</span>
+                                        <div class="empty-space h10-xs"></div>
+										<p>颜色:白色&nbsp;&nbsp;|&nbsp;&nbsp;尺寸:S&nbsp;&nbsp;|&nbsp;&nbsp;数量:1件</p>
+										<div class="empty-space h15-xs"></div>
+                                    </div>
+                                </div>
+                                <div class="empty-space h25-xs h45-md"></div>
+                                <div class="comment">
+                                    <img src="img/icon-img-2.jpg" alt="">
+                                    <div class="description">
+                                        <span class="big">Bose无线降噪耳机700黑色白色AR</span>
+                                        <span>价格：¥1399.00</span>
+                                        <div class="empty-space h10-xs"></div>
+										<p>颜色:白色&nbsp;&nbsp;|&nbsp;&nbsp;尺寸:S&nbsp;&nbsp;|&nbsp;&nbsp;数量:1件</p>
+                                        <div class="empty-space h15-xs"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+						</div>
+
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+<!--                            <div class="empty-space h25-xs h45-md"></div>-->
+                        	<hr />
+                            <div><span id="setProdNum">共2件，</span>&nbsp;&nbsp;<span>合计：</span><span id="setProdPrice" style="color:red;font-size: 24px;">&#165;99999.00</span></div>
+                            <div><span id="setPreferential" style="color: black;">已使用红包（VIP金券），节省了999.23元</span></div>
+                        	<hr />
+                            <div class="empty-space h25-xs h25-md is-unmobile"></div>
+							<button id="btnOrder" class="btn-style1 style2 is-unmobile" style="display:block;margin:0 auto;width: 80%;"><span style="font-size: 16px; ">提&nbsp;交&nbsp;订&nbsp;单</span></button>
+                       		<div class="empty-space h50-xs h90-md"></div>
+                        </div>
+                            
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- end container-fluid-style2 -->
+        
+        
+    <!-- SUBMIT -->
+    <div class="submit text-popup overlay">
+        <div class="animation-wrapper full-size"></div>
+        <div class="content-wrapper full-size">
+            <div class="cell-view page-height">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <div class="h2 white"><b class="text-popup-title">submit</b></div>
+                            <div class="empty-space h15-xs"></div>
+                            <div class="white text-popup-message">
+                                The following fields should be filled:- Name - Email - Your Message
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="button-close"></a>
+    </div>
+
+        <!-- footer -->
+        <footer class="footer-style">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="copyright normal-s">
+                            Copyright &copy; 2020 WENLONGZHANG.com All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer -->
+                
+    </div>
+    <!-- content -->
+
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/swiper.jquery.min.js"></script>
+    <script src="js/global.js"></script> 
+   
+    <script src="js/global.diy.js"></script>
+    <script src="js/browser.diy.js"></script>
+     
+    <script src="js/order.page.js"></script>
+    
+    <script src="js/security.diy.js"></script>
+    
+</body>
+</html>
