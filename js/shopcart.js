@@ -1,5 +1,5 @@
 // JavaScript Document
-$(function () {
+$(function (){
 
 	"use strict";
 	
