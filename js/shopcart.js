@@ -1,8 +1,4 @@
 // JavaScript Document
-$(function (){
-
-	"use strict";
-	
 	//JS中this指的是全局变量,假如全局变量没有此参数时相当于在此方法中重新定义,如果全局变量中有此参数那么this仍然绑定到外部函数的this变量上
 
 	//购物车
@@ -142,6 +138,3 @@ $(function (){
 	
 
 	
-
-	
-});
