@@ -121,6 +121,7 @@ $(function () {
 			if (source === null || source === "") {
 				return cart;
 			}
+			alert(source);
 			var arr = source.split("|$|");
 			cart.Count = arr.length;
 			for (var i = 0; i < arr.length; i++) {
