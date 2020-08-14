@@ -115,7 +115,7 @@ $(function () {
 		//读取COOKIE中的集合
 		this.Read = function () {
 			var source = $.cookie(this.cookieName);
-//			alert(source);
+			alert(source);
 			var cart = new Cart();
 			if (source === null || source === "") {
 				return cart;
