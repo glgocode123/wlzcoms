@@ -196,7 +196,7 @@ $(function () {
 		}else if(Price.value===""){
 			alert("请输入价格！");
 		}else{
-			xc.Add(PID,PName,PNum,Price);
+			xc.Add(PID.value,PName.value,PNum.value,Price.value);
 			$("#addNum").text(showNum++);
 //			setCookie(UName.id,UName.value,30);
 //			setCookie(PName.id,PName.value,30);
