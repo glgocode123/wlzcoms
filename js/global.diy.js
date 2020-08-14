@@ -130,31 +130,53 @@ $(function () {
 	/*=======================================================================================*/
 	
 	
+	
 	/*================*/
 	/* 页面配置 - 初始化判断是否打烊 */
 	/*================*/
 	if (!NetPing()) {
 	
 		if(CookieEnable()){
-			//————购物车显示产品个数
-			var cartnum = 0;
-			//判断cookice，读取购物车数量，如果购物车为空或者读取失败则0
-			cartnum = 10;//模拟10个
-			//显示购物车
-			$("li.mycart a").children("span").text(cartnum);
+	
+			//如果获取的手机号正确（这个是cookie中的一个数值，还有产品个数，用户基本信息等）
+			if (pattern.test(cookieMobID)){
+				//参数加入日期作为判断：是否历史记录中调取的href，如果不是当前就读cookie并更新参数
+				$("a.mymember").attr("href","i.html?Data=20200815&Mob="+cookieMobID);
+			
+				//————购物车显示产品个数
+				var cartnum = 0;
+				//判断cookice，读取购物车数量，如果购物车为空或者读取失败则0
+				cartnum = 10;//模拟10个
+				//显示购物车
+				$("li.mycart a").children("span").text(cartnum);
+				$("li.mycart a").attr("href", "cart.html?Mob="+cookieMobID);
+			}else{
+				$("a.mymember").attr("href","login.html");
+			}
 		}else{
 			//如果浏览器没有开启cookie
 			if ($("div").is(".isThePage")) {
 				$(location).attr('href', 'index.html');
 			}else{
-				updateTextPopup2("ERROR","你的浏览器的Cookie功能被禁用，导致网站功能无法正常使用！请开启此功能。");
+				updateTextPopup2("ERROR","你的浏览器的Cookie功能被禁用，导致网站无法正常使用，请开启！");
 			}
 			//如果没有开启coocie，不显示购物车菜单
-			$("li.mycart").remove();
+//			$("li.mycart").remove();
+			
+			//找到isShow，并添加isHide类
+			$(".isShow").addClass("isHide");
+			//禁止之前的连接
+			$(".isShow > a").attr("href","#");
+			//假删除横线
+			$(".isShow > a").css("text-decoration","line-through");
+			//当点击打烊不可用的功能时，提示打烊了
+			$(".isHide").on('click', function () {
+				updateTextPopup2("ERROR","你的浏览器的Cookie功能被禁用，导致此功能无法正常使用，请开启后尝试！");
+			});
 		}
 		
 	} else {
-		//如果有isThePage，跳转回主页（打烊不可看的页面）
+		//如果店铺打烊了：页面有isThePage，跳转回主页（打烊不可看的页面）
 		if ($("div").is(".isThePage")) {
 			$(location).attr('href', 'index.html');
 		}else{
@@ -186,12 +208,8 @@ $(function () {
 		}
 	}
 	
-	//如果获取的手机号正确
-	if (pattern.test(cookieMobID)){
-		$("a.mymember").attr("href","i.html?Mob="+cookieMobID);
-	}else{
-		$("a.mymember").attr("href","login.html");
-	}
+	
+	/*=======================================================================================*/
 	/*================*/
 	/* 页面配置 - 初始化Menu内容，当前控制数20% */
 	/*================*/
@@ -209,5 +227,4 @@ $(function () {
 	//
 	
 	
-	return false;
 });

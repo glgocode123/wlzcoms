@@ -6,7 +6,7 @@ $(function () {
 	
 	//cookieMobID需要改为调用cookie中的登录状态，成功就返回手机号
 	var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/),
-		cookieMobID = 13602492312;
+		cookieMobID = 13600000000;
 	
 	//如果已经登录，跳转到用户中心，并把cookie获得的id传过去
 	
@@ -20,7 +20,7 @@ $(function () {
 	$('#btn-order').on("click", function(){
 		var $this = $('.login-form');
 						   
-		$('.invalid').removeClass('invalid');						   
+		$('.invalid').removeClass('invalid');
 		var msg = '以下必填项不正确：',
 //			successMessage = "商品将1～2日内发货，彼时可在会员中心查看快递单号.",
 			error = 0;
