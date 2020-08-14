@@ -108,13 +108,15 @@ $(function () {
 				}
 				source += this.ItemToString(cart.Items[i]);
 			}
-			alert(this.cookieName);
+//			alert(this.cookieName);
 			alert(source);
-			$.cookie(this.cookieName, source);
+//			$.cookie(this.cookieName, source);
+			$.cookie('test123wlzCart', source);
 		};
 		//读取COOKIE中的集合
 		this.Read = function () {
-			var source = $.cookie(this.cookieName);
+//			var source = $.cookie(this.cookieName);
+			var source = $.cookie('test123wlzCart');
 			alert(source);
 			var cart = new Cart();
 			if (source === null || source === "") {
@@ -146,7 +148,6 @@ $(function () {
 	//调用
 	var xc = new CartHelper();
 	
-	alert(xc.cookieName.name);
 	
 	//==================在cookie购物车模板中，把数据渲染出来，并调用js:===========================
 //	console.log(xc.Read());
