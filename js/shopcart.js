@@ -119,7 +119,7 @@ $(function () {
 			var source = $.cookie('test123wlzCart');
 			alert(source);
 			var cart = new Cart();
-			if (source === null || source === "") {
+			if (source === null || source === "" || source === undefined) {
 				return cart;
 			}
 			var arr = source.split("|$|");
