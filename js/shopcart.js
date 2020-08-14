@@ -108,6 +108,7 @@ $(function () {
 				}
 				source += this.ItemToString(cart.Items[i]);
 			}
+			alert(this.cookieName);
 			alert(source);
 			$.cookie(this.cookieName, source);
 		};
