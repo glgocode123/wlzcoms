@@ -176,7 +176,7 @@ $(function () {
 		
 	}
 	//初始化先读一次
-	getCookie();
+//	getCookie();
 	
 //	===========在商品详情页中写了onclick(),并调用js里面的添加购物车逻辑:==========================
 //	function getcookie(){
