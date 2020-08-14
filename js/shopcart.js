@@ -23,8 +23,7 @@ $(function () {
 
 	//购物车操作
 	var CartHelper = function () {
-		this.cookieName = "test123wlzCart";
-		alert($.cookie(this.cookieName));
+		this.cookieName = $.cookie('test123wlzCart');
 		
 		this.Clear = function () {
 			var cart = new Cart();
@@ -118,11 +117,10 @@ $(function () {
 			var source = $.cookie(this.cookieName);
 //			alert(source);
 			var cart = new Cart();
-			if (source === null || source === "" || source === "undefined") {
+			if (source === null || source === "") {
 				return cart;
 			}
-			alert(source);
-			var arr = source.split("|$|");
+			var arr = source.toString().split("|$|");
 			cart.Count = arr.length;
 			for (var i = 0; i < arr.length; i++) {
 				var item = this.ItemToObject(arr[i]);
@@ -176,7 +174,7 @@ $(function () {
 		
 	}
 	//初始化先读一次
-//	getCookie();
+	getCookie();
 	
 //	===========在商品详情页中写了onclick(),并调用js里面的添加购物车逻辑:==========================
 //	function getcookie(){
