@@ -33,6 +33,7 @@ $(function () {
 
 		//向购物车添加
 		this.Add = function (id, name, count, price) {
+			alert("_id:"+id+"_name:"+name+"_count:"+count+"_price:"+price);
 			var cart = this.Read();
 			var index = this.Find(id);
 
