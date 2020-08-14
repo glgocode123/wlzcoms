@@ -24,7 +24,7 @@ $(function () {
 	//购物车操作
 	var CartHelper = function () {
 		this.cookieName = "test123wlzCart";
-//			$.cookie('test123wlzCart');
+		$.cookie(this.cookieName);
 		
 		this.Clear = function () {
 			var cart = new Cart();
