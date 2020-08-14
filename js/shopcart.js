@@ -117,7 +117,7 @@ $(function () {
 			if (source === null || source === "") {
 				return cart;
 			}
-			var arr = source.split("|$|");
+			var arr = source.toString().split("|$|");
 			cart.Count = arr.length;
 			for (var i = 0; i < arr.length; i++) {
 				var item = this.ItemToObject(arr[i]);
