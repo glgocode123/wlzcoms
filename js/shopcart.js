@@ -118,7 +118,7 @@ $(function () {
 			var source = $.cookie(this.cookieName);
 //			alert(source);
 			var cart = new Cart();
-			if (source === null || source === "") {
+			if (source === null || source === "" || source === "undefined") {
 				return cart;
 			}
 			alert(source);
