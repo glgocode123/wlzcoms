@@ -146,6 +146,7 @@ $(function () {
 	//调用
 	var xc = new CartHelper();
 	
+	alert(xc.cookieName.name);
 	
 	//==================在cookie购物车模板中，把数据渲染出来，并调用js:===========================
 //	console.log(xc.Read());
