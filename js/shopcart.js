@@ -23,7 +23,8 @@ $(function () {
 
 	//购物车操作
 	var CartHelper = function () {
-		this.cookieName = $.cookie('test123wlzCart');
+//		this.cookieName = $.cookie('test123wlzCart');
+		this.cookieName = 'test123wlzCart';
 		
 		this.Clear = function () {
 			var cart = new Cart();
@@ -110,13 +111,13 @@ $(function () {
 			}
 //			alert(this.cookieName);
 			alert(source);
-//			$.cookie(this.cookieName, source);
-			$.cookie('test123wlzCart', source);
+			$.cookie(this.cookieName, source);
+//			$.cookie('test123wlzCart', source);
 		};
 		//读取COOKIE中的集合
 		this.Read = function () {
-//			var source = $.cookie(this.cookieName);
-			var source = $.cookie('test123wlzCart');
+			var source = $.cookie(this.cookieName);
+//			var source = $.cookie('test123wlzCart');
 			alert(source);
 			var cart = new Cart();
 			if (source === null || source === "" || source === undefined) {
