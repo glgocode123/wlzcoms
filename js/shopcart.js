@@ -26,6 +26,7 @@ $(function () {
 //		this.cookieName = $.cookie('test123wlzCart');
 		this.cookieName = 'test123wlzCart';
 		
+		//清空购物车cookie
 		this.Clear = function () {
 			var cart = new Cart();
 			this.Save(cart);
@@ -110,7 +111,7 @@ $(function () {
 				source += this.ItemToString(cart.Items[i]);
 			}
 //			alert(this.cookieName);
-			alert(source);
+//			alert(source);
 			$.cookie(this.cookieName, source);
 //			$.cookie('test123wlzCart', source);
 		};
