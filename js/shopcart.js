@@ -19,6 +19,7 @@ $(function () {
 		this.Name = "";
 		this.Count = 0;
 		this.Price = 0;
+		this.Parms = "";
 	};
 
 	//购物车操作
@@ -34,8 +35,8 @@ $(function () {
 		};
 
 		//向购物车添加
-		this.Add = function (id, name, count, price) {
-			alert("_id:"+id+"名:"+name+"数量:"+count+"价格:"+price);
+		this.Add = function (id, name, count, price, parms) {
+			alert("_id:"+id+"名:"+name+"数量:"+count+"价格:"+price+"参数(备注)："+parms);
 			var cart = this.Read();
 			var index = this.Find(id);
 
@@ -43,10 +44,13 @@ $(function () {
 				this.Del(id);
 
 			} else {
-				//如果ID已存在，覆盖数量
+				//如果ID已存在，覆盖数量，修改总价
 				if (index > -1) {
+					//购物车总价格-选中产品的价格
 					cart.Total -= (((cart.Items[index].Count * 100) * (cart.Items[index].Price * 100)) / 10000);
+					//购物车产品集合
 					cart.Items[index].Count = count;
+					//购物车总价格+更改数量后产品的价格
 					cart.Total += (((cart.Items[index].Count * 100) * (cart.Items[index].Price * 100)) / 10000);
 
 				} else {
@@ -55,6 +59,7 @@ $(function () {
 					item.Name = name;
 					item.Count = count;
 					item.Price = price;
+					item.Parms = parms;
 					cart.Items.push(item);
 					cart.Count++;
 					cart.Total += (((item.Count * 100) * (item.Price * 100)) / 10000);
@@ -134,7 +139,7 @@ $(function () {
 			return cart;
 		};
 		this.ItemToString = function (item) {
-			return item.Id + "||" + encodeURIComponent(item.Name) + "||" + item.Count + "||" + item.Price;
+			return item.Id + "||" + encodeURIComponent(item.Name) + "||" + item.Count + "||" + item.Price + "||" + item.Parms;
 		};
 		this.ItemToObject = function (str) {
 			var arr = str.split('||');
@@ -143,6 +148,7 @@ $(function () {
 			item.Name = decodeURIComponent(arr[1]);
 			item.Count = arr[2];
 			item.Price = arr[3];
+			item.Parms = arr[4];
 			return item;
 		};
 	};
