@@ -229,10 +229,10 @@ $(function () {
 	var xc = new CartHelper();
 	
 	//模拟获取页面参数
-	var prodid = 2020081101,
-		prodName = "产品名称",
-		prodPrice = 123,
-		prodParms = "颜色：红色 尺寸：S";
+	var prodid = 0,
+		prodName = "",
+		prodPrice = 0,
+		prodParms = "";
 		
 	//判断是否有必要参数，如果没有或者参数错误，都当成页面没有传参处理
 	if(prodid > 2020000000 && prodName.length > 0 && prodPrice > 0 ){
