@@ -2,6 +2,37 @@
 $(function () {
 
 	"use strict";
+	
+	// 获得当前页id
+	var url = location.href;
+	
+	/*================*/
+	/* 功能 - 提取url中的解析字符串 */
+	/*================*/
+	function UrlParamHash(url) {
+		var params = [],
+			h;
+		var hash = url.slice(url.indexOf("?") + 1).split('&');
+//		alert(hash);
+		for (var i = 0; i < hash.length; i++) {
+			h = hash[i].split("="); //
+			params[h[0]] = h[1];
+//			alert(h);
+		}
+		return params;
+	}
+	
+	/*================*/
+	/* 功能 - 判断手机号格式是否正确 */
+	/*================*/
+	function isMobID(prodid){
+		var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/);
+//		alert(pattern.exec(prodid));
+		if (!pattern.exec(prodid)){return false;}
+		return true;
+	}
+	
+	/*=======================================================================================*/
 
 
 	//JS中this指的是全局变量,假如全局变量没有此参数时相当于在此方法中重新定义,如果全局变量中有此参数那么this仍然绑定到外部函数的this变量上
@@ -222,6 +253,33 @@ $(function () {
 	});
 	//==================END================================================================
 	
+	/*=======================================================================================*/
+	
+	//cookieMobID需要改为调用cookie中的登录状态，成功就返回手机号
+//	var cookieMobID;
+	
+	/*================*/
+	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
+	/*================*/
+//	var userMobID = 0;
+//	//判断 - 页面传入的Mob是否正确
+//	if(isMobID(decodeURI(UrlParamHash(url).Mob))){
+//		cookieMobID = UrlParamHash(url).Mob;
+//		//如果获取的手机号正确,记录手机号，用于提交？
+//		userMobID = cookieMobID;
+//	}else{
+//		//二次判断 - 读取cookie
+//		if(true){
+//			//模拟正确
+//			cookieMobID = 13822262354;
+//			$(location).attr('href', 'i.html?Mob='+cookieMobID);
+//		}else{
+//			//如果页面id不合适，返回原页
+//			$(location).attr('href', 'login.html');
+//		}
+//	}
+	
+	//==================END================================================================
 	
 	//==================页面初始化逻辑，主要是操作cookie数据===========================
 	
@@ -229,10 +287,10 @@ $(function () {
 	var xc = new CartHelper();
 	
 	//模拟获取页面参数
-	var prodid = 0,
-		prodName = "",
-		prodPrice = 0,
-		prodParms = "";
+	var prodid = decodeURI(UrlParamHash(url).prodid),
+		prodName = decodeURI(UrlParamHash(url).name),
+		prodPrice = decodeURI(UrlParamHash(url).price),
+		prodParms = decodeURI(UrlParamHash(url).parms);
 		
 	//判断是否有必要参数，如果没有或者参数错误，都当成页面没有传参处理
 	if(prodid > 2020000000 && prodName.length > 0 && prodPrice > 0 ){
