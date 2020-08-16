@@ -312,7 +312,7 @@ $(function () {
 					if (prodParms === abc[i].Parms){
 						//如果有，xc.Add
 						cookieID = abc[i].Id;
-						cookieIDCount = abc[i].Count - 0 + 1;
+						cookieIDCount = parseInt(abc[i].Count) + 1;
 						continue;
 					}
 					//记录同一产品出现的所有不同实例
@@ -346,7 +346,7 @@ $(function () {
 			for (var l = 0; l < pro_cart.Items.length; l++) {
 				if ((prodid+"a") === abc[l].Id){
 					//如果找到了相同的产品，数量+1
-					cookieIDCount = abc[l].Count - 0 + 1;
+					cookieIDCount = parseInt(abc[l].Count) + 1;
 					continue;
 				}
 			}
