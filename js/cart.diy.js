@@ -24,8 +24,7 @@ $(function () {
 
 	//购物车操作
 	var CartHelper = function () {
-//		this.cookieName = $.cookie('test123wlzCart');
-		this.cookieName = 'test123wlzCart';
+		this.cookieName = 'wenlongzhangCart';
 		
 		//清空购物车cookie
 		this.Clear = function () {
@@ -119,15 +118,11 @@ $(function () {
 				}
 				source += this.ItemToString(cart.Items[i]);
 			}
-//			alert(this.cookieName);
-//			alert(source);
 			$.cookie(this.cookieName, source);
-//			$.cookie('test123wlzCart', source);
 		};
 		//读取COOKIE中的集合
 		this.Read = function () {
 			var source = $.cookie(this.cookieName);
-//			var source = $.cookie('test123wlzCart');
 			alert(source);
 			var cart = new Cart();
 			if (source === null || source === "" || source === undefined) {
@@ -180,7 +175,7 @@ $(function () {
 					proBuy = "<a class='btn-style1 proBuy' href='#'><span>单独购买</span></a>",
 					proDel = "<a class='btn-style1 proDel' href='#'><span>移除</span></a>";
 				
-				htmlVal += "<div class='comment'>" + proImg + "<div class='description'>" + proTitle + htmlRowSpacing + proPrice + proParms + htmlRowSpacing2 + proCount + proBuy + proDel + "</div></div>";
+				htmlVal += "<div class='comment'>" + proImg + "<div class='description' value='" + abc[i].Id + "'>" + proTitle + htmlRowSpacing + proPrice + proParms + htmlRowSpacing2 + proCount + proBuy + proDel + "</div></div>";
 				//判断是否最后一个数据区域
 				if ( i === abc.length - 1 ){
 					htmlVal += "<div class='empty-space h25-xs h45-md'></div>";
@@ -196,16 +191,34 @@ $(function () {
 	//==================END================================================================
 	
 	//==================渲染数据后产品列表中的逻辑=============================================
+	//增加数量
 	$("a.addCount").on("click", function(){
 		$(this).next().text($(this).next().text()+1);
+	}).blur(function(){
+		xc.Change($(this).parent().val(), $(this).next().text());
 	});
+	//减少数量
 	$("a.reduceCount").on("click", function(){
 		//当前Count是1
 		if($(this).prev().text() <= 1){
-			xc.Del();
+//			xc.Del($(this).parent().val());
+//			$(this).parent().parent().remove();
+			$(this).prev().text(1);
 		}else{
 			$(this).prev().text($(this).prev().text()-1);
 		}
+	}).blur(function(){
+		xc.Change($(this).parent().val(), $(this).prev().text());
+	});
+	//单独购买
+	$("a.proBuy").on("click", function(){
+		xc.Del($(this).parent().val());
+		$(location).attr("href", "order.html?");
+	});
+	//删除
+	$("a.proDel").on("click", function(){
+		xc.Del($(this).parent().val());
+		$(this).parent().parent().remove();
 	});
 	//==================END================================================================
 	
