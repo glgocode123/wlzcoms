@@ -363,6 +363,7 @@ $(function () {
 	});
 	//删除
 	$("a.proDel").on("click", function(){
+		alert($(this).parent().val());
 		xc.Del($(this).parent().val());
 		$(this).parent().parent().remove();
 	});
