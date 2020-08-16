@@ -176,7 +176,7 @@ $(function () {
 		
 		for (var i = 0; i < abs.length; i++) {
 			alert("id:"+abs[i].Id);
-			ul += '<ul class="cart_list_td clearfix" v-for="(sku,index) in cart" id="porcdesc" ><li class="col01"><input type="checkbox" name="product_id" v-model="sku.selected" @change="update_selected(index)" value="' + abs[i].Id + ',' + abs[i].Id + ',' + abs[i].Name + '" onclick="dod()"></li><li class="col02"><img src="">img</li><li class="col03" id="prodtit" >' + abs[i].Name + '</li><li class="col05" id="prodpic">' + abs[i].Price + '元</li><li class="col08">' + abs[i].Count + '</li><li id="pkid" value="' + abs[i].Id + '"><a @click="on_delete(index)" onclick="delpro(' + abs[i].Id + ')">删除</a></li><li class="col08">' + abs[i].Parms + '</li></ul>';
+			ul += '<ul class="cart_list_td clearfix" v-for="(sku,index) in cart" id="porcdesc" ><li class="col01"><input type="checkbox" name="product_id" v-model="sku.selected" value="' + abs[i].Id + ',' + abs[i].Id + ',' + abs[i].Name + '" onclick="dod()"></li><li class="col02"><img src="">img</li><li class="col03" id="prodtit" >' + abs[i].Name + '</li><li class="col05" id="prodpic">' + abs[i].Price + '元</li><li class="col08">' + abs[i].Count + '</li><li id="pkid" value="' + abs[i].Id + '"><a @click="on_delete(index)" onclick="delpro(' + abs[i].Id + ')">删除</a></li><li class="col08">' + abs[i].Parms + '</li></ul>';
 		}
 
 		ul += '';
