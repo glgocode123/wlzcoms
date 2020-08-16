@@ -339,22 +339,22 @@ $(function () {
 	//==================渲染数据后产品列表中的逻辑=============================================
 	//增加数量
 	$("a.addCount").on("click", function(){
-		$(this).next().text($(this).next().text()+1);
+		$(this).prev().text($(this).prev().text()+1);
 	}).blur(function(){
-		xc.Change($(this).parent().val(), $(this).next().text());
+		xc.Change($(this).parent().val(), $(this).prev().text());
 	});
 	//减少数量
 	$("a.reduceCount").on("click", function(){
 		//当前Count是1
-		if($(this).prev().text() <= 1){
+		if($(this).next().text() <= 1){
 //			xc.Del($(this).parent().val());
 //			$(this).parent().parent().remove();
-			$(this).prev().text(1);
+			$(this).next().text(1);
 		}else{
-			$(this).prev().text($(this).prev().text()-1);
+			$(this).next().text($(this).next().text()-1);
 		}
 	}).blur(function(){
-		xc.Change($(this).parent().val(), $(this).prev().text());
+		xc.Change($(this).parent().val(), $(this).next().text());
 	});
 	//单独购买
 	$("a.proBuy").on("click", function(){
