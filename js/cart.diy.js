@@ -176,10 +176,11 @@ $(function () {
 					proPrice = "<span>价格：¥" + abc[i].Price + ".00</span>",
 					proParms = "<p>" + abc[i].Parms + "</p>",
 					htmlRowSpacing2 = "<div class='empty-space h15-xs'></div>",
-					proBuy = "<a class='btn-style1' href='#'><span>单独购买</span></a>",
-					proDel = "<a class='btn-style1' href='#'><span>移除</span></a>";
+					proCount = "<a class='btn-style3 reduceCount'>-</a>\xa0\xa0<span>" + abc[i].Count + "</span>\xa0\xa0<a class='btn-style3 addCount'>+</a>\xa0",
+					proBuy = "<a class='btn-style1 proBuy' href='#'><span>单独购买</span></a>",
+					proDel = "<a class='btn-style1 proDel' href='#'><span>移除</span></a>";
 				
-				htmlVal += "<div class='comment'>" + proImg + "<div class='description'>" + proTitle + htmlRowSpacing + proPrice + proParms + htmlRowSpacing2 + proBuy + proDel + "</div></div>";
+				htmlVal += "<div class='comment'>" + proImg + "<div class='description'>" + proTitle + htmlRowSpacing + proPrice + proParms + htmlRowSpacing2 + proCount + proBuy + proDel + "</div></div>";
 				//判断是否最后一个数据区域
 				if ( i === abc.length - 1 ){
 					htmlVal += "<div class='empty-space h25-xs h45-md'></div>";
@@ -192,6 +193,20 @@ $(function () {
 		}
 	}
 	
+	//==================END================================================================
+	
+	//==================渲染数据后产品列表中的逻辑=============================================
+	$("a.addCount").on("click", function(){
+		$(this).next().text($(this).next().text()+1);
+	});
+	$("a.reduceCount").on("click", function(){
+		//当前Count是1
+		if($(this).prev().text() <= 1){
+			xc.Del();
+		}else{
+			$(this).prev().text($(this).prev().text()-1);
+		}
+	});
 	//==================END================================================================
 	
 	
