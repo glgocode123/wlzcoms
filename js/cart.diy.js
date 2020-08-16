@@ -233,6 +233,7 @@ $(function () {
 		prodName = "产品名称",
 		prodPrice = 123,
 		prodParms = "颜色：红色 尺寸：S";
+		
 	//判断是否有必要参数，如果没有或者参数错误，都当成页面没有传参处理
 	if(prodid > 2020000000 && prodName.length > 0 && prodPrice > 0 ){
 		//读取cookie
@@ -262,14 +263,20 @@ $(function () {
 			}
 			//cookie中没有出现过相同的实例
 			if(cookieID === "" && cookieIDCount === 0){
-				outermost:
-				for(var j = 0; j < 26; ++j){
-					for(var k = 0; k < subProdID.length; k++){
-						//从26个小写字母中选择一个之前没有出现过的实例
-						if(String.fromCharCode(97+j) !== subProdID[k]){
-							cookieID = prodid + String.fromCharCode(97+j);
-							cookieIDCount = 1;
-							continue outermost;
+				//如果没有找到任何prodid的实例（*可能没有cookie/或者没有加这个产品的情况）
+				if (subProdID.length <= 0){
+					cookieID = prodid + "a";
+					cookieIDCount = 1;
+				}else{
+					outermost:
+					for(var j = 0; j < 26; ++j){
+						for(var k = 0; k < subProdID.length; k++){
+							//从26个小写字母中选择一个之前没有出现过的实例
+							if(String.fromCharCode(97+j) !== subProdID[k]){
+								cookieID = prodid + String.fromCharCode(97+j);
+								cookieIDCount = 1;
+								continue outermost;
+							}
 						}
 					}
 				}
