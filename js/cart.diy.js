@@ -340,8 +340,6 @@ $(function () {
 	//增加数量
 	$("a.addCount").on("click", function(){
 		$(this).prev().text(parseInt($(this).prev().text())+1);
-	}).blur(function(){
-		alert($(this).parent().data("prodid")+"_____"+$(this).prev().text());
 		xc.Change($(this).parent().data("prodid"), $(this).prev().text());
 	});
 	//减少数量
@@ -351,10 +349,8 @@ $(function () {
 			$(this).next().text(1);
 		}else{
 			$(this).next().text($(this).next().text()-1);
+			xc.Change($(this).parent().data("prodid"), $(this).next().text());
 		}
-	}).blur(function(){
-		alert($(this).parent().data("prodid")+"_____"+$(this).next().text());
-		xc.Change($(this).parent().data("prodid"), $(this).next().text());
 	});
 	//单独购买
 	$("a.proBuy").on("click", function(){
