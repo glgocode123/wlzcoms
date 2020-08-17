@@ -112,7 +112,7 @@ $(function () {
 	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
 	/*================*/
 	
-	if(decodeURI(cookieMobID)){
+	if(isMobID(decodeURI(cookieMobID))){
 		setUserInfo(cookieMobID);
 	}else{
 		//如果页面id不合适，返回原页
