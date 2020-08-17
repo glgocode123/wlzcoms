@@ -22,16 +22,6 @@ $(function () {
 		return params;
 	}
 	
-	/*================*/
-	/* 功能 - 判断手机号格式是否正确 */
-	/*================*/
-	function isMobID(prodid){
-		var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/);
-//		alert(pattern.exec(prodid));
-		if (!pattern.exec(prodid)){return false;}
-		return true;
-	}
-	
 	/*=======================================================================================*/
 
 
@@ -183,6 +173,8 @@ $(function () {
 		};
 	};
 	
+	//==================END================================================================
+	
 
 	//==================在cookie购物车模板中，把数据渲染出来，并调用js:===========================
 	//设置页面=渲染数据
@@ -221,33 +213,6 @@ $(function () {
 	
 	//==================END================================================================
 	
-	/*=======================================================================================*/
-	
-	//cookieMobID需要改为调用cookie中的登录状态，成功就返回手机号
-//	var cookieMobID;
-	
-	/*================*/
-	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
-	/*================*/
-//	var userMobID = 0;
-//	//判断 - 页面传入的Mob是否正确
-//	if(isMobID(decodeURI(UrlParamHash(url).Mob))){
-//		cookieMobID = UrlParamHash(url).Mob;
-//		//如果获取的手机号正确,记录手机号，用于提交？
-//		userMobID = cookieMobID;
-//	}else{
-//		//二次判断 - 读取cookie
-//		if(true){
-//			//模拟正确
-//			cookieMobID = 13822262354;
-//			$(location).attr('href', 'i.html?Mob='+cookieMobID);
-//		}else{
-//			//如果页面id不合适，返回原页
-//			$(location).attr('href', 'login.html');
-//		}
-//	}
-	
-	//==================END================================================================
 	
 	//==================页面初始化逻辑，主要是操作cookie数据===========================
 	
@@ -354,12 +319,11 @@ $(function () {
 	});
 	//单独购买
 	$("a.proBuy").on("click", function(){
-		xc.Del($(this).parent().data("prodid"));
-		$(location).attr("href", "order.html?");
+		//单独购买布删除cookie记录，（因为购买页面也要显示），在购买页面确定后再删除
+		$(location).attr("href", "order.html?prodida="+$(this).parent().data("prodid"));
 	});
 	//删除
 	$("a.proDel").on("click", function(){
-		alert($(this).parent().data("prodid"));
 		xc.Del($(this).parent().data("prodid"));
 		$(this).parent().parent().remove();
 	});
