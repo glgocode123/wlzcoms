@@ -188,20 +188,29 @@ $(function () {
 	
 	//获取页面参数
 	var prodida = decodeURI(UrlParamHash(url).prodida),
-		MobID = decodeURI(UrlParamHash(url).Mob);
+//		MobID = decodeURI(UrlParamHash(url).Mob);
+		MobID = $.cookie('wenlongzhangName');
 	
 	
 	//页面数据初始化
-	if($.cookie('wenlongzhangName') === MobID){
-		//如果获取的手机号正确，初始化填入order-form
-		if (isMobID(MobID)){
-			$('.order-form input[name="mob"]').val(MobID);
-			$('.order-form input[name="mob"]').parent().addClass('focus');
-		}else{
-			$(location).attr('href', 'login.html?user=false');
-		}
+//	if($.cookie('wenlongzhangName') === MobID){
+//		//如果获取的手机号正确，初始化填入order-form
+//		if (isMobID(MobID)){
+//			$('.order-form input[name="mob"]').val(MobID);
+//			$('.order-form input[name="mob"]').parent().addClass('focus');
+//		}else{
+//			$(location).attr('href', 'login.html?user=false');
+//		}
+//	}else{
+//		$(location).attr('href', 'login.html');
+//	}
+	
+	//如果获取的手机号正确，初始化填入order-form
+	if (isMobID(MobID)){
+		$('.order-form input[name="mob"]').val(MobID);
+		$('.order-form input[name="mob"]').parent().addClass('focus');
 	}else{
-		$(location).attr('href', 'login.html');
+		$(location).attr('href', 'login.html?user=false');
 	}
 	
 	//读取cookie
