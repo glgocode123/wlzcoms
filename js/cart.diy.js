@@ -206,7 +206,7 @@ $(function () {
 					proBuy = "<a class='btn-style1 proBuy' href='#'><span>单独购买</span></a>",
 					proDel = "<a class='btn-style1 proDel' href='#'><span>移除</span></a>";
 				
-				htmlVal += "<div class='comment'>" + proImg + "<div class='description' value='" + abc[i].Id + "'>" + proTitle + htmlRowSpacing + proPrice + proParms + htmlRowSpacing2 + proCount + proBuy + proDel + "</div></div>";
+				htmlVal += "<div class='comment'>" + proImg + "<div class='description' data-prodid='" + abc[i].Id + "'>" + proTitle + htmlRowSpacing + proPrice + proParms + htmlRowSpacing2 + proCount + proBuy + proDel + "</div></div>";
 				//判断是否最后一个数据区域
 				if ( i !== abc.length - 1 ){
 					htmlVal += "<div class='empty-space h25-xs h45-md'></div>";
@@ -341,7 +341,7 @@ $(function () {
 	$("a.addCount").on("click", function(){
 		$(this).prev().text(parseInt($(this).prev().text())+1);
 	}).blur(function(){
-		xc.Change($(this).parent().val(), $(this).prev().text());
+		xc.Change($(this).parent().data("prodid"), $(this).prev().text());
 	});
 	//减少数量
 	$("a.reduceCount").on("click", function(){
@@ -352,17 +352,17 @@ $(function () {
 			$(this).next().text($(this).next().text()-1);
 		}
 	}).blur(function(){
-		xc.Change($(this).parent().val(), $(this).next().text());
+		xc.Change($(this).parent().data("prodid"), $(this).next().text());
 	});
 	//单独购买
 	$("a.proBuy").on("click", function(){
-		xc.Del($(this).parent().val());
+		xc.Del($(this).parent().data("prodid"));
 		$(location).attr("href", "order.html?");
 	});
 	//删除
 	$("a.proDel").on("click", function(){
-		alert($(this).parent().val());
-		xc.Del($(this).parent().val());
+		alert($(this).parent().data("prodid"));
+		xc.Del($(this).parent().data("prodid"));
 		$(this).parent().parent().remove();
 	});
 	//==================END================================================================
