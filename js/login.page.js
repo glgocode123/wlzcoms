@@ -41,7 +41,7 @@ $(function () {
 				//判断读写数据库是否开启（存在）
 				if(true){
 					//今天注册过的新用户，或用户数据有修改
-					$.cookie("wenlongzhangName", cookieMobID+, { expires: 1 });
+					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
 					$(location).attr('href', 'i.html?Mob='+cookieMobID);
 				}else{
 					//用户没有注册，现在注册
