@@ -34,6 +34,32 @@ $(function () {
         }else{
 			//直接跳转到i.html
 			cookieMobID = $.trim($('.login-form input[name="mob"]').val());
+			//访问json
+			
+			
+			if(true){
+				//判断读写数据库是否开启（存在）
+				if(true){
+					//今天注册过的新用户，或用户数据有修改
+					$.cookie("wenlongzhangName", cookieMobID+, { expires: 1 });
+					$(location).attr('href', 'i.html?Mob='+cookieMobID);
+				}else{
+					//用户没有注册，现在注册
+					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
+					$(location).attr('href', 'i.html?Mob='+cookieMobID);
+				}
+			}else{
+				//判断只读数据库是否存在
+				if(true){
+					//用户已注册，并没有修改过
+					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
+					$(location).attr('href', 'i.html?Mob='+cookieMobID);
+				}else{
+					//用户没有注册并且当前已经打烊了
+					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
+					$(location).attr('href', 'i.html?Mob='+cookieMobID);
+				}
+			}
 			$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
 			$(location).attr('href', 'i.html?Mob='+cookieMobID);
         }

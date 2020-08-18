@@ -7,7 +7,7 @@
 			"AWB":111111111,
 			"price":229.00,
 			"discount":10,
-			"payment":219.00,
+			"Total":219.00,
 			"prodid":[
 				{
 					"proID":"2020061201",
@@ -26,7 +26,7 @@
 			"AWB":111111111,
 			"price":229.00,
 			"discount":10,
-			"payment":219.00,
+			"Total":219.00,
 			"prodid":[
 				{
 					"proID":"2020061201",

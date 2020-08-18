@@ -264,7 +264,7 @@ $(function () {
 		if ( htmlVal === "" ){
 			$(location).attr('href', '404.html');
 		}else{
-			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
+//			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
 			$("span#setProdPrice").text("¥" + pro_cart.Total + ".00");
 			$("span#setPreferential").text("已使用红包（VIP金券），节省了xxx.xx元");
 			//写页面

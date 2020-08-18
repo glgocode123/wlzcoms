@@ -103,20 +103,22 @@ $(function () {
 	/*================*/
 	function CookieEnable() {
 		
-		var result = false;
-		if (navigator.cookiesEnabled) {return true;}
+		if (navigator.cookiesEnabled) {
+			return true;
+		}else {
+			var result = false;
+			
+			document.cookie = "testcookie=yes;";
 
-		document.cookie = "testcookie=yes;";
+			var cookieSet = document.cookie;
 
-		var cookieSet = document.cookie;
+			if (cookieSet.indexOf("testcookie=yes") > -1) {result = true;}
 
-		if (cookieSet.indexOf("testcookie=yes") > -1) {result = true;}
+			document.cookie = "";
 
-		document.cookie = "";
-
-		return result;
+			return result;
+		}
 	}
-	
 	
 	/*================*/
 	/* 页面配置 - 初始化判断用户是否登录状态 */
@@ -125,11 +127,20 @@ $(function () {
 	
 	//cookieMobID需要改为调用cookie中的登录状态，成功就返回手机号
 	var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/),
-		cookieMobID = 13600000000;
+		cookieMobID = $.cookie("wenlongzhangName");
 	
 	/*=======================================================================================*/
 	
 	
+	//读取COOKIE中的集合
+	function cookieRead() {
+		var source = $.cookie("wenlongzhangCart");
+		if (source === null || source === "" || source === undefined) {
+			return 0;
+		}
+		var arr = source.split("|$|");
+		return arr.length;
+	}
 	
 	/*================*/
 	/* 页面配置 - 初始化判断是否打烊 */
@@ -144,9 +155,9 @@ $(function () {
 				$("a.mymember").attr("href","i.html?Data=20200815&Mob="+cookieMobID);
 			
 				//————购物车显示产品个数
-				var cartnum = 0;
+				var cartnum = cookieRead();
 				//判断cookice，读取购物车数量，如果购物车为空或者读取失败则0
-				cartnum = 10;//模拟10个
+//				cartnum = 10;//模拟10个
 				//显示购物车
 				$("li.mycart a").children("span").text(cartnum);
 				$("li.mycart a").attr("href", "cart.html?Mob="+cookieMobID);
