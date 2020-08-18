@@ -328,7 +328,8 @@ $(function () {
 	$("a.proDel").on("click", function(){
 		xc.Del($(this).parent().data("prodid"));
 		//显示购物车
-		$("li.mycart a").children("span").text($.this.text()-1);
+		var myCartVal = $("li.mycart a").children("span").text();
+		$("li.mycart a").children("span").text(myCartVal - 1);
 		$(this).parent().parent().remove();
 	});
 	//==================END================================================================
