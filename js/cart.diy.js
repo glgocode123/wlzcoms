@@ -208,6 +208,8 @@ $(function () {
 			$("div#setCartPro").html(htmlVal);
 		}else{
 			alert("购物车中啥都木有！");
+			//写入cookie后，刷新页面
+			$(location).attr("href", "shop.html");
 		}
 	}
 	
