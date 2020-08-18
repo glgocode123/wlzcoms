@@ -327,6 +327,8 @@ $(function () {
 	//删除
 	$("a.proDel").on("click", function(){
 		xc.Del($(this).parent().data("prodid"));
+		//显示购物车
+		$("li.mycart a").children("span").text($.this.text()-1);
 		$(this).parent().parent().remove();
 	});
 	//==================END================================================================
