@@ -4,16 +4,106 @@ $(function () {
 	"use strict";
 
 	
-	//cookieMobID需要改为调用cookie中的登录状态，成功就返回手机号
+	//userMobID需要改为调用cookie中的登录状态，成功就返回手机号
 	var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/),
-		cookieMobID = $.cookie("wenlongzhangName");
+		userMobID = readCookieMob();
+	
+	function readCookieMob(){
+		var source = $.cookie("wenlongzhangName");
+		if (source === null || source === "" || source === undefined) {
+			return 0;
+		}
+		var arr = source.split("||");
+		return arr[0];
+	}
 	
 	//如果已经登录，跳转到用户中心，并把cookie获得的id传过去
 	
 	
-	//如果获取的手机号正确
-	if (pattern.test(cookieMobID)){
-		$(location).attr("href","i.html?Mob="+cookieMobID);
+	//如果获取的手机号正确， 直接跳转（因为已经登录，cookie保存一天，因为每天都会更新数据库）
+	if (pattern.test(userMobID)){
+		$(location).attr("href","i.html?Mob="+userMobID);
+	}
+	
+	//获取并比对服务器数据
+	function getSeverDate(inputMob){
+		//访问json
+
+		//用于判断json中有没有
+		var wServerUser = false,
+			rServerUser = false;
+		
+		//服务器要等去旅游回来在弄
+//		$.getJSON("http://d3j1728523.wicp.vip/i.json", function(jsonData){
+//			for (var i = 0; i < jsonData.length; i++) {
+//				if(inputMob === jsonData[i]){
+//					wServerUser = true;
+//					continue;
+//				}
+//			}
+//		});
+		$.getJSON("i.json", function(jsonData){
+			for (var i = 0; i < jsonData.length; i++) {
+				if(inputMob === jsonData[i]){
+					//已经是用户
+					rServerUser = true;
+					//记录用户ID
+					userMobID = jsonData[i];
+					continue;
+				}
+			}
+		});
+			
+		//目前打烊不能进入登录页面， 所以不用管是否开了写入服务器， 只需要判断能否度到数据就好
+		//判断登录服务器用户存在
+		if(wServerUser){
+			//(因为用户如果修改数据后，可写服务器有完整的基本信息+修改信息)，问题，究竟加入什么内容，因为可写服务器是不安全的，可能比用户cookie更不安全，因为用户cookie是用户自己的，而可写服务器是公开的，但是如果可写服务器的数据与用户本地数据不匹配，又将按照谁的？
+
+
+			//今天注册过的新用户，或用户数据有修改=======（读取json不完整）========
+			//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
+			$.cookie("wenlongzhangName", userMobID+"||true||999||123||true", { expires: 1 });
+			//，有则读取cookie======先读取wServer再读取rServer========
+			var rwSource = "";
+			$.cookie("wenlongzhangNewHistory", rwSource, { expires: 1 });
+			//RWSU = Read Write Sever User
+			$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
+
+
+		}else if(rServerUser){//判断只读服务器用户存在的情况
+			//已经是用户
+			$.getJSON("user/" + userMobID + ".json", function(jsonData){
+				//cookie数据：手机号||没有修改数据||积分||金池||历史记录数量
+				$.cookie("wenlongzhangName", userMobID + "||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
+				
+				//只读数据库历史记录太大不记录cookie，因为cookie最好4K以内
+//				//写入历史记录cookie
+//				var rSource = "";
+//				for (var i = 0; i < jsonData.History.length; i++) {
+//					rSource += jsonData.History[i].data + "||" + jsonData.History[i].AWB + "||" + jsonData.History[i].price + "||" + jsonData.History[i].discount + "||" + jsonData.History[i].Total + "|$|";
+//					for(var j = 0; j < jsonData.History[i].prodid.length; j++){
+//						rSource += jsonData.History[i].prodid[j].proID + "||" + jsonData.History[i].prodid[j].proName + "||" + jsonData.History[i].prodid[j].proParms;
+//						if(j!==jsonData.History[i].prodid.length-1){
+//							jsonData += "|$|";
+//						}else{
+//							jsonData += "|&|";
+//						}
+//					}
+//				}
+//				$.cookie("wenlongzhangNewHistory", rSource, { expires: 1 });
+				
+				//RSU = Read Sever User
+				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
+			});
+		}else{
+			//注册新用户
+
+			//W服务器需要维护，先不写这个逻辑=======（读取json不完整）========
+		}
+
+
+		//			$.cookie("wenlongzhangName", userMobID, { expires: 1 });
+		//			$(location).attr('href', 'i.html?Mob='+userMobID);
 	}
 	
 	
@@ -32,36 +122,11 @@ $(function () {
         if (error){
         	updateTextPopup('ERROR', msg);
         }else{
-			//直接跳转到i.html
-			cookieMobID = $.trim($('.login-form input[name="mob"]').val());
-			//访问json
+			//如果输入的手机号正确
+			//如果cookie中没有记录手机号
+			//将输入内容，与服务器进行比对，并下一步操作
+			getSeverDate($.trim($('.login-form input[name="mob"]').val()));
 			
-			
-			if(true){
-				//判断读写数据库是否开启（存在）
-				if(true){
-					//今天注册过的新用户，或用户数据有修改
-					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
-					$(location).attr('href', 'i.html?Mob='+cookieMobID);
-				}else{
-					//用户没有注册，现在注册
-					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
-					$(location).attr('href', 'i.html?Mob='+cookieMobID);
-				}
-			}else{
-				//判断只读数据库是否存在
-				if(true){
-					//用户已注册，并没有修改过
-					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
-					$(location).attr('href', 'i.html?Mob='+cookieMobID);
-				}else{
-					//用户没有注册并且当前已经打烊了
-					$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
-					$(location).attr('href', 'i.html?Mob='+cookieMobID);
-				}
-			}
-			$.cookie("wenlongzhangName", cookieMobID, { expires: 1 });
-			$(location).attr('href', 'i.html?Mob='+cookieMobID);
         }
 	  	return false;
 	});

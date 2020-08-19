@@ -106,7 +106,16 @@ $(function () {
 	/*=======================================================================================*/
 	
 	//cookieMobID需要改为调用cookie中的登录状态，成功就返回手机号
-	var cookieMobID = $.cookie("wenlongzhangName");
+	var cookieMobID = readCookieMob();
+	
+	function readCookieMob(){
+		var source = $.cookie("wenlongzhangName");
+		if (source === null || source === "" || source === undefined) {
+			return 0;
+		}
+		var arr = source.split("||");
+		return arr[0];
+	}
 	
 	/*================*/
 	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */

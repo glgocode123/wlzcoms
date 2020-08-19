@@ -189,8 +189,16 @@ $(function () {
 	//获取页面参数
 	var prodida = decodeURI(UrlParamHash(url).prodida),
 //		MobID = decodeURI(UrlParamHash(url).Mob);
-		MobID = $.cookie('wenlongzhangName');
+		MobID = readCookieMob();
 	
+	function readCookieMob(){
+		var source = $.cookie("wenlongzhangName");
+		if (source === null || source === "" || source === undefined) {
+			return 0;
+		}
+		var arr = source.split("||");
+		return arr[0];
+	}
 	
 	//页面数据初始化
 //	if($.cookie('wenlongzhangName') === MobID){

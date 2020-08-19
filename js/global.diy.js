@@ -25,21 +25,7 @@ $(function () {
 	/* 功能 - 测试网络通不通 */
 	/*================*/
 	function NetPing() {
-		//		$.ajax({
-		//			type: "GET",
-		//			cache: false,
-		//			url: "http://www.163.com/index.html",
-		//			data: "",
-		//			success: function() {
-		//				alert("yes");
-		//			},
-		//			error: function() {
-		//				alert("no");
-		//			}
-		//		});
-		
-		
-		
+		//连接写服务器
 		$.ajax({
 			url: 'http://d3j1728523.wicp.vip/',
 			type: 'GET',
@@ -51,7 +37,6 @@ $(function () {
 				}
 			}
 		});
-
 	}
 	
 
@@ -127,13 +112,21 @@ $(function () {
 	
 	//cookieMobID需要改为调用cookie中的登录状态，成功就返回手机号
 	var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/),
-		cookieMobID = $.cookie("wenlongzhangName");
+		cookieMobID = readCookieMob();
 	
+	function readCookieMob(){
+		var source = $.cookie("wenlongzhangName");
+		if (source === null || source === "" || source === undefined) {
+			return 0;
+		}
+		var arr = source.split("||");
+		return arr[0];
+	}
 	/*=======================================================================================*/
 	
 	
 	//读取COOKIE中的集合
-	function cookieRead() {
+	function readCookieCartNum() {
 		var source = $.cookie("wenlongzhangCart");
 		if (source === null || source === "" || source === undefined) {
 			return 0;
@@ -155,7 +148,7 @@ $(function () {
 				$("a.mymember").attr("href","i.html?Data=20200815&Mob="+cookieMobID);
 			
 				//————购物车显示产品个数
-				var cartnum = cookieRead();
+				var cartnum = readCookieCartNum();
 				//判断cookice，读取购物车数量，如果购物车为空或者读取失败则0
 //				cartnum = 10;//模拟10个
 				//显示购物车
