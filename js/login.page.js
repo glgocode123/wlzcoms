@@ -44,7 +44,7 @@ $(function () {
 //		});
 		$.getJSON("i.json", function(jsonData){
 			for (var i = 0; i < jsonData.length; i++) {
-				if(Number(inputMob) === jsonData[i]){
+				if(inputMob.valueOf() === jsonData[i]){
 					//已经是用户
 					rServerUser = true;
 					//记录用户ID
