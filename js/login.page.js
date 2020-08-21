@@ -43,14 +43,12 @@ $(function () {
 //			}
 //		});
 		$.getJSON("i.json", function(jsonData){
-			alert(inputMob);
-			alert(jsonData[1]);
 			for (var i = 0; i < jsonData.length; i++) {
-				if(inputMob === jsonData[i]){
+				if(inputMob === jsonData[i].toString()){
 					//已经是用户
 					rServerUser = true;
 					//记录用户ID
-					userMobID = jsonData[i];
+					userMobID = jsonData[i].toString();
 					continue;
 				}
 			}
