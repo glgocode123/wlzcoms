@@ -43,8 +43,10 @@ $(function () {
 //			}
 //		});
 		$.getJSON("i.json", function(jsonData){
+			alert(typeof(inputMob));
+			alert(typeof(jsonData[0]));
 			for (var i = 0; i < jsonData.length; i++) {
-				if(inputMob-0 === jsonData[i]-0){
+				if(inputMob === jsonData[i]){
 					//已经是用户
 					rServerUser = true;
 					//记录用户ID
