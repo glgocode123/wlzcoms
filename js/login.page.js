@@ -73,8 +73,9 @@ $(function () {
 		}else if(rServerUser){//判断只读服务器用户存在的情况
 			//已经是用户
 			$.getJSON("user/" + userMobID + ".json", function(jsonData){
-				//cookie数据：手机号||没有修改数据||积分||金池||历史记录数量
-				$.cookie("wenlongzhangName", userMobID + "||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
+				//cookie数据：0手机号||1没有修改数据||2数据库||3积分||4金池||5历史记录数量
+				//读取用户json，为的是保存数据在cookie
+				$.cookie("wenlongzhangName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
 				
 				//只读数据库历史记录太大不记录cookie，因为cookie最好4K以内
 //				//写入历史记录cookie
@@ -84,9 +85,9 @@ $(function () {
 //					for(var j = 0; j < jsonData.History[i].prodid.length; j++){
 //						rSource += jsonData.History[i].prodid[j].proID + "||" + jsonData.History[i].prodid[j].proName + "||" + jsonData.History[i].prodid[j].proParms;
 //						if(j!==jsonData.History[i].prodid.length-1){
-//							jsonData += "|$|";
+//							 += "|$|";
 //						}else{
-//							jsonData += "|&|";
+//							 += "|&|";
 //						}
 //					}
 //				}
@@ -97,8 +98,9 @@ $(function () {
 			});
 		}else{
 			//注册新用户
-
+			updateTextPopup("error","当前无法注册！请24小时后再试！");
 			//W服务器需要维护，先不写这个逻辑=======（读取json不完整）========
+			//WSU
 		}
 
 

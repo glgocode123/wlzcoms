@@ -8,7 +8,7 @@
 			"price":229.00,
 			"discount":10,
 			"Total":219.00,
-			"prodid":[
+			"prodArr":[
 				{
 					"proID":"2020061201",
 					"proName":"TEEBACCO球鞋系列图案印花短袖T恤",
@@ -27,7 +27,7 @@
 			"price":229.00,
 			"discount":10,
 			"Total":219.00,
-			"prodid":[
+			"prodArr":[
 				{
 					"proID":"2020061201",
 					"proName":"TEEBACCO球鞋系列图案印花短袖T恤",
