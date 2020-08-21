@@ -43,6 +43,7 @@ $(function () {
 //			}
 //		});
 		$.getJSON("i.json", function(jsonData){
+			alert(jsonData[1]);
 			for (var i = 0; i < jsonData.length; i++) {
 				if(inputMob === jsonData[i]){
 					//已经是用户
