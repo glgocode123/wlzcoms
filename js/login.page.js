@@ -43,6 +43,7 @@ $(function () {
 //			}
 //		});
 		$.getJSON("i.json", function(jsonData){
+			alert(inputMob);
 			alert(jsonData[1]);
 			for (var i = 0; i < jsonData.length; i++) {
 				if(inputMob === jsonData[i]){
