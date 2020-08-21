@@ -43,9 +43,9 @@ $(function () {
 //			}
 //		});
 		$.getJSON("i.json", function(jsonData){
-			alert(jsonData[0]);
-			alert(inputMob);
+			alert(jsonData.length);
 			for (var i = 0; i < jsonData.length; i++) {
+				alert(jsonData[i]);
 				if(inputMob === jsonData[i]){
 					alert(1);
 					//已经是用户
