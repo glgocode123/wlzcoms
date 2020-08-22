@@ -45,10 +45,7 @@ $(function () {
 		$.getJSON("i.json", function(jsonData){
 			for (var i = 0; i < jsonData.length; i++) {
 				var jsonMob = jsonData[i].toString();
-				alert("jsonMob:"+jsonMob+"||"+typeof(jsonMob));
-				alert("inputMob:"+inputMob+"||"+typeof(inputMob));
 				if(inputMob === jsonMob){
-					alert(1);
 					//已经是用户
 					rServerUser = true;
 					//记录用户ID
@@ -58,6 +55,8 @@ $(function () {
 			}
 		});
 			
+		alert(rServerUser);
+		alert(userMobID);
 		//目前打烊不能进入登录页面， 所以不用管是否开了写入服务器， 只需要判断能否度到数据就好
 		//判断登录服务器用户存在
 		if(wServerUser){
