@@ -76,6 +76,7 @@ $(function () {
 		}else if(rServerUser){//判断只读服务器用户存在的情况
 			//已经是用户
 			$.getJSON("user/" + userMobID + ".json", function(jsonData){
+				alert(jsonData.Points);
 				//cookie数据：0手机号||1没有修改数据||2数据库||3积分||4金池||5历史记录数量
 				//读取用户json，为的是保存数据在cookie
 				$.cookie("wenlongzhangName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
