@@ -30,8 +30,8 @@ $(function () {
 		//访问json
 
 		//用于判断json中有没有
-		var wServerUser = 0,
-			rServerUser = 0;
+		var wServerUser = false,
+			rServerUser = false;
 		
 		//服务器要等去旅游回来在弄
 //		$.getJSON("http://d3j1728523.wicp.vip/i.json", function(jsonData){
@@ -47,7 +47,8 @@ $(function () {
 				var jsonMob = jsonData[i].toString();
 				if(inputMob === jsonMob){
 					//已经是用户
-					rServerUser = 1;
+					rServerUser = true;
+					alert(rServerUser);
 					//记录用户ID
 					userMobID = jsonData[i];
 					continue;
@@ -55,6 +56,7 @@ $(function () {
 			}
 		});
 			
+		alert(rServerUser);
 		//目前打烊不能进入登录页面， 所以不用管是否开了写入服务器， 只需要判断能否度到数据就好
 		//判断登录服务器用户存在
 		if(wServerUser){
