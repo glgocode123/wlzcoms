@@ -45,8 +45,10 @@ $(function () {
 		$.getJSON("i.json", function(jsonData){
 			for (var i = 0; i < jsonData.length; i++) {
 				var jsonMob = jsonData[i].toString();
-				alert(typeof(jsonMob));
+				alert("jsonMob:"+jsonMob+"||"+typeof(jsonMob));
+				alert("inputMob:"+inputMob+"||"+typeof(inputMob));
 				if(inputMob === jsonMob){
+					alert(1);
 					//已经是用户
 					rServerUser = true;
 					//记录用户ID
