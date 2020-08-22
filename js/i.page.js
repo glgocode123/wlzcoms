@@ -96,6 +96,7 @@ $(function () {
 			}
 		}else{
 			if(userInfo[2] === "RSU"){
+				alert(userInfo[0]);
 				//老用户，今天数据没有任何修改
 				//访问只读数据库
 				$.getJSON("user/" + userInfo[0] + ".json", function(jsonData){
