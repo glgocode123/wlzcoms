@@ -99,17 +99,11 @@ $(function () {
 				//老用户，今天数据没有任何修改
 				//访问只读数据库
 				$.getJSON("user/" + userInfo[0] + ".json", function(jsonData){
-					alert(iPoints);
-					alert(iGolden);
-					alert(jsonData.Points);
-					alert(userInfo[3]);
-					alert(jsonData.Golden);
-					alert(userInfo[4]);
 					//可写服务器才是最新的数据
 					if(iPoints === 0 ){iPoints = jsonData.Points;}
 					if(iGolden === 0 ){iGolden = jsonData.Golden;}
 					//用户cookie中的数据 !== 获得的服务器数据 = 用户端有被篡改嫌疑
-					if(userInfo[3] !== iPoints || userInfo[4] !== iGolden){
+					if(userInfo[3] !== iPoints.toString() || userInfo[4] !== iGolden.toString()){
 						alert("error,用户数据不匹配！404");
 						$(location).attr("href","404.html");
 					}else{
