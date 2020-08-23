@@ -102,7 +102,8 @@ $(function () {
 					//可写服务器才是最新的数据
 					if(iPoints !== 0 ){iPoints = jsonData.Points;}
 					if(iGolden !== 0 ){iGolden = jsonData.Golden;}
-
+					alert(iPoints);
+					alert(iGolden);
 					//用户cookie中的数据 !== 获得的服务器数据 = 用户端有被篡改嫌疑
 					if(userInfo[3] !== iPoints || userInfo[4] !== iGolden){
 						alert("error,用户数据不匹配！404");
