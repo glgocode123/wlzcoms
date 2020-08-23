@@ -63,7 +63,7 @@ $(function () {
 					alert(iGolden);
 					alert(jsonData.Points);
 					alert(jsonData.Golden);
-					//可写服务器才是最新的数据
+					//可写服务器才是最新的数据，如果为0，说明获取不到可写数据库数据
 					if(iPoints === 0 ){iPoints = jsonData.Points;}
 					if(iGolden === 0 ){iGolden = jsonData.Golden;}
 
