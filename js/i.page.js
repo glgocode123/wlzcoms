@@ -23,9 +23,8 @@ $(function () {
 	/*================*/
 	function setUserInfo(userInfo) {
 		
-		//userInfo - cookie数据：0手机号||1没有修改数据||2数据库||3积分||4金池||5历史记录数量
+		//userInfo - cookie数据：0手机号||1服务器状态||2什么数据库||3积分||4金池||5历史记录数量
 		//如果是只读数据库进来的
-		alert(userInfo[1]);
 		
 		var iPoints = 0,
 			iGolden = 0,
@@ -34,10 +33,10 @@ $(function () {
 			iCookieHistoryW = [];
 		
 		//用户数据今天有修改过（买过东西 或 做过活动）
-		if(userInfo[1]){
+		if(userInfo[2]){
 			//用户下面判断有没有cookie记录
 			var wlzNHCookie = $.cookie("wenlongzhangNewHistory");
-			if(userInfo[2] === "RWSU"){
+			if(userInfo[1] === "RWSU"){
 				//老用户，有数据修改
 				//如果有此cookie，说明有修改数据在本地
 				if((wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined) && wlzNHCookie.split("|$|").length > 0){
@@ -72,7 +71,7 @@ $(function () {
 						iHistoryR = jsonData.History;
 					}
 				});
-			}else if(userInfo[2]==="WSU"){
+			}else if(userInfo[1]==="WSU"){
 				//刚刚注册的用户，有修改
 				//如果有此cookie，说明有修改数据在本地
 				if((wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined) && wlzNHCookie.split("|$|").length > 0){
@@ -95,7 +94,7 @@ $(function () {
 				}
 			}
 		}else{
-			if(userInfo[2] === "RSU"){
+			if(userInfo[1] === "RSU"){
 				alert(userInfo[0]);
 				//老用户，今天数据没有任何修改
 				//访问只读数据库
@@ -112,7 +111,7 @@ $(function () {
 						iHistoryR = jsonData.History;
 					}
 				});
-			}else if(userInfo[2]==="WSU"){
+			}else if(userInfo[1]==="WSU"){
 				//刚刚注册的用户，没有修改
 				iHistoryW = [];
 				//目前还没有完成，这个判断究竟具体怎么用

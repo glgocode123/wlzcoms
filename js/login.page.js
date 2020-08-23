@@ -59,20 +59,29 @@ $(function () {
 		});
 			
 		alert(rServerUser);
-		//目前打烊不能进入登录页面， 所以不用管是否开了写入服务器， 只需要判断能否度到数据就好
+		//目前打烊不能进入登录页面， 所以不用管是否开了写入服务器， 只需要判断能否读到数据就好
 		//判断登录服务器用户存在
 		if(wServerUser){
 			//(因为用户如果修改数据后，可写服务器有完整的基本信息+修改信息)，问题，究竟加入什么内容，因为可写服务器是不安全的，可能比用户cookie更不安全，因为用户cookie是用户自己的，而可写服务器是公开的，但是如果可写服务器的数据与用户本地数据不匹配，又将按照谁的？
+//
+//			if(rServerUser){
+//				$.cookie("wenlongzhangName", userMobID+"||RWSU||true||999||123||true", { expires: 1 });
+//				//，有则读取cookie======先读取wServer再读取rServer========
+//				var rwSource = "";
+//				$.cookie("wenlongzhangNewHistory", rwSource, { expires: 1 });
+//				//RWSU = Read Write Sever User
+//				$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
+//			}else{
+//				//今天注册过的新用户，或用户数据有修改=======（读取json不完整）========
+//				//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
+//				$.cookie("wenlongzhangName", userMobID+"||WSU||true||999||123||true", { expires: 1 });
+//				//，有则读取cookie======先读取wServer再读取rServer========
+//				var wSource = "";
+//				$.cookie("wenlongzhangNewHistory", wSource, { expires: 1 });
+//				//RWSU = Read Write Sever User
+//				$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
+//			}
 
-
-			//今天注册过的新用户，或用户数据有修改=======（读取json不完整）========
-			//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
-			$.cookie("wenlongzhangName", userMobID+"||true||999||123||true", { expires: 1 });
-			//，有则读取cookie======先读取wServer再读取rServer========
-			var rwSource = "";
-			$.cookie("wenlongzhangNewHistory", rwSource, { expires: 1 });
-			//RWSU = Read Write Sever User
-			$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
 
 
 		}else if(rServerUser){//判断只读服务器用户存在的情况
