@@ -244,7 +244,7 @@ $(function () {
 		}
 		var htmlVarProdMoney = '<div class="comment"><div class="text-center"><hr><span>价格：¥'+price+', 优惠：'+discount+', 实付款：'+total+'</span></div></div>';
 		
-		var htmlVal = '<div class="form-wrapper"><div class="empty-space h25-xs h40-md"></div><h7 class="h7">' + sData + '</h7><span class="big">' + sTracking + '</span><div class="empty-space h30-xs"></div><div class="comments-wrapper">' + htmlVarProdMoney + '<div class="empty-space h50-xs"></div></div></div>';
+		var htmlVal = '<div class="form-wrapper"><div class="empty-space h25-xs h40-md"></div><h7 class="h7">' + sData + '</h7><hr><span class="big">' + sTracking + '</span><div class="empty-space h30-xs"></div><div class="comments-wrapper">' + htmlVarProdMoney + '<div class="empty-space h50-xs"></div></div></div>';
 		
 		
 		//如果已经存在历史记录
