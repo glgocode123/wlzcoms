@@ -33,7 +33,7 @@ $(function () {
 			iCookieHistoryW = [];
 		
 		//用户数据今天有修改过（买过东西 或 做过活动）
-		if(userInfo[2]){
+		if(userInfo[2]==="true"){
 			//用户下面判断有没有cookie记录
 			var wlzNHCookie = $.cookie("wenlongzhangNewHistory");
 			if(userInfo[1] === "RWSU"){
