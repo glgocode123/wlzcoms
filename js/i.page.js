@@ -59,6 +59,10 @@ $(function () {
 				}
 				//访问只读数据库
 				$.getJSON("user/" + userInfo[0] + ".json", function(jsonData){
+					alert(iPoints);
+					alert(iGolden);
+					alert(jsonData.Points);
+					alert(jsonData.Golden);
 					//可写服务器才是最新的数据
 					if(iPoints !== 0 ){iPoints = jsonData.Points;}
 					if(iGolden !== 0 ){iGolden = jsonData.Golden;}
