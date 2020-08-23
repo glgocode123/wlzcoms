@@ -150,7 +150,6 @@ $(function () {
 			setServerHistory(iHistoryW);
 		}
 		//如果有数据，说明老用户，读取只读服务器写入数据
-		alert(iHistoryR.length);
 		if(iHistoryR.length > 0){
 			setServerHistory(iHistoryR);
 		}
@@ -237,7 +236,8 @@ $(function () {
 	/*================*/
 	//设置历史记录块的：标题，快递号，原价，优惠，终价
 	function setHistoryShow(title, AWB, price, discount, total) {
-		var sData = title.slice(0,4)+"-"+title.slice(4,6)+"-"+title.slice(6);//"2020-07-20"
+		var titleString = title.toString();
+		var sData = titleString.slice(0,4)+"-"+titleString.slice(4,6)+"-"+titleString.slice(6);//"2020-07-20"
 		var sTracking = "商品将1～2日内发货，并在此查看快递单号";
 		if (AWB !== "" || AWB !== undefined || AWB !== null){
 			sTracking = "订单号："+AWB;
