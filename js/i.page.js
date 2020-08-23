@@ -150,6 +150,7 @@ $(function () {
 			setServerHistory(iHistoryW);
 		}
 		//如果有数据，说明老用户，读取只读服务器写入数据
+		alert(iHistoryR.length);
 		if(iHistoryR.length > 0){
 			setServerHistory(iHistoryR);
 		}
