@@ -102,7 +102,9 @@ $(function () {
 					alert(iPoints);
 					alert(iGolden);
 					alert(jsonData.Points);
+					alert(userInfo[3]);
 					alert(jsonData.Golden);
+					alert(userInfo[4]);
 					//可写服务器才是最新的数据
 					if(iPoints === 0 ){iPoints = jsonData.Points;}
 					if(iGolden === 0 ){iGolden = jsonData.Golden;}
