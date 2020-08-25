@@ -195,7 +195,10 @@ $(function () {
 					rSource += "|$|";
 					prodtype = true;
 				}else{
-					rSource += "|&|";
+					//如果是最后一个块，无需加
+					if(i !==  historyArray.length - 1){
+						rSource += "|&|";
+					}
 				}
 				
 				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
