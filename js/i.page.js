@@ -184,9 +184,10 @@ $(function () {
 			//设置单个（块）记录的显示
 			setHistoryShow(historyArray[i].data, historyArray[i].AWB, historyArray[i].price, historyArray[i].discount, historyArray[i].Total);
 			
-			var prodtype = false;
 			//循环产品列表
 			for(var j = 0; j < historyArray[i].prodArr.length; j++){
+				//如果是最后一个产品，不要行距
+				var prodtype = false;
 				
 				//设置产品cookie数据
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
@@ -201,8 +202,6 @@ $(function () {
 					if(i !==  historyArray.length - 1){
 						rSource += "|&|";
 					}
-					//如果是最后一个产品，不要行距
-					prodtype = false;
 				}
 				
 				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
