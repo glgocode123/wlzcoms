@@ -147,7 +147,7 @@ $(function () {
 			alert(source);
 			var cart = new Cart();
 			if (source === null || source === "" || source === undefined) {
-				alert(cart.Count);
+				alert(cart.Count+"||"+cart.Items+"||"+cart.Total);
 				return cart;
 			}
 			var arr = source.split("|$|");
