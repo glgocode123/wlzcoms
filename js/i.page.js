@@ -189,8 +189,8 @@ $(function () {
 				if(j!==historyArray[i].prodArr[j].length - 1){
 					if(i !== historyArray.length-1 ){
 						rSource += "|$|";
-						prodtype = true;
 					}
+					prodtype = true;
 				}else{
 					rSource += "|&|";
 				}
