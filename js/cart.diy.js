@@ -67,7 +67,7 @@ $(function () {
 			if (count === 0) {
 				this.Del(id);
 
-			} else {
+			}else {
 				//如果ID已存在，覆盖数量，修改总价
 				if (index > -1) {
 					//购物车总价格-选中产品的价格
@@ -139,7 +139,7 @@ $(function () {
 				}
 				source += this.ItemToString(cart.Items[i]);
 			}
-			$.cookie(this.cookieName, source);
+			$.cookie(this.cookieName, source, { expires: 1 });
 		};
 		//读取COOKIE中的集合
 		this.Read = function () {
@@ -216,6 +216,39 @@ $(function () {
 	//==================END================================================================
 	
 	
+	/*=======================================================================================*/
+	
+	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
+	
+	var userData = $.cookie("wenlongzhangName");
+	if (userData === null || userData === "" || userData === undefined) {
+		//如果用户没有登录，返回原页
+		$(location).attr('href', 'login.html');
+	}
+	var arr = userData.split("||");
+	
+	/*================*/
+	/* 功能 - 判断手机号格式是否正确 */
+	/*================*/
+	function isMobID(prodid){
+		var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/);
+//		alert(pattern.exec(prodid));
+		if (!pattern.exec(prodid)){return false;}
+		return true;
+	}
+	/*================*/
+	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
+	/*================*/
+	
+	if(isMobID(decodeURI(arr[0]))){
+		setUserInfo(arr);
+	}else{
+		//如果页面id不合适，返回原页
+		$(location).attr('href', 'login.html');
+	}
+	
+	/*=======================END================================================================*/
+	
 	//==================页面初始化逻辑，主要是操作cookie数据===========================
 	
 	//调用，创建实例
@@ -233,7 +266,7 @@ $(function () {
 		var pro_cart = xc.Read();
 		//产品数组
 		var abc = pro_cart.Items;
-		//
+		
 		var cookieID = "",
 			cookieIDCount = 0,
 			subProdID = []; 
