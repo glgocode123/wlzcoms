@@ -217,16 +217,6 @@ $(function () {
 	
 	
 	/*=======================================================================================*/
-	
-	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
-	
-	var userData = $.cookie("wenlongzhangName");
-	if (userData === null || userData === "" || userData === undefined) {
-		//如果用户没有登录，返回原页
-		$(location).attr('href', 'login.html');
-	}
-	var arr = userData.split("||");
-	
 	/*================*/
 	/* 功能 - 判断手机号格式是否正确 */
 	/*================*/
@@ -236,6 +226,18 @@ $(function () {
 		if (!pattern.exec(prodid)){return false;}
 		return true;
 	}
+	
+	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
+	
+	var userData = $.cookie("wenlongzhangName");
+	if (userData === null || userData === "" || userData === undefined) {
+		//删除cookie
+		$.cookie("wenlongzhangNameCart", null);
+		//如果用户没有登录，返回原页
+		$(location).attr('href', 'login.html');
+	}
+	var arr = userData.split("||");
+	
 	/*================*/
 	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
 	/*================*/
