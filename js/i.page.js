@@ -208,7 +208,6 @@ $(function () {
 				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
 			}
 		}
-		alert(rSource);
 		//将数据写入cookie，下次就不用再访问数据库，之后购买等操作都会同时修改cookie和服务器，所以内容除非被用户恶意修改，否者是同步的。
 		//只记录可写服务器的，因为只读服务器太多数据可能会超过4K
 		if(takeCookie){
