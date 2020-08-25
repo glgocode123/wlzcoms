@@ -219,8 +219,10 @@ $(function () {
 					var jDate = iProd[j].splice("||");
 					//如果不是最后一个
 					if(j !== iProd[j].length - 1){
+						alert("显示");
 						setHistoryShowProduct(true, jDate[0], jDate[1], jDate[2]);
 					}else{
+						alert("yingchang");
 						setHistoryShowProduct(false, jDate[0], jDate[1], jDate[2]);
 					}
 					
