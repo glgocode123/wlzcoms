@@ -240,9 +240,9 @@ $(function () {
 	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
 	/*================*/
 	
-	if(isMobID(decodeURI(arr[0]))){
-		setUserInfo(arr);
-	}else{
+	if(!isMobID(decodeURI(arr[0]))){
+		//删除cookie
+		$.cookie("wenlongzhangName", null);
 		//如果页面id不合适，返回原页
 		$(location).attr('href', 'login.html');
 	}
