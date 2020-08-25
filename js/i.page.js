@@ -147,11 +147,11 @@ $(function () {
 		//如果有数据，说明第一次访问，还没有记录cookie
 		if(iHistoryW.length > 0){
 			//写入cookie，同步写入页面显示，可以减少对写入服务器的访问
-			setServerHistory(iHistoryW);
+			setServerHistory(true, iHistoryW);
 		}
 		//如果有数据，说明老用户，读取只读服务器写入数据
 		if(iHistoryR.length > 0){
-			setServerHistory(iHistoryR);
+			setServerHistory(false, iHistoryR);
 		}
 		//如果有数据，说明有cookie，同时上面的逻辑是不会执行的（因为逻辑判断没有访问服务器）
 		if(iCookieHistoryW.length > 0){
@@ -163,7 +163,7 @@ $(function () {
 	/*================*/
 	/* 历史购买记录 —— 分为：server和cookie两种调用方法 */
 	/*================*/
-	function setServerHistory(historyArray) {
+	function setServerHistory(takeCookie, historyArray) {
 		//一边生成历史记录cookie的rSource，一遍写入页面内容，最后才是记录cookie，如果中途断开了，最多这次记录不成功，下次进入这个页面还会在来一次。
 		var rSource = "";
 		for (var i = 0; i < historyArray.length; i++) {
@@ -184,6 +184,7 @@ $(function () {
 			var prodtype = false;
 			for(var j = 0; j < historyArray[i].prodArr.length; j++){
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
+				alert(historyArray[i].prodArr.length);
 				//如果不是最后一个
 				if(j!==historyArray[i].prodArr.length - 1){
 					if(i !== historyArray.length-1 ){
@@ -197,8 +198,12 @@ $(function () {
 				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
 			}
 		}
+		alert(rSource);
 		//将数据写入cookie，下次就不用再访问数据库，之后购买等操作都会同时修改cookie和服务器，所以内容除非被用户恶意修改，否者是同步的。
-		$.cookie("wenlongzhangNewHistory", rSource, { expires: 1 });
+		//只记录可写服务器的，因为只读服务器太多数据可能会超过4K
+		if(takeCookie){
+			$.cookie("wenlongzhangNewHistory", rSource, { expires: 1 });
+		}
 		
 	}
 	function setCookieHistory(cookieHistoryArray) {
