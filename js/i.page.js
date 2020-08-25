@@ -190,9 +190,9 @@ $(function () {
 				
 				//设置产品cookie数据
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
-				alert(historyArray[i].prodArr.length);
 				//如果不是最后一个产品加|$|，最后就加|&|
 				if(j!==historyArray[i].prodArr.length - 1){
+					alert(j);
 					rSource += "|$|";
 					//如果不是最后一个产品，加个行距
 					prodtype = true;
