@@ -243,6 +243,8 @@ $(function () {
 	if(!isMobID(decodeURI(arr[0]))){
 		//删除cookie
 		$.cookie("wenlongzhangName", null);
+		//删除cookie
+		$.cookie("wenlongzhangNameCart", null);
 		//如果页面id不合适，返回原页
 		$(location).attr('href', 'login.html');
 	}
