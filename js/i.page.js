@@ -193,6 +193,7 @@ $(function () {
 				//如果不是最后一个产品加|$|，最后就加|&|
 				if(j!==historyArray[i].prodArr.length - 1){
 					rSource += "|$|";
+					//如果不是最后一个产品，加个行距
 					prodtype = true;
 				}else{
 					//如果是最后一个块，无需加
