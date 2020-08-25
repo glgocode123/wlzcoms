@@ -182,9 +182,10 @@ $(function () {
 			setHistoryShow(historyArray[i].data, historyArray[i].AWB, historyArray[i].price, historyArray[i].discount, historyArray[i].Total);
 			
 			var prodtype = false;
+			alert("订单块");
 			for(var j = 0; j < historyArray[i].prodArr.length; j++){
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
-				alert("产品数量："+historyArray[i].prodArr[j].length);
+				alert("产品数量："+historyArray[i].prodArr.length);
 				//如果不是最后一个
 				if(j!==historyArray[i].prodArr[j].length - 1){
 					if(i !== historyArray.length-1 ){
