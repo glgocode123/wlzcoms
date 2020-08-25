@@ -184,9 +184,9 @@ $(function () {
 			var prodtype = false;
 			for(var j = 0; j < historyArray[i].prodArr.length; j++){
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
-				alert(historyArray[i].prodArr.length);
+				alert(historyArray[i].prodArr[j].length);
 				//如果不是最后一个
-				if(j!==historyArray[i].prodArr.length - 1){
+				if(j!==historyArray[i].prodArr[j].length - 1){
 					if(i !== historyArray.length-1 ){
 						rSource += "|$|";
 						prodtype = true;
