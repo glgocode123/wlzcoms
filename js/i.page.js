@@ -166,6 +166,7 @@ $(function () {
 	function setServerHistory(takeCookie, historyArray) {
 		//一边生成历史记录cookie的rSource，一遍写入页面内容，最后才是记录cookie，如果中途断开了，最多这次记录不成功，下次进入这个页面还会在来一次。
 		var rSource = "";
+		//循环产品块
 		for (var i = 0; i < historyArray.length; i++) {
 			//数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
 			//data||AWB||price||discount||Total|$|
@@ -176,25 +177,27 @@ $(function () {
 			//proID||proName||proParms|&|
 			//proID||proName||proParms|&|
 			//proID||proName||proParms
+			
+			//输入每个产品块的总数据
 			rSource += historyArray[i].data + "||" + historyArray[i].AWB + "||" + historyArray[i].price + "||" + historyArray[i].discount + "||" + historyArray[i].Total + "|$|";
 			
 			//设置单个（块）记录的显示
 			setHistoryShow(historyArray[i].data, historyArray[i].AWB, historyArray[i].price, historyArray[i].discount, historyArray[i].Total);
 			
 			var prodtype = false;
-			alert("订单块");
+			//循环产品列表
 			for(var j = 0; j < historyArray[i].prodArr.length; j++){
+				
+				//设置产品cookie数据
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
-				alert("产品数量："+historyArray[i].prodArr.length);
-				//如果不是最后一个
-				if(j!==historyArray[i].prodArr[j].length - 1){
-					if(i !== historyArray.length-1 ){
-						rSource += "|$|";
-					}
+				//如果不是最后一个产品加|$|，最后就加|&|
+				if(j!==historyArray[i].prodArr.length - 1){
+					rSource += "|$|";
 					prodtype = true;
 				}else{
 					rSource += "|&|";
 				}
+				
 				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
 				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
 			}
