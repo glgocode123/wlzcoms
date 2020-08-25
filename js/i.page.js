@@ -218,7 +218,7 @@ $(function () {
 				for(var j = 0; j < iProd.length; j++){
 					var jDate = iProd[j].splice("||");
 					//如果不是最后一个
-					if(j !== iProd[j].length - 1){
+					if(j !== jDate.length - 1){
 						setHistoryShowProduct(true, jDate[0], jDate[1], jDate[2]);
 					}else{
 						setHistoryShowProduct(false, jDate[0], jDate[1], jDate[2]);
