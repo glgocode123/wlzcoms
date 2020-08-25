@@ -147,6 +147,7 @@ $(function () {
 			alert(source);
 			var cart = new Cart();
 			if (source === null || source === "" || source === undefined) {
+				alert(cart.Count);
 				return cart;
 			}
 			var arr = source.split("|$|");
@@ -184,7 +185,6 @@ $(function () {
 		//产品数组
 		var abc = pro_cart.Items;
 		//cooike有东西
-		alert(pro_cart.Count);
 		if(pro_cart.Count > 0){
 			var htmlVal = "";
 			for(var i = 0; i < abc.length; i++){
