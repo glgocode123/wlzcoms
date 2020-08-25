@@ -278,6 +278,7 @@ $(function () {
 	function setHistoryShowProduct(prodtype, prodID, prodName,prodParms) {
 		var htmlVarProdImg = "product/" + prodID + "/icon-more.png";
 		var htmlVarProd = '<div class="comment"><img src=' + htmlVarProdImg + ' alt=""><div class="description"><span class="big">' + prodName + '</span><div class="empty-space h10-xs"></div><span>' + prodParms + '</span></div></div>';
+		alert(prodtype);
 		if(prodtype){
 			htmlVarProd += '<div class="empty-space h25-xs h45-md"></div>';
 		}
