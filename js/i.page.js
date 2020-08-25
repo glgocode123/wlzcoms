@@ -193,7 +193,6 @@ $(function () {
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
 				//如果不是最后一个产品加|$|，最后就加|&|
 				if(j!==historyArray[i].prodArr.length - 1){
-					alert(j);
 					rSource += "|$|";
 					//如果不是最后一个产品，加个行距
 					prodtype = true;
@@ -233,10 +232,8 @@ $(function () {
 					var jDate = iProd[j].splice("||");
 					//如果不是最后一个
 					if(j !== iProd[j].length - 1){
-						alert("显示");
 						setHistoryShowProduct(true, jDate[0], jDate[1], jDate[2]);
 					}else{
-						alert("yingchang");
 						setHistoryShowProduct(false, jDate[0], jDate[1], jDate[2]);
 					}
 					
@@ -278,7 +275,6 @@ $(function () {
 	function setHistoryShowProduct(prodtype, prodID, prodName,prodParms) {
 		var htmlVarProdImg = "product/" + prodID + "/icon-more.png";
 		var htmlVarProd = '<div class="comment"><img src=' + htmlVarProdImg + ' alt=""><div class="description"><span class="big">' + prodName + '</span><div class="empty-space h10-xs"></div><span>' + prodParms + '</span></div></div>';
-		alert(prodtype);
 		if(prodtype){
 			htmlVarProd += '<div class="empty-space h25-xs h45-md"></div>';
 		}
