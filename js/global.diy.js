@@ -128,7 +128,7 @@ $(function () {
 	//读取COOKIE中的集合
 	function readCookieCartNum() {
 		var source = $.cookie("wenlongzhangCart");
-		if (source === null || source === "" || source === undefined) {
+		if (source === null || source === "" || source === undefined || source === "null") {
 			return 0;
 		}
 		var arr = source.split("|$|");
