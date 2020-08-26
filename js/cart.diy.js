@@ -231,7 +231,7 @@ $(function () {
 	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
 	
 	var userData = $.cookie("wenlongzhangName");
-	if (userData === null || userData === "" || userData === undefined) {
+	if (userData === null || userData === "" || userData === undefined || userData === "null") {
 		//删除cookie
 		$.cookie("wenlongzhangCart", null);
 		//如果用户没有登录，返回原页
