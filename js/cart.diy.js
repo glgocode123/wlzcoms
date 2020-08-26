@@ -146,7 +146,7 @@ $(function () {
 			var source = $.cookie(this.cookieName);
 			alert(source);
 			var cart = new Cart();
-			if (source === null || source === "" || source === undefined) {
+			if (source === null || source === "" || source === undefined || source === "null") {
 				alert(cart.Count+"||"+cart.Items+"||"+cart.Total);
 				return cart;
 			}
