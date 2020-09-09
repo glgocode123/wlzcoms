@@ -1271,7 +1271,8 @@ article{position: relative; float: left; width: 100%;}
 .service a span:before{content: ""; position: absolute; left: 10px; top: 50%; height: 1px; width: 0; background-color: #fff;}
 .service p{float: left; margin: 30px 0;}
 
-.swiper-with-pagination.style2 .swiper-slide .team-description{position: absolute; left: 30px; top: 25px; color: #222; font-weight: 900; font-size: 16px; line-height: 20px;}
+/*.swiper-with-pagination.style2 .swiper-slide .team-description{position: absolute; left: 30px; top: 25px; color: #222; font-weight: 900; font-size: 16px; line-height: 20px;}*/
+.swiper-with-pagination.style2 .swiper-slide .team-description{position: absolute; left: 15px; top: 15px; color: #222; font-weight: 900; font-size: 16px; line-height: 20px;}
 .swiper-with-pagination.style2 .swiper-slide .team-description span{font-weight: normal; color: #989898; font-size: 14px;}
 .swiper-with-pagination.style2 .swiper-slide > a:before{display: none;}
 
@@ -1289,7 +1290,8 @@ article{position: relative; float: left; width: 100%;}
   .service a:hover{border-color: #222;}
   .service a:hover span{border-color: #222; padding-left: 35px;}
   .service a:hover span:before{width: 20px;}
-  .swiper-with-pagination.style2 .swiper-slide:hover .team-description{left: 50px;}
+/*  .swiper-with-pagination.style2 .swiper-slide:hover .team-description{left: 50px;}*/
+  .swiper-with-pagination.style2 .swiper-slide:hover .team-description{left: 25px;}
 }
 @media (max-width: 991px) {
   .banner{height: 300px;}
