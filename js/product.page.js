@@ -94,39 +94,67 @@ $(function () {
 	/* 功能 - 设置页面详情 */
 	/*================*/
 	function setProdPageDetails(prodid){
-		$("#setProdTitle").text("设置标题");
-		$("#setProdRMB").text("110.12");
-		$("#setProdDate").text(formatDate(prodid.substring(0,8)));
-		$("#setProdInt").text("introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction introduction.");
-		//设置视频：如果json中有视频路径，设置视频（未完善）
-		var videoPath = "https://www.youtube.com/embed/kQT2y3UiosQ?autoplay=1&loop=1&modestbranding=1&rel=0&showinfo=0&color=white&theme=light&wmode=transparent";
-		if(isNullOrUndefined(videoPath)){
-			$("#setMainVideo").attr("src", videoPath);
-		}else{
-			$("#setMainVideo").remove();
-		}
-		$("#setProdInfo").text("INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION INFORMATION");
-		$("#setProdDetails").text("DETAILS DETAILS DETAILSDETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS DETAILS");
-		//设置通用路径图片
+		//设置为同步请求
+		$.ajaxSettings.async = false;
+		$.getJSON('product/' + prodid + "/prod.json", function(jsonData){
+			//设置页面标题
+			$("#setProdTitle").text(jsonData.title);
+			//设置产品价格
+			$("#setProdRMB").text(jsonData.menoy);
+			//设置发货时间
+			$("#setProdDeliveryTime").text(jsonData.deliveryTime);
+			//设置产品上线日期
+			$("#setProdDate").text(formatDate(prodid.substring(0,8)));
+			//设置产品简介
+			$("#setProdInt").text(jsonData.int);
+			//（img）设置PC专有的头图
+			
+			//设置视频：如果json中有视频路径，设置视频（未完善）
+			var videoPath = jsonData.mainVideo;
+			if(isNullOrUndefined(videoPath)){
+				$("#setMainVideo").attr("src", videoPath);
+			}else{
+				$("#setMainVideo").remove();
+			}
+			//设置产品信息
+			$("#setProdInfo").text(jsonData.prodinfo);
+			//（img）设置产品正反面
+			
+			//（img）设置产品基本信息
+			
+			//（img）设置产品尺寸信息
+			
+			//设置产品详情
+			$("#setProdDetails").text(jsonData.details);
+			//（img）设置产品详细图
+			//读取showImg的数值
+			var showImg = jsonData.showImg;
+			for(var showImgNum = 0; showImgNum < showImg; showImgNum++){
+				//格式化
+				var doubleDigit = "00";
+				if(showImgNum < showImg-1){
+					doubleDigit = "0"+(showImgNum+1);
+				}else{
+					doubleDigit = showImgNum+1;
+				}
+				//写入图片列
+				$("div#setProdDetailImg").append("<img class='block' src='product/"+ prodid +"/detail-img_"+doubleDigit+".jpg' alt=''>");
+			}
+			
+			//TAGE
+//			jsonData.type;
+
+//			jsonData.like;
+			
+		});
+		
+		//设置通用路径图片(更改路径，变成prodid的对应路径————本身有路径，所以更改就好)
 		var prodCommonImg = $("img.setProdCommonImg");
 		for(var imgNum = 0; imgNum < prodCommonImg.length; imgNum++){
 			var srcOriginal = prodCommonImg.eq(imgNum).attr("src");
-//			prodCommonImg.eq(imgNum).attr("src",srcOriginal.substring(0, 8)+ prodid + srcOriginal.substring(11));
 			prodCommonImg.eq(imgNum).attr("src", srcOriginal.replace("img", prodid));
 		}
-		//模拟json读取showImg的数值
-		var showImg = 10;
-		for(var showImgNum = 0; showImgNum < showImg; showImgNum++){
-			//格式化
-			var doubleDigit = "00";
-			if(showImgNum < showImg-1){
-				doubleDigit = "0"+(showImgNum+1);
-			}else{
-				doubleDigit = showImgNum+1;
-			}
-			//写入图片列
-			$("div#setProdDetailImg").append("<img class='block' src='product/"+ prodid +"/detail-img_"+doubleDigit+".jpg' alt=''>");
-		}
+		
 //		alert(true);		
 	}
 	
