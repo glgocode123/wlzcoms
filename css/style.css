@@ -522,7 +522,7 @@ article{position: relative; float: left; width: 100%;}
 /*SORTING BLOCKS*/
 .category *, .sort-by *{backface-visibility: hidden;}
 .category, .sort-by{position: relative; float: left; text-align: left; margin-top: 60px; width: 100%;}
-.category span, .sort-by span{padding: 0 10px; background-color: #222; color: #fff; position: relative; float: left; font-weight: bold; height: 30px; line-height: 30px;}
+.category span, .sort-by span{padding: 0 10px; background-color: #fff; color: #222; position: relative; float: left; font-weight: bold; height: 30px; line-height: 30px;}
 .category ul, .sort-by ul{display: block; position: relative; float: left; width: 100%; list-style-type: none; padding-left: 8px;}
 .category ul:before, .sort-by:before{content: ""; position: absolute; width: 1px; height: 100%; left: 10px; bottom: 0; background-color: #b4b1b1;}
 .category ul li, .sort-by ul li{padding-left: 14px; position: relative; cursor: pointer; margin: 6px 0;}
