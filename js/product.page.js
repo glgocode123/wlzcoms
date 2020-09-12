@@ -87,6 +87,7 @@ $(function () {
 	/* 功能 - 判断参数是否有内容 */
 	/*================*/
 	function isNullOrUndefined(obj){
+		alert(obj);
 		if(obj===null||obj===undefined){return false;}return true;
 	}
 	
@@ -94,6 +95,7 @@ $(function () {
 	/* 功能 - 设置页面详情 */
 	/*================*/
 	function setProdPageDetails(prodid){
+		var isJSON = false;
 		//设置为同步请求
 		$.ajaxSettings.async = false;
 		$.getJSON('product/' + prodid + "/prod.json", function(jsonData){
@@ -153,10 +155,14 @@ $(function () {
 				prodCommonImg.eq(imgNum).attr("src", srcOriginal.replace("img", prodid));
 			}
 			
-		});
-		
-		
-//		alert(true);		
+			isJSON = true;
+		});	
+		// 如果没有JSON数据
+		if(!isJSON){
+			$("#setMainVideo").remove();
+			updateTextPopup2("产品信息加载失败","关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********）");
+			$(location).attr('href', '../shop.html');
+		}
 	}
 	
 	//判断是否登录
