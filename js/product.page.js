@@ -179,16 +179,21 @@ $(function () {
 	if(isProdID(decodeURI(UrlParamHash(url).prodid))){
 		var truefalse = false;
 		var hrefVal = "";
+		//如果是用户
 		if(isUser()){
+			//页面属性为用户
 			truefalse = true;
+			//产品属性页面跳转的link为：用户的形态
 			hrefVal = "prodselect.html?prodid="+UrlParamHash(url).prodid+"&Mob="+iMob;
 		}else{
+			//页面属性为非用户
 			truefalse = false;
+			//产品属性页面跳转的link为：非用户形态
 			hrefVal = "login.html";
 		}
 		$("#setAddCart").on('click', function(){
 			if(truefalse){
-				//马上结账：false
+				//马上结账：false （加入购物车）
 				$(location).attr("href", hrefVal + "&type=false");
 			}else{
 				$(location).attr("href", hrefVal);
@@ -196,7 +201,7 @@ $(function () {
 		});
 		$("#setNowBuy").on('click', function(){
 			if(truefalse){
-				//马上结账：true
+				//马上结账：true （立即购买）
 				$(location).attr("href", hrefVal + "&type=true");
 			}else{
 				$(location).attr("href", hrefVal);
