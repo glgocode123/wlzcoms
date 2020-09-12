@@ -146,14 +146,15 @@ $(function () {
 
 //			jsonData.like;
 			
+			//设置通用路径图片(更改路径，变成prodid的对应路径————本身有路径，所以更改就好)
+			var prodCommonImg = $("img.setProdCommonImg");
+			for(var imgNum = 0; imgNum < prodCommonImg.length; imgNum++){
+				var srcOriginal = prodCommonImg.eq(imgNum).attr("src");
+				prodCommonImg.eq(imgNum).attr("src", srcOriginal.replace("img", prodid));
+			}
+			
 		});
 		
-		//设置通用路径图片(更改路径，变成prodid的对应路径————本身有路径，所以更改就好)
-		var prodCommonImg = $("img.setProdCommonImg");
-		for(var imgNum = 0; imgNum < prodCommonImg.length; imgNum++){
-			var srcOriginal = prodCommonImg.eq(imgNum).attr("src");
-			prodCommonImg.eq(imgNum).attr("src", srcOriginal.replace("img", prodid));
-		}
 		
 //		alert(true);		
 	}
