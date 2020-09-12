@@ -87,8 +87,7 @@ $(function () {
 	/* 功能 - 判断参数是否有内容 */
 	/*================*/
 	function isNullOrUndefined(obj){
-		alert(obj);
-		if(obj===null||obj===undefined){return false;}return true;
+		if(obj===null||obj===undefined||obj===""){return false;}return true;
 	}
 	
 	/*================*/
