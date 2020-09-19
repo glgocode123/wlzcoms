@@ -202,25 +202,32 @@ $(function () {
 			var objectPROD = $("div.setprod:eq("+i+")").children();
 			//产品列表-图片
 			objectPROD.eq(0).children().attr('href','product.html?prodid=2020061201'); 
-			objectPROD.eq(0).children().css("background-image","url(img/blog-img-"+(i+1)+".jpg)");
-			//产品列表-大分类&大类的链接
+			objectPROD.eq(0).children().css("background-image","url(product/2020090902/shop-img.jpg)");
+			//产品列表-顶部方框中的大分类
 			var opType = objectPROD.eq(1).children().eq(1).children();
 			opType.attr('href','?type=2'); 
 			opType.text("产品分类");
 			//产品列表-详细数据
 			var prodProduct = objectPROD.eq(1).children().eq(3).children();
-//			var prodType = "T-Shirt";
 			var prodDate = formatDate("20201008");//"JUNE 19/2016";
-			var prodPrice = "120.00";
-//			var prodHeat = "33";
-			prodProduct.html("<span>"+prodDate+"</span><span>"+prodPrice+"\xa0<i class='fa fa-rmb'></i></span>");
+			var prodHeat = "33";
+			var prodType = "带帽卫衣";
+			prodProduct.children().eq(0).text(prodDate);
+			prodProduct.children().eq(2).text(prodHeat);
+			prodProduct.children().eq(3).text(prodType);
+//			prodProduct.html("<span>"+prodDate+"</span><span>"+prodPrice+"\xa0<i class='fa fa-rmb'></i></span>");
 			//<span>"+prodType+"</span>
 			//<span>"+prodHeat+"\xa0<i class='fa fa-heart-o'></i></span>
 			//产品列表-标题 & 简介
 			var prodTitleValue = objectPROD.eq(3).children(":first").children().children(":first");
-			prodTitleValue.children().children().attr('href','对应的子页面'); 
-			prodTitleValue.children().children().text("地藏小王短袖T恤");
-			prodTitleValue.next().text("地藏小王主题印花短袖T恤：材质舒适亲肤，短袖的设......");
+			var prodTitle = "Hoodies";
+			var prodPrice = "120.00";
+			prodTitleValue.children().children().attr('href','product.html?prodid=2020061201'); 
+			prodTitleValue.children().children().eq(0).text(prodTitle); 
+			prodTitleValue.children().children().eq(2).text("¥ "+prodPrice);
+			prodTitleValue.next().children().eq(0).text("Gentlewoman 星辰吊带裙-黑色");
+			prodTitleValue.next().children().eq(2).text("可选尺寸: 44 48 50");
+			prodTitleValue.next().children().eq(5).text("地藏小王主题印花短袖T恤：材质舒适亲肤，短袖的设......");
 			//产品列表-简介
 		}
 		
