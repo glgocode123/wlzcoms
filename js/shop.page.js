@@ -214,7 +214,7 @@ $(function () {
 	//全局数组——用来存储
 	var prodArrayID = [];
 	$.getJSON("shop.json", function(jsonData){
-		
+		alert(pageType);
 		switch (pageType) {
 			case 0:
 				//全部产品数量
