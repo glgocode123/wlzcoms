@@ -22,6 +22,8 @@ $(function () {
 		if(pageType>=4){pageType=0;}
 	}
 	
+	//设置JSON为同步请求
+	$.ajaxSettings.async = false;
 	
 	// 获取当前分页id
 	var pageNavID = 0;
@@ -210,30 +212,28 @@ $(function () {
 	var prodall = 0;
 	//全局数组——用来存储
 	var prodArrayID = [];
-	//设置JSON为同步请求
-	$.ajaxSettings.async = false;
 	$.getJSON("shop.json", function(jsonData){
 		alert(pageType);
 		switch (pageType) {
 			case 0:
 				//全部产品数量
-				prodall = jsonData[0].products.length + jsonData[1].products.length + jsonData[2].products.length;
+				prodall = jsonData.new.length + jsonData.spot.length + jsonData.sale.length;
 				//将new添加进入数组
-				for(var jsonI = jsonData[0].products.length-1; jsonI >= 0; jsonI--){
-					prodArrayID.push(jsonData[0].products[jsonI]);
+				for(var jsonI = jsonData.new.length-1; jsonI >= 0; jsonI--){
+					prodArrayID.push(jsonData.new[jsonI]);
 				}
 				
 				//将spot以偶数位添加进入数组 ，； 因为内循环是反向的，所以这里就可以正向了
-				for(var jsonJ = 0; jsonJ < jsonData[1].products.length; jsonJ++){
+				for(var jsonJ = 0; jsonJ < jsonData.spot.length; jsonJ++){
 					
 					//当前数组的位置jsonJ应该（总数-1-当前数：反向位）在第一数组以内：执行插入（第二数组插入第一数组）
-					if(jsonData[1].products.length-1 - jsonJ <= jsonData[0].products.length-1){
+					if(jsonData.spot.length-1 - jsonJ <= jsonData.new.length-1){
 					
-						prodArrayID.splice( jsonData[1].products.length-1 - jsonJ ,0 ,jsonData[1].products[jsonJ]);
+						prodArrayID.splice( jsonData.spot.length-1 - jsonJ ,0 ,jsonData.spot[jsonJ]);
 						
 					}else{
 						//如果有多出部分，在原数组（第一数组）最后一位后开始添加，这样可以保证最新的顺序
-						prodArrayID.splice(jsonData[0].products.length-1 , 0, jsonData[1].products[jsonJ]);
+						prodArrayID.splice(jsonData.new.length-1 , 0, jsonData.spot[jsonJ]);
 					}
 					
 				}
@@ -241,36 +241,36 @@ $(function () {
 				var array1_2 = prodArrayID.length;
 				//将sale每4添加进入数组
 				//如此循环4～1
-				for(var jsonK = jsonData[2].products.length; jsonK > 0; jsonK--){
-//					prodArrayID.push(jsonData[2].products[jsonK]);
+				for(var jsonK = jsonData.sale.length; jsonK > 0; jsonK--){
+//					prodArrayID.push(jsonData.sale[jsonK]);
 					//如果第三数组当前的位置，溢出了
 					if(jsonK > parseInt(array1_2/4)){
-						prodArrayID.splice(array1_2 , 0, jsonData[2].products[jsonK-1]);
+						prodArrayID.splice(array1_2 , 0, jsonData.sale[jsonK-1]);
 					}else{
-						prodArrayID.splice(4*jsonK - 1 , 0, jsonData[2].products[jsonK-1]);
+						prodArrayID.splice(4*jsonK - 1 , 0, jsonData.sale[jsonK-1]);
 					}
 				}
 				
 				break;
 			case 1:
 				//New的产品数量
-				prodall = jsonData[0].products.length;
-				for(var L = jsonData[0].products.length-1; L >=0; L-- ){
-					prodArrayID.push(jsonData[0].products[L]);
+				prodall = jsonData.new.length;
+				for(var L = jsonData.new.length-1; L >=0; L-- ){
+					prodArrayID.push(jsonData.new[L]);
 				}
 				break;
 			case 2:
 				//Spot的产品数量
-				prodall = jsonData[1].products.length;
-				for(var N = jsonData[0].products.length-1; N >=0; N-- ){
-					prodArrayID.push(jsonData[0].products[N]);
+				prodall = jsonData.spot.length;
+				for(var N = jsonData.spot.length-1; N >=0; N-- ){
+					prodArrayID.push(jsonData.spot[N]);
 				}
 				break;
 			case 3:
 				//Sale的产品数量
-				prodall = jsonData[2].products.length;
-				for(var M = jsonData[0].products.length-1; M >=0; M-- ){
-					prodArrayID.push(jsonData[0].products[M]);
+				prodall = jsonData.sale.length;
+				for(var M = jsonData.sale.length-1; M >=0; M-- ){
+					prodArrayID.push(jsonData.sale[M]);
 				}
 		}
 	});
