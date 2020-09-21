@@ -22,8 +22,6 @@ $(function () {
 		if(pageType>=4){pageType=0;}
 	}
 	
-	//设置JSON为同步请求
-	$.ajaxSettings.async = false;
 	
 	// 获取当前分页id
 	var pageNavID = 0;
@@ -212,6 +210,8 @@ $(function () {
 	var prodall = 0;
 	//全局数组——用来存储
 	var prodArrayID = [];
+	//设置JSON为同步请求
+	$.ajaxSettings.async = false;
 	$.getJSON("shop.json", function(jsonData){
 		alert(pageType);
 		switch (pageType) {
