@@ -15,12 +15,14 @@ $(function () {
 	var ur = location.href;
 	
 	// 获取该url “等号” 后面的数字 （id）
-	var type = 0;
+	var pageType = 0;
 	//diy：返回某个指定的字符串值在字符串中首次出现的位置(也就是判断字符串在第几位)
 	if(ur.indexOf("?") >= 0) {
-		type = parseInt(ur.split('?')[1].split("=")[1]);
-		if(type>=4){type=0;}
+		pageType = parseInt(ur.split('?')[1].split("=")[1]);
+		if(pageType>=4){pageType=0;}
 	}
+	
+	$.ajaxSettings.async = false;
 	
 	// 获取当前分页id
 	var pageNavID = 0;
@@ -41,31 +43,21 @@ $(function () {
 		}
 	}
 	
-	// 页面初始化的时候——设置标题菜单
-	initPageTitleNav();
 	// 使用传过来的 数字 （id） 来控制该选项卡的切换
-	// 其实就是从页面 A 通过 URL ？ 后面的参数 给页面B 传一个 index
+	// 其实就是从页面 A 通过 URL “？” 后面的参数 给页面B 传一个 index
 	function initPageTitleNav(){
 		//this对象：手机版标题
 		var content_menu_btn = $('.content-menu .button-drop a span');
 		//清除所有的选中状态
 		$('.content-menu ul li a').removeClass('active');
 		//按照页面第一个参数，获得页面需要触发的对象
-		var i = $('.content-menu ul li a').eq(type);
+		var i = $('.content-menu ul li a').eq(pageType);
 		//将需要出发的对象选中状态
 		i.addClass('active');
 		//写入手机版选择后的标题，标题内容根据需要触发的对象中获取
 		content_menu_btn.text(i.data('name'));	
 	}
 	
-	//虚拟设定一共有34个产品
-	var prodall = 34;
-	if($(document).width() <= 767){
-		set767PageNav(prodall);
-	}else{
-		setBigPageNav(prodall);
-	}
-//	$('.page-pagination ul li a')
 	
 	//设置手机版页面底部导航
 	function set767PageNav(prodall){
@@ -77,13 +69,13 @@ $(function () {
 		if(pageNavID > pageall || pageNavID <= 0 || pageNavID === 1){
 			pageNavID = 1;
 			$(".page-pagination ul li").first().remove();
-			$(".page-pagination ul li").last().children().attr("href", "?type="+type+"&page="+(pageNavID+1));
+			$(".page-pagination ul li").last().children().attr("href", "?type="+pageType+"&page="+(pageNavID+1));
 		}else if(pageNavID === pageall){
-			$(".page-pagination ul li").first().children().attr("href", "?type="+type+"&page="+(pageNavID-1));
+			$(".page-pagination ul li").first().children().attr("href", "?type="+pageType+"&page="+(pageNavID-1));
 			$(".page-pagination ul li").last().remove();
 		}else{
-			$(".page-pagination ul li").first().children().attr("href", "?type="+type+"&page="+(pageNavID-1));
-			$(".page-pagination ul li").last().children().attr("href", "?type="+type+"&page="+(pageNavID+1));
+			$(".page-pagination ul li").first().children().attr("href", "?type="+pageType+"&page="+(pageNavID-1));
+			$(".page-pagination ul li").last().children().attr("href", "?type="+pageType+"&page="+(pageNavID+1));
 		}
 	}
 	//设置页面底部的导航
@@ -97,23 +89,24 @@ $(function () {
 			//设置数字导航第一个为当前页的第二页
 			$(".page-pagination ul").children().eq(1).children().text(pageNavID + 1);
 			//写入底部页面导航的herf
-			$(".page-pagination ul li").eq(1).children().attr("href", "?type="+type+"&page="+(pageNavID+1));
+			$(".page-pagination ul li").eq(1).children().attr("href", "?type="+pageType+"&page="+(pageNavID+1));
 		}
-		$(".page-pagination ul li").eq(0).children().attr("href", "?type="+type+"&page="+(pageNavID-1));
+		$(".page-pagination ul li").eq(0).children().attr("href", "?type="+pageType+"&page="+(pageNavID-1));
 		if(pageNavID === 1){
 //			$(".page-pagination ul li").eq(0).children().hide();
 		}
 		
 		//总页面-当前页面=剩余页面数, 剩余页面数，5个或以上，可以满足页面设计的数量，不用删除按钮的情况
 		//只改变按钮内容就可以了，循环3次就可以，因为上面已经改了一个了，这里从第三个选项开始所以i=2
-		if(pageall-pageNavID >= 5){//剩余页面>=5页
+		//剩余页面>=5页
+		if(pageall-pageNavID >= 5){
 			for(var i=2;i<5;i++){
 				$(".page-pagination ul").children().eq(i).children().text(pageNavID + i);
 				//写入底部页面导航的herf
-				$(".page-pagination ul li").eq(i).children().attr("href", "?type="+type+"&page="+(pageNavID+i));
+				$(".page-pagination ul li").eq(i).children().attr("href", "?type="+pageType+"&page="+(pageNavID+i));
 			}
-			$(".page-pagination ul li").eq(i).children().attr("href", "?type="+type+"&page="+(pageNavID+i));
-			$(".page-pagination ul li").eq(i+1).children().attr("href", "?type="+type+"&page="+(pageNavID+1));
+			$(".page-pagination ul li").eq(i).children().attr("href", "?type="+pageType+"&page="+(pageNavID+i));
+			$(".page-pagination ul li").eq(i+1).children().attr("href", "?type="+pageType+"&page="+(pageNavID+1));
 		}else if(pageall > 5){//所有页面最少6页
 			for(var j=6;j>=1;j--){
 				if(j > pageall-pageNavID){
@@ -121,7 +114,7 @@ $(function () {
 				}else{
 					$(".page-pagination ul").children().eq(j).children().text(pageNavID + j);
 					//写入底部页面导航的herf
-					$(".page-pagination ul li").eq(j).children().attr("href", "?type="+type+"&page="+(pageNavID+j));
+					$(".page-pagination ul li").eq(j).children().attr("href", "?type="+pageType+"&page="+(pageNavID+j));
 				}
 			}
 		}else{//所有页面少于展示数量，直接使用1～5数字展示
@@ -132,54 +125,19 @@ $(function () {
 				}else{
 					$(".page-pagination ul").children().eq(k).children().text(k+1);
 					//写入底部页面导航的herf
-					$(".page-pagination ul li").eq(k).children().attr("href", "?type="+type+"&page="+(k+1));
+					$(".page-pagination ul li").eq(k).children().attr("href", "?type="+pageType+"&page="+(k+1));
 				}
 			}
 		}
 	}
 	
 	
-//	//获取底部分页导航
-//    $('.page-pagination ul li a').on('click', function(){
-//        var pagepagination_index = $('.page-pagination ul li a').index(this);
-////        var pagepagination_btn = $('.page-pagination .button-drop a span');
-////        $('.page-pagination ul li a').removeClass('active');
-////        $('.page-pagination ul li a').eq(pagepagination_index).addClass('active');
-////        pagepagination_btn.text($(this).data('name'));
-//        return false;
-//	});
 	
 	/*================*/
 	/* 添加产品列表中对应的产品信息 json*/
 	/*================*/
-	//设置页面中的产品列表
-	setPROD();
-	function setPROD(){
-//		alert(1);
-//		//获取JSON字符串，创建 select 标签
-//        $.getJSON("data/prod.json", function (data) {
-//			alert(2);
-//           //如果 data 是 JSON 字符串, 必须将它转换为对象字面量
-//            var objJSON= $.parseJSON(data);
-//            var selectItems = "";
-//            $.each(objJSON.listtype, function (i, item) {
-//                selectItems += '<option value="' + item.value+ '">' + item.text+ '</option>';
-//            });
-//            selectItems = '<select id="listType">' + selectItems + '</select>';
-//            //添加 select 标签
-//			alert(selectItems);
-////            $("#list").html(selectItems);
-//        });
+	function setPROD(prodall){
 		
-		
-		
-		//模拟json数据的数组
-//		var persons = [
-//			{name: "tina", age: 14},
-//			{name: "timo", age: 15},
-//			{name: "lily", age: 16},
-//			{name: "lucy", age: 16}
-//		]；
 		var isPageList = isRealNum(Math.ceil(prodall/5)) - parseInt(isRealNum(prodall/5));
 		//当前页就是最后一页并且，最后一页不满
 		if( isRealNum(Math.ceil(prodall/5))===pageNavID && isPageList>0){
@@ -247,7 +205,84 @@ $(function () {
 	
 	
 	
+	// 页面初始化的时候——设置标题菜单
+	initPageTitleNav();
 	
+	//虚拟设定一共有34个产品
+	var prodall = 0;
+	//全局数组——用来存储
+	var prodArrayID = [];
+	$.getJSON("shop.json", function(jsonData){
+		
+		switch (pageType) {
+			case 0:
+				//全部产品数量
+				prodall = jsonData[0].products.length + jsonData[1].products.length + jsonData[2].products.length;
+				//将new添加进入数组
+				for(var jsonI = jsonData[0].products.length-1; jsonI >= 0; jsonI--){
+					prodArrayID.push(jsonData[0].products[jsonI]);
+				}
+				
+				//将spot以偶数位添加进入数组 ，； 因为内循环是反向的，所以这里就可以正向了
+				for(var jsonJ = 0; jsonJ < jsonData[1].products.length; jsonJ++){
+					
+					//当前数组的位置jsonJ应该（总数-1-当前数：反向位）在第一数组以内：执行插入（第二数组插入第一数组）
+					if(jsonData[1].products.length-1 - jsonJ <= jsonData[0].products.length-1){
+					
+						prodArrayID.splice( jsonData[1].products.length-1 - jsonJ ,0 ,jsonData[1].products[jsonJ]);
+						
+					}else{
+						//如果有多出部分，在原数组（第一数组）最后一位后开始添加，这样可以保证最新的顺序
+						prodArrayID.splice(jsonData[0].products.length-1 , 0, jsonData[1].products[jsonJ]);
+					}
+					
+				}
+				//将前两个数组的总数固定下来
+				var array1_2 = prodArrayID.length;
+				//将sale每4添加进入数组
+				//如此循环4～1
+				for(var jsonK = jsonData[2].products.length; jsonK > 0; jsonK--){
+//					prodArrayID.push(jsonData[2].products[jsonK]);
+					//如果第三数组当前的位置，溢出了
+					if(jsonK > parseInt(array1_2/4)){
+						prodArrayID.splice(array1_2 , 0, jsonData[2].products[jsonK-1]);
+					}else{
+						prodArrayID.splice(4*jsonK - 1 , 0, jsonData[2].products[jsonK-1]);
+					}
+				}
+				
+				break;
+			case 1:
+				//New的产品数量
+				prodall = jsonData[0].products.length;
+				for(var L = jsonData[0].products.length-1; L >=0; L-- ){
+					prodArrayID.push(jsonData[0].products[L]);
+				}
+				break;
+			case 2:
+				//Spot的产品数量
+				prodall = jsonData[1].products.length;
+				for(var N = jsonData[0].products.length-1; N >=0; N-- ){
+					prodArrayID.push(jsonData[0].products[N]);
+				}
+				break;
+			case 3:
+				//Sale的产品数量
+				prodall = jsonData[2].products.length;
+				for(var M = jsonData[0].products.length-1; M >=0; M-- ){
+					prodArrayID.push(jsonData[0].products[M]);
+				}
+		}
+	});
+	
+	if($(document).width() <= 767){
+		set767PageNav(prodall);
+	}else{
+		setBigPageNav(prodall);
+	}
+	
+	//设置页面中的产品列表
+	setPROD(prodall);
 	
 	
 	
