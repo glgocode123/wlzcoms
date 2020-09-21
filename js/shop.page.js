@@ -22,6 +22,7 @@ $(function () {
 		if(pageType>=4){pageType=0;}
 	}
 	
+	//设置JSON为同步请求
 	$.ajaxSettings.async = false;
 	
 	// 获取当前分页id
