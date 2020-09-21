@@ -209,7 +209,6 @@ $(function () {
 	// 页面初始化的时候——设置标题菜单
 	initPageTitleNav();
 	
-	//虚拟设定一共有34个产品
 	var prodall = 0;
 	//全局数组——用来存储
 	var prodArrayID = [];
