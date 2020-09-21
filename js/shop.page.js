@@ -276,6 +276,13 @@ $(function () {
 		}
 	});
 	
+	alert(prodall);
+	var testArray = "";
+	for(var testArrayIIII = 0; testArrayIIII < prodArrayID.length; testArrayIIII++){
+		testArray += prodArrayID[testArrayIIII] + ",";
+	}
+	alert(testArray);
+	
 	if($(document).width() <= 767){
 		set767PageNav(prodall);
 	}else{
