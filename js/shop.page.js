@@ -229,7 +229,7 @@ $(function () {
 					//当前数组的位置jsonJ应该（总数-1-当前数：反向位）在第一数组以内：执行插入（第二数组插入第一数组）
 					if(jsonData.spot.length-1 - jsonJ <= jsonData.new.length-1){
 					
-						prodArrayID.splice( jsonData.spot.length-1 - jsonJ ,0 ,jsonData.spot[jsonJ]);
+						prodArrayID.splice( jsonData.spot.length - jsonJ ,0 ,jsonData.spot[jsonJ]);
 						
 					}else{
 						//如果有多出部分，在原数组（第一数组）最后一位后开始添加，这样可以保证最新的顺序
