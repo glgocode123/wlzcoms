@@ -52,6 +52,7 @@ $(function () {
 					$(location).attr('href', 'cart.html');
 					break;
 				case "product":
+					alert("跳转到product");
 					$(location).attr('href', 'product.html?prodid='+UrlParamHash(url).prodID);
 			}
 		}else
