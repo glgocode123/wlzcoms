@@ -43,15 +43,17 @@ $(function () {
 	
 	function jumpPage(jpMob,jpUserStatus){
 		//判断是从什么页面来的
-		alert(jpMob+"----"+jpUserStatus);
 		if(isNullOrUndefined(UrlParamHash(url).fromPageType)){
-			alert("frompagetype参数不为空");
-			//判断是否从产品页来的
-			if(UrlParamHash(url).fromPageType === "product"){
-				alert("frompagetype参数是product");
-				$(location).attr('href', UrlParamHash(url).fromPageType+'.html?prodid='+UrlParamHash(url).prodID);
+			switch (UrlParamHash(url).fromPageType) {
+				case "advance":
+					$(location).attr('href', 'advance.html');
+					break;
+				case "cart":
+					$(location).attr('href', 'cart.html');
+					break;
+				case "product":
+					$(location).attr('href', 'product.html?prodid='+UrlParamHash(url).prodID);
 			}
-			$(location).attr('href', UrlParamHash(url).fromPageType+'.html');
 		}
 		//如果没有用户状态，
 		if(jpUserStatus === ""){
