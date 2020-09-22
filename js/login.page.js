@@ -3,6 +3,30 @@ $(function () {
 
 	"use strict";
 
+	// 获得当前页id
+	var url = location.href;
+	/*================*/
+	/* 功能 - 提取url中的解析字符串 */
+	/*================*/
+	function UrlParamHash(url) {
+		var params = [],
+			h;
+		var hash = url.slice(url.indexOf("?") + 1).split('&');
+//		alert(hash);
+		for (var i = 0; i < hash.length; i++) {
+			h = hash[i].split("="); //
+			params[h[0]] = h[1];
+//			alert(h);
+		}
+		return params;
+	}
+	
+	/*================*/
+	/* 功能 - 判断参数是否有内容 */
+	/*================*/
+	function isNullOrUndefined(obj){
+		if(obj===null||obj===undefined||obj===""){return false;}return true;
+	}
 	
 	//userMobID需要改为调用cookie中的登录状态，成功就返回手机号
 	var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/),
@@ -17,12 +41,30 @@ $(function () {
 		return arr[0];
 	}
 	
+	function jumpPage(jpMob,jpUserStatus){
+		//判断是从什么页面来的
+		if(isNullOrUndefined(UrlParamHash(url).fromPageType)){
+			//判断是否从产品页来的
+			if(UrlParamHash(url).fromPageType === "product"){
+				$(location).attr('href', UrlParamHash(url).fromPageType+'.html?prodid='+UrlParamHash(url).prodID);
+			}
+			$(location).attr('href', UrlParamHash(url).fromPageType+'.html');
+		}
+		//如果没有用户状态，
+		if(jpUserStatus === ""){
+			$(location).attr('href', 'i.html?Mob=' + jpMob);
+		}
+		$(location).attr('href', 'i.html?Mob=' + jpMob + "&userStatus="+jpUserStatus);
+	}
+	
+	
 	//如果已经登录，跳转到用户中心，并把cookie获得的id传过去
 	
 	
 	//如果获取的手机号正确， 直接跳转（因为已经登录，cookie保存一天，因为每天都会更新数据库）
 	if (pattern.test(userMobID)){
-		$(location).attr("href","i.html?Mob="+userMobID);
+//		$(location).attr("href","i.html?Mob="+userMobID);
+		jumpPage(userMobID,"");
 	}
 	
 	//获取并比对服务器数据
@@ -70,7 +112,8 @@ $(function () {
 //				var rwSource = "";
 //				$.cookie("wenlongzhangNewHistory", rwSource, { expires: 1 });
 //				//RWSU = Read Write Sever User
-//				$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
+//				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
+//				jumpPage(userMobID,"RWSU");
 //			}else{
 //				//今天注册过的新用户，或用户数据有修改=======（读取json不完整）========
 //				//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
@@ -79,7 +122,8 @@ $(function () {
 //				var wSource = "";
 //				$.cookie("wenlongzhangNewHistory", wSource, { expires: 1 });
 //				//RWSU = Read Write Sever User
-//				$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
+//				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
+//				jumpPage(userMobID,"WSU");
 //			}
 
 
@@ -109,7 +153,8 @@ $(function () {
 //				$.cookie("wenlongzhangNewHistory", rSource, { expires: 1 });
 				
 				//RSU = Read Sever User
-				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
+//				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
+				jumpPage(userMobID,"RSU");
 			});
 		}else{
 			//注册新用户
@@ -120,7 +165,8 @@ $(function () {
 
 
 		//			$.cookie("wenlongzhangName", userMobID, { expires: 1 });
-		//			$(location).attr('href', 'i.html?Mob='+userMobID);
+		//			//$(location).attr('href', 'i.html?Mob='+userMobID);
+//					jumpPage(userMobID,"");
 	}
 	
 	
