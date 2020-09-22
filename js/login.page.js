@@ -52,12 +52,9 @@ $(function () {
 					$(location).attr('href', 'cart.html');
 					break;
 				case "product":
-					alert("跳转到product");
 					$(location).attr('href', 'product.html?prodid='+UrlParamHash(url).prodID);
 			}
-		}else
-		//如果没有用户状态，
-		if(jpUserStatus === ""){
+		}else if(jpUserStatus === ""){
 			$(location).attr('href', 'i.html?Mob=' + jpMob);
 		}else{
 			$(location).attr('href', 'i.html?Mob=' + jpMob + "&userStatus="+jpUserStatus);
