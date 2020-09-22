@@ -204,7 +204,7 @@ $(function () {
 			//页面属性为非用户
 			truefalse = false;
 			//产品属性页面跳转的link为：非用户形态
-			hrefVal = "login.html";
+			hrefVal = "login.html?fromPageType=product&prodID="+UrlParamHash(url).prodid;
 		}
 		$("#setAddCart").on('click', function(){
 			if(truefalse){
