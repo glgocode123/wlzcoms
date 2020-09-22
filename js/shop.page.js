@@ -213,7 +213,6 @@ $(function () {
 	//全局数组——用来存储
 	var prodArrayID = [];
 	$.getJSON("shop.json", function(jsonData){
-		alert(pageType);
 		switch (pageType) {
 			case 0:
 				//全部产品数量
@@ -247,7 +246,7 @@ $(function () {
 					if(jsonK > parseInt(array1_2/4)){
 						prodArrayID.splice(array1_2 , 0, jsonData.sale[jsonK-1]);
 					}else{
-						prodArrayID.splice(4*jsonK - 1 , 0, jsonData.sale[jsonK-1]);
+						prodArrayID.splice(4*jsonK , 0, jsonData.sale[jsonK-1]);
 					}
 				}
 				
