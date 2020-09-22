@@ -54,12 +54,13 @@ $(function () {
 				case "product":
 					$(location).attr('href', 'product.html?prodid='+UrlParamHash(url).prodID);
 			}
-		}
+		}else
 		//如果没有用户状态，
 		if(jpUserStatus === ""){
 			$(location).attr('href', 'i.html?Mob=' + jpMob);
+		}else{
+			$(location).attr('href', 'i.html?Mob=' + jpMob + "&userStatus="+jpUserStatus);
 		}
-		$(location).attr('href', 'i.html?Mob=' + jpMob + "&userStatus="+jpUserStatus);
 	}
 	
 	
