@@ -61,7 +61,7 @@ $(function () {
 	
 	
 	//设置手机版页面底部导航
-	function set767PageNav(prodall){
+	function set767PageNav(){
 		//计算出一共有多少个页面
 		var pageall = Math.ceil(prodall/5);
 		$(".page-pagination ul li.pcshow").remove();
@@ -80,7 +80,7 @@ $(function () {
 		}
 	}
 	//设置页面底部的导航
-	function setBigPageNav(prodall){
+	function setBigPageNav(){
 		//计算出一共有多少个页面
 		var pageall = Math.ceil(prodall/5);
 		//如果参数传递的当前页面超过了总的页面数,或为负数,将当前页面设置为起始页
@@ -137,8 +137,8 @@ $(function () {
 	/*================*/
 	/* 添加产品列表中对应的产品信息 json*/
 	/*================*/
-	function setPROD(prodall){
-		
+	function setPROD(){
+		//最后一页的产品数
 		var isPageList = isRealNum(Math.ceil(prodall/5)) - parseInt(isRealNum(prodall/5));
 		//当前页就是最后一页并且，最后一页不满
 		if( isRealNum(Math.ceil(prodall/5))===pageNavID && isPageList>0){
@@ -148,54 +148,76 @@ $(function () {
 				//删除多余节点
 				$("div.left-right").children(".row").eq(h).remove();
 			}
-		}else if(isPageList === 0){
-			$("div.left-right").after("<div class='row'><div class='col-md-6 col-md-offset-3'><article><h2 class='h2'>为了更好的使用，网站产品货架正在维护中，烦请24小时后再试</h2></article></div></div>");
+		}else if(isPageList === 0){//没有产品
+			$("div.left-right").after("<div class='row'><div class='col-md-6 col-md-offset-3'><article><h2 class='h2'>为了更好的使用，产品货架正在维护中，烦请24小时后再试</h2></article></div></div>");
 			$("div.left-right").remove();
 			$("div.page-pagination").remove();
 		}else{
 			isPageList = 5;
 		}
 		
+		
+		
 		//产品列表内容编写
 		for (var i=0;i<isPageList;i++){
-			var objectPROD = $("div.setprod:eq("+i+")").children();
-			//产品列表-图片
-			objectPROD.eq(0).children().attr('href','product.html?prodid=2020061201'); 
-			objectPROD.eq(0).children().css("background-image","url(product/2020090902/shop-img.jpg)");
-			//产品列表-顶部方框中的大分类
-			var opType = objectPROD.eq(1).children().eq(1).children();
-			opType.attr('href','?type=2'); 
-			opType.text("产品分类");
-			//产品列表-详细数据
-			var prodProduct = objectPROD.eq(1).children().eq(3).children();
-			var prodDate = formatDate("20201008");//"JUNE 19/2016";
-			var prodHeat = "33";
-			var prodType = "带帽卫衣";
-			prodProduct.children().eq(0).text(prodDate);
-			prodProduct.children().eq(2).text(prodHeat);
-			prodProduct.children().eq(3).text(prodType);
-//			prodProduct.html("<span>"+prodDate+"</span><span>"+prodPrice+"\xa0<i class='fa fa-rmb'></i></span>");
-			//<span>"+prodType+"</span>
-			//<span>"+prodHeat+"\xa0<i class='fa fa-heart-o'></i></span>
-			//产品列表-标题 & 简介
-			var prodTitleValue = objectPROD.eq(3).children(":first").children().children(":first");
-			var prodTitle = "Hoodies";
-			var prodPrice = "120.00";
-			prodTitleValue.children().children().attr('href','product.html?prodid=2020061201'); 
-			prodTitleValue.children().children().eq(0).text(prodTitle); 
-			prodTitleValue.children().children().eq(2).text("¥ "+prodPrice);
-			prodTitleValue.next().children().eq(0).text("Gentlewoman 星辰吊带裙-黑色");
-			prodTitleValue.next().children().eq(2).text("可选尺寸: 44 48 50");
-			prodTitleValue.next().children().eq(5).text("地藏小王主题印花短袖T恤：材质舒适亲肤，短袖的设......");
-			//产品列表-简介
+			//写每一个产品的内容
+			setProdItem(i);
 		}
-		
-		
-	
-
-
 
 	}
+	//设置产品列表每一个产品的现实：独立出来是为了避免“don't make function within a loop”错误提示
+	function setProdItem(itemPageNum){
+			
+			//获取当前页面的产品ID:（以上一页的最大值为基数+当前页面的ID=产品ID数组中的位置）
+			var prodBigType = prodArrayID[(pageNavID-1)*5+itemPageNum][0];
+			var prodID = prodArrayID[(pageNavID-1)*5+itemPageNum][1];
+			//一条条的读取每个产品的内容，并写入
+			$.getJSON("product/"+prodID+"/prod.json", function(jsonData){
+				var objectPROD = $("div.setprod:eq("+itemPageNum+")").children();
+				//产品列表-图片
+				objectPROD.eq(0).children().attr('href','product.html?prodid='+prodID); 
+				objectPROD.eq(0).children().css("background-image","url(product/"+prodID+"/shop-img.jpg)");
+				//产品列表-顶部方框中的大分类
+				var opType = objectPROD.eq(1).children().eq(1).children();
+				opType.attr('href','?type='+prodBigType); 
+				switch (prodBigType) {
+					case 1:
+						opType.text("NEW ARRIVAL");
+						break;
+					case 2:
+						opType.text("SPOT GOODS");
+						break;
+					case 3:
+						opType.text("OFF SALE");
+				}
+				//产品列表-详细数据
+				var prodProduct = objectPROD.eq(1).children().eq(3).children();
+//				var prodDate = formatDate("20201008");//"JUNE 19/2016";
+				var prodDate = formatDate(prodID.substring(0,8));//"JUNE 19/2016";
+				var prodHeat = jsonData.heat;
+				var prodType = jsonData.typeCN;
+				prodProduct.children().eq(0).text(prodDate);
+				prodProduct.children().eq(2).text(prodHeat);
+				prodProduct.children().eq(3).text(prodType);
+	//			prodProduct.html("<span>"+prodDate+"</span><span>"+prodPrice+"\xa0<i class='fa fa-rmb'></i></span>");
+				//<span>"+prodType+"</span>
+				//<span>"+prodHeat+"\xa0<i class='fa fa-heart-o'></i></span>
+				//产品列表-标题 & 简介
+				var prodTitleValue = objectPROD.eq(3).children(":first").children().children(":first");
+				var prodTitle = jsonData.typeEN;
+				var prodPrice = jsonData.menoy;
+				prodTitleValue.children().children().attr('href','product.html?prodid='+prodID); 
+				prodTitleValue.children().children().eq(0).text(prodTitle); 
+				prodTitleValue.children().children().eq(2).text("¥ "+prodPrice);
+				prodTitleValue.next().children().eq(0).text(jsonData.title);
+				prodTitleValue.next().children().eq(2).text("可选尺寸: "+jsonData.size);
+				prodTitleValue.next().children().eq(5).text(jsonData.int.substring(0,24)+"......");
+				//产品列表-简介
+				
+			});
+		
+	}
+	
 	
 	
 	function formatDate(date){
@@ -213,26 +235,29 @@ $(function () {
 	//全局数组——用来存储
 	var prodArrayID = [];
 	$.getJSON("shop.json", function(jsonData){
+		//用来做子数组：【产品大分类，产品ID】
+		var ipaid = [];
 		switch (pageType) {
 			case 0:
 				//全部产品数量
 				prodall = jsonData.new.length + jsonData.spot.length + jsonData.sale.length;
 				//将new添加进入数组
 				for(var jsonI = jsonData.new.length-1; jsonI >= 0; jsonI--){
-					prodArrayID.push(jsonData.new[jsonI]);
+					ipaid = [1,jsonData.new[jsonI]];
+					prodArrayID.push(ipaid);
 				}
 				
 				//将spot以偶数位添加进入数组 ，； 因为内循环是反向的，所以这里就可以正向了
 				for(var jsonJ = 0; jsonJ < jsonData.spot.length; jsonJ++){
-					
+					ipaid = [2,jsonData.spot[jsonJ]];
 					//当前数组的位置jsonJ应该（总数-1-当前数：反向位）在第一数组以内：执行插入（第二数组插入第一数组）
 					if(jsonData.spot.length-1 - jsonJ <= jsonData.new.length-1){
-					
-						prodArrayID.splice( jsonData.spot.length - jsonJ ,0 ,jsonData.spot[jsonJ]);
+						
+						prodArrayID.splice( jsonData.spot.length - jsonJ ,0 ,ipaid);
 						
 					}else{
 						//如果有多出部分，在原数组（第一数组）最后一位后开始添加，这样可以保证最新的顺序
-						prodArrayID.splice(jsonData.new.length-1 , 0, jsonData.spot[jsonJ]);
+						prodArrayID.splice(jsonData.new.length-1 , 0, ipaid);
 					}
 					
 				}
@@ -244,9 +269,11 @@ $(function () {
 //					prodArrayID.push(jsonData.sale[jsonK]);
 					//如果第三数组当前的位置，溢出了
 					if(jsonK > parseInt(array1_2/4)){
-						prodArrayID.splice(array1_2 , 0, jsonData.sale[jsonK-1]);
+						ipaid = [3,jsonData.sale[jsonK-1]];
+						prodArrayID.push(ipaid);
 					}else{
-						prodArrayID.splice(4*jsonK , 0, jsonData.sale[jsonK-1]);
+						ipaid = [3,jsonData.sale[jsonData.sale.length-jsonK]];
+						prodArrayID.splice(4*jsonK , 0, ipaid);
 					}
 				}
 				
@@ -255,21 +282,24 @@ $(function () {
 				//New的产品数量
 				prodall = jsonData.new.length;
 				for(var L = jsonData.new.length-1; L >=0; L-- ){
-					prodArrayID.push(jsonData.new[L]);
+					ipaid = [1,jsonData.new[L]];
+					prodArrayID.push(ipaid);
 				}
 				break;
 			case 2:
 				//Spot的产品数量
 				prodall = jsonData.spot.length;
 				for(var N = jsonData.spot.length-1; N >=0; N-- ){
-					prodArrayID.push(jsonData.spot[N]);
+					ipaid = [2,jsonData.spot[N]];
+					prodArrayID.push(ipaid);
 				}
 				break;
 			case 3:
 				//Sale的产品数量
 				prodall = jsonData.sale.length;
 				for(var M = jsonData.sale.length-1; M >=0; M-- ){
-					prodArrayID.push(jsonData.sale[M]);
+					ipaid = [3,jsonData.sale[M]];
+					prodArrayID.push(ipaid);
 				}
 		}
 	});
@@ -282,13 +312,13 @@ $(function () {
 	alert(testArray);
 	
 	if($(document).width() <= 767){
-		set767PageNav(prodall);
+		set767PageNav();
 	}else{
-		setBigPageNav(prodall);
+		setBigPageNav();
 	}
 	
 	//设置页面中的产品列表
-	setPROD(prodall);
+	setPROD();
 	
 	
 	
