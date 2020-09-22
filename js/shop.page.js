@@ -170,7 +170,7 @@ $(function () {
 			
 			//获取当前页面的产品ID:（以上一页的最大值为基数+当前页面的ID=产品ID数组中的位置）
 			var prodBigType = prodArrayID[(pageNavID-1)*5+itemPageNum][0];
-			var prodID = prodArrayID[(pageNavID-1)*5+itemPageNum][1];
+			var prodID = prodArrayID[(pageNavID-1)*5+itemPageNum][1].toString();
 			//一条条的读取每个产品的内容，并写入
 			$.getJSON("product/"+prodID+"/prod.json", function(jsonData){
 				var objectPROD = $("div.setprod:eq("+itemPageNum+")").children();
