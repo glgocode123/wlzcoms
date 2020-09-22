@@ -234,8 +234,8 @@ $(function () {
 	if (userData === null || userData === "" || userData === undefined || userData === "null") {
 		//删除cookie
 		$.cookie("wenlongzhangCart", null);
-		//如果用户没有登录，返回原页
-		$(location).attr('href', 'login.html');
+		//如果用户没有登录
+		$(location).attr('href', 'login.html?fromPageType=cart');
 	}
 	var arr = userData.split("||");
 	
@@ -248,8 +248,8 @@ $(function () {
 		$.cookie("wenlongzhangName", null);
 		//删除cookie
 		$.cookie("wenlongzhangCart", null);
-		//如果页面id不合适，返回原页
-		$(location).attr('href', 'login.html');
+		//如果页面id不合适
+		$(location).attr('href', 'login.html?fromPageType=cart');
 	}
 	
 	/*=======================END================================================================*/
