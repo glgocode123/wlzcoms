@@ -167,8 +167,16 @@ $(function () {
 	
 	//判断是否登录
 	var iMob="";
+	function readCookieMob(){
+		var source = $.cookie("wenlongzhangName");
+		if (source === null || source === "" || source === undefined) {
+			return 0;
+		}
+		var arr = source.split("||");
+		return arr[0];
+	}
 	function isUser(){
-		var cookieMobID = "13602492212";
+		var cookieMobID = readCookieMob();
 		if(isMobID(decodeURI(UrlParamHash(url).Mob))){
 			iMob = decodeURI(UrlParamHash(url).Mob);
 //			alert("参数获取");
