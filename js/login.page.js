@@ -43,6 +43,7 @@ $(function () {
 	
 	function jumpPage(jpMob,jpUserStatus){
 		//判断是从什么页面来的
+		alert(jpMob+"----"+jpUserStatus);
 		if(isNullOrUndefined(UrlParamHash(url).fromPageType)){
 			//判断是否从产品页来的
 			if(UrlParamHash(url).fromPageType === "product"){
