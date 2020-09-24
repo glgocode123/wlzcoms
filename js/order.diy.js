@@ -54,7 +54,7 @@ $(function () {
 
 	//购物车操作
 	var CartHelper = function () {
-		this.cookieName = 'wenlongzhangCart';
+		this.cookieName = 'wlzCart';
 		
 		//清空购物车cookie
 		this.Clear = function () {
@@ -187,12 +187,12 @@ $(function () {
 	var xc = new CartHelper();
 	
 	//获取页面参数
+	//prodida指的是单个产品购买
 	var prodida = decodeURI(UrlParamHash(url).prodida),
-//		MobID = decodeURI(UrlParamHash(url).Mob);
 		MobID = readCookieMob();
 	
 	function readCookieMob(){
-		var source = $.cookie("wenlongzhangName");
+		var source = $.cookie("wlzName");
 		if (source === null || source === "" || source === undefined) {
 			return 0;
 		}
@@ -201,7 +201,7 @@ $(function () {
 	}
 	
 	//页面数据初始化
-//	if($.cookie('wenlongzhangName') === MobID){
+//	if($.cookie('wlzName') === MobID){
 //		//如果获取的手机号正确，初始化填入order-form
 //		if (isMobID(MobID)){
 //			$('.order-form input[name="mob"]').val(MobID);
@@ -239,7 +239,7 @@ $(function () {
 			proPrice = "",
 			proParmsCount = "";
 		
-		//如果有参数，结算目标产品
+		//如果存在值，结算目标（单个）产品
 		if( prodida.substring(0, prodida.length - 1) > 2020000000 ){
 			for(var i = 0; i < abc.length; i++){
 				if( prodida === abc[i].Id ){
@@ -255,7 +255,7 @@ $(function () {
 				}
 			}
 		}else{
-			//如果页面没有传递参数进来（结账全部产品）
+			//如果页面没有prodida值传递进来（结账全部产品）
 			for(var j = 0; j < abc.length; j++){
 				htmlRowSpacing = "<div class='empty-space h25-xs h45-md'></div>";
 				proID = abc[j].Id.substring(0, abc[j].Id.length - 1);
@@ -280,6 +280,7 @@ $(function () {
 		}
 	}else{
 		alert("啥都木有！");
+//		$(location).attr('href', 'shop.html');
 	}
 
 	//=============================================================================================

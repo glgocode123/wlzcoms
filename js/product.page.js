@@ -168,7 +168,7 @@ $(function () {
 	//判断是否登录
 	var iMob="";
 	function readCookieMob(){
-		var source = $.cookie("wenlongzhangName");
+		var source = $.cookie("wlzName");
 		if (source === null || source === "" || source === undefined) {
 			return 0;
 		}
@@ -198,8 +198,8 @@ $(function () {
 		if(isUser()){
 			//页面属性为用户
 			truefalse = true;
-			//产品属性页面跳转的link为：用户的形态
-			hrefVal = "prodselect.html?prodid="+UrlParamHash(url).prodid+"&Mob="+iMob;
+			//产品属性页面跳转的link为：用户的形态//设置页面标题
+			hrefVal = "prodselect.html?prodid="+UrlParamHash(url).prodid+"&name="+$("#setProdTitle").text()+"&price="+$("#setProdRMB").text()+"&Mob="+iMob;
 		}else{
 			//页面属性为非用户
 			truefalse = false;

@@ -115,7 +115,7 @@ $(function () {
 		cookieMobID = readCookieMob();
 	
 	function readCookieMob(){
-		var source = $.cookie("wenlongzhangName");
+		var source = $.cookie("wlzName");
 		if (source === null || source === "" || source === undefined || source === "null") {
 			return 0;
 		}
@@ -127,7 +127,7 @@ $(function () {
 	
 	//读取COOKIE中的集合
 	function readCookieCartNum() {
-		var source = $.cookie("wenlongzhangCart");
+		var source = $.cookie("wlzCart");
 		if (source === null || source === "" || source === undefined || source === "null") {
 			return 0;
 		}

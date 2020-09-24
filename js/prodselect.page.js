@@ -76,22 +76,44 @@ $(function () {
 			});
 			$(".btnNext").on("click", function(){
 				var hrefSelectType = "&";
+//				for(var i = 0; i < $("div.selectItem").length; i++){
+//					hrefSelectType += $("div.selectItem").eq(i).data("name");
+//					hrefSelectType += "=";
+//					hrefSelectType += $("div.selectItem").eq(i).children().children().children(".active").data("name");
+//					if(i !== $("div.selectItem").length-1){
+//						hrefSelectType += "&";
+//					}
+//				}
+				//以上逻辑是可以使用的，保留，因为流程问题而改一下逻辑
+				//因为下一页设置为没有太过详细的参数，统一使用parms保存参数信息，所以此处逻辑改为如下：
+				hrefSelectType += "parms=";
 				for(var i = 0; i < $("div.selectItem").length; i++){
+					//参数名
 					hrefSelectType += $("div.selectItem").eq(i).data("name");
-					hrefSelectType += "=";
+					hrefSelectType += ":";
+					//参数值
 					hrefSelectType += $("div.selectItem").eq(i).children().children().children(".active").data("name");
 					if(i !== $("div.selectItem").length-1){
-						hrefSelectType += "&";
-					}
+						hrefSelectType += "&nbsp;&nbsp;";
 				}
+				
 				if(type){
-					var myDate = new Date();
-					var orderID = myDate.getFullYear() + (myDate.getMonth()+1) + myDate.getDate();
-					//生成订单，并将订单写入cookie
-					var cookieOrder = ["name", "prodnum",["prodID","prodTitle","prodPrice","prodColor","prodSize"]];
-					$(location).attr("href", "order.html?orderid="+orderID+"&Mob="+MobID+hrefSelectType);
+//					var myDate = new Date();
+//					var orderID = myDate.getFullYear() + (myDate.getMonth()+1) + myDate.getDate();
+//					//生成订单，并将订单写入cookie
+//					var cookieOrder = ["name", "prodnum",["prodID","prodTitle","prodPrice","prodColor","prodSize"]];
+//					//直接购买：一个产品
+//					$(location).attr("href", "order.html?orderid="+orderID+"&Mob="+MobID+hrefSelectType);
+					//以上逻辑代码是对的，但是整体流程中不合适
+					//因为order.html页面中做了判断，单独购买只需要传递prodida就可以，如果没有就会购买cookie中全部的参数
+					//问题是：这种样式如何写入产品cookie，另外如果用户在购买流程中退出，如何处理
 				}else{
-					$(location).attr("href", "cart.html?prodid="+prodID+"&Mob="+MobID+hrefSelectType);
+					//加入购物车：prodid、prodName、prodPrice、prodParms
+					//id = 产品ID
+					//Name = 产品名称
+					//Price = 产品价格
+					//Parms = 产品参数
+					$(location).attr("href", "cart.html?prodid="+prodID+"&name="+UrlParamHash(url).name+"&price="+UrlParamHash(url).price+"&Mob="+MobID+hrefSelectType);
 				}
 			});
 		}else{

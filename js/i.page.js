@@ -35,7 +35,7 @@ $(function () {
 		//用户数据今天有修改过（买过东西 或 做过活动）
 		if(userInfo[2]==="true"){
 			//用户下面判断有没有cookie记录
-			var wlzNHCookie = $.cookie("wenlongzhangNewHistory");
+			var wlzNHCookie = $.cookie("wlzNewHistory");
 			if(userInfo[1] === "RWSU"){
 				//老用户，有数据修改
 				//如果有此cookie，说明有修改数据在本地
@@ -210,7 +210,7 @@ $(function () {
 		//将数据写入cookie，下次就不用再访问数据库，之后购买等操作都会同时修改cookie和服务器，所以内容除非被用户恶意修改，否者是同步的。
 		//只记录可写服务器的，因为只读服务器太多数据可能会超过4K
 		if(takeCookie){
-			$.cookie("wenlongzhangNewHistory", rSource, { expires: 1 });
+			$.cookie("wlzNewHistory", rSource, { expires: 1 });
 		}
 		
 	}
@@ -288,7 +288,7 @@ $(function () {
 	
 	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
 	
-	var source = $.cookie("wenlongzhangName");
+	var source = $.cookie("wlzName");
 	if (source === null || source === "" || source === undefined) {
 		//如果用户没有登录，返回原页
 		$(location).attr('href', 'login.html');

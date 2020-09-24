@@ -33,7 +33,7 @@ $(function () {
 		userMobID = readCookieMob();
 	
 	function readCookieMob(){
-		var source = $.cookie("wenlongzhangName");
+		var source = $.cookie("wlzName");
 		if (source === null || source === "" || source === undefined) {
 			return 0;
 		}
@@ -111,20 +111,20 @@ $(function () {
 			//(因为用户如果修改数据后，可写服务器有完整的基本信息+修改信息)，问题，究竟加入什么内容，因为可写服务器是不安全的，可能比用户cookie更不安全，因为用户cookie是用户自己的，而可写服务器是公开的，但是如果可写服务器的数据与用户本地数据不匹配，又将按照谁的？
 //
 //			if(rServerUser){
-//				$.cookie("wenlongzhangName", userMobID+"||RWSU||true||999||123||true", { expires: 1 });
+//				$.cookie("wlzName", userMobID+"||RWSU||true||999||123||true", { expires: 1 });
 //				//，有则读取cookie======先读取wServer再读取rServer========
 //				var rwSource = "";
-//				$.cookie("wenlongzhangNewHistory", rwSource, { expires: 1 });
+//				$.cookie("wlzNewHistory", rwSource, { expires: 1 });
 //				//RWSU = Read Write Sever User
 //				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
 //				jumpPage(userMobID,"RWSU");
 //			}else{
 //				//今天注册过的新用户，或用户数据有修改=======（读取json不完整）========
 //				//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
-//				$.cookie("wenlongzhangName", userMobID+"||WSU||true||999||123||true", { expires: 1 });
+//				$.cookie("wlzName", userMobID+"||WSU||true||999||123||true", { expires: 1 });
 //				//，有则读取cookie======先读取wServer再读取rServer========
 //				var wSource = "";
-//				$.cookie("wenlongzhangNewHistory", wSource, { expires: 1 });
+//				$.cookie("wlzNewHistory", wSource, { expires: 1 });
 //				//RWSU = Read Write Sever User
 //				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
 //				jumpPage(userMobID,"WSU");
@@ -138,7 +138,7 @@ $(function () {
 				alert(jsonData.Points);
 				//cookie数据：0手机号||1没有修改数据||2数据库||3积分||4金池||5历史记录数量
 				//读取用户json，为的是保存数据在cookie
-				$.cookie("wenlongzhangName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
+				$.cookie("wlzName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
 				
 				//只读数据库历史记录太大不记录cookie，因为cookie最好4K以内
 //				//写入历史记录cookie
@@ -154,7 +154,7 @@ $(function () {
 //						}
 //					}
 //				}
-//				$.cookie("wenlongzhangNewHistory", rSource, { expires: 1 });
+//				$.cookie("wlzNewHistory", rSource, { expires: 1 });
 				
 				//RSU = Read Sever User
 //				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
@@ -168,7 +168,7 @@ $(function () {
 		}
 
 
-		//			$.cookie("wenlongzhangName", userMobID, { expires: 1 });
+		//			$.cookie("wlzName", userMobID, { expires: 1 });
 		//			//$(location).attr('href', 'i.html?Mob='+userMobID);
 //					jumpPage(userMobID,"");
 	}

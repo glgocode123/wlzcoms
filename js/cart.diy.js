@@ -45,7 +45,7 @@ $(function () {
 
 	//购物车操作
 	var CartHelper = function () {
-		this.cookieName = 'wenlongzhangCart';
+		this.cookieName = 'wlzCart';
 		
 		//清空购物车cookie
 		this.Clear = function () {
@@ -230,10 +230,10 @@ $(function () {
 	
 	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
 	
-	var userData = $.cookie("wenlongzhangName");
+	var userData = $.cookie("wlzName");
 	if (userData === null || userData === "" || userData === undefined || userData === "null") {
 		//删除cookie
-		$.cookie("wenlongzhangCart", null);
+		$.cookie("wlzCart", null);
 		//如果用户没有登录
 		$(location).attr('href', 'login.html?fromPageType=cart');
 	}
@@ -245,9 +245,9 @@ $(function () {
 	
 	if(!isMobID(decodeURI(arr[0]))){
 		//删除cookie
-		$.cookie("wenlongzhangName", null);
+		$.cookie("wlzName", null);
 		//删除cookie
-		$.cookie("wenlongzhangCart", null);
+		$.cookie("wlzCart", null);
 		//如果页面id不合适
 		$(location).attr('href', 'login.html?fromPageType=cart');
 	}
@@ -260,6 +260,10 @@ $(function () {
 	var xc = new CartHelper();
 	
 	//模拟获取页面参数
+	//id = 产品ID
+	//Name = 产品名称
+	//Price = 产品价格
+	//Parms = 产品参数
 	var prodid = decodeURI(UrlParamHash(url).prodid),
 		prodName = decodeURI(UrlParamHash(url).name),
 		prodPrice = decodeURI(UrlParamHash(url).price),
@@ -359,7 +363,7 @@ $(function () {
 	});
 	//单独购买
 	$("a.proBuy").on("click", function(){
-		//单独购买布删除cookie记录，（因为购买页面也要显示），在购买页面确定后再删除
+		//单独购买先不删除cookie记录，（因为购买页面也要显示），在购买页面确定后再删除
 		$(location).attr("href", "order.html?prodida="+$(this).parent().data("prodid"));
 	});
 	//删除
@@ -369,6 +373,16 @@ $(function () {
 		var myCartVal = $("li.mycart a").children("span").text();
 		$("li.mycart a").children("span").text(myCartVal - 1);
 		$(this).parent().parent().remove();
+	});
+	//全部结算
+	$("a#proAllBuy").on("click", function(){
+		var allProdObj = $("div.description");
+		for(var apoNum = 0; apoNum < allProdObj.length; apoNum++){
+			allProdObj[apoNum].data("prodid");
+			//考虑如何将这些id传给结算页面
+			//这里先不删除cookie记录，（因为购买页面也要显示），在购买页面确定后再删除
+			$(location).attr("href", "order.html");
+		}
 	});
 	//==================END================================================================
 		
