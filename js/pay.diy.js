@@ -13,7 +13,7 @@ $(function () {
 	}
 	//设置购买页面
 	function setBuyPage(){
-		if(!isWeiXin()){
+		if(isWeiXin()){
 			$("div.selectItem ul li a").eq(1).addClass("active");
 			buyType = $("div.selectItem ul li a").eq(1).data('name');
 			//这个不能在前面，因为0被删除了，1就会在0位
