@@ -26,10 +26,10 @@ $(function () {
 		
 		//立即支付
 		$("#btn-setBuy").on("click",function(){
-			$.cookie("wlzBuy" ,buyType , { expires: 1 });
 			if(buyType === "wechat"){
 				$(location).attr("href", "WeChat.html");
 			}else if(buyType === "alibuy"){
+				$.cookie("wlzBuy" ,buyType , { expires: 1 });
 				$(location).attr("href", "https://qr.alipay.com/fkx19379iotrdyu0y2kqy01");
 			}
 		});
