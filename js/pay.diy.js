@@ -5,7 +5,7 @@ $(function () {
 	
 	function isWeiXin() {
 		var ua = window.navigator.userAgent.toLowerCase();
-		alert(ua.match(/MicroMessenger/i));
+		alert(ua);
 		if (ua.match(/MicroMessenger/i) === 'micromessenger') {
 			return true;
 		} else {
