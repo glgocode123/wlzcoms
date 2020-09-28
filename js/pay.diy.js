@@ -28,7 +28,7 @@ $(function () {
 		$("#btn-setBuy").on("click",function(){
 			$.cookie("wlzBuy" ,buyType , { expires: 1 });
 			if(buyType === "wechat"){
-				$(location).attr("href", "WechatIMG1.jpeg");
+				$(location).attr("href", "WeChat.html");
 			}else if(buyType === "alibuy"){
 				$(location).attr("href", "https://qr.alipay.com/fkx19379iotrdyu0y2kqy01");
 			}
