@@ -5,6 +5,7 @@ $(function () {
 	
 	function isWeiXin() {
 		var ua = window.navigator.userAgent.toLowerCase();
+		alert(ua.match(/MicroMessenger/i));
 		if (ua.match(/MicroMessenger/i) === 'micromessenger') {
 			return true;
 		} else {
@@ -13,7 +14,7 @@ $(function () {
 	}
 	//设置购买页面
 	function setBuyPage(){
-		if(isWeiXin()){
+		if(!isWeiXin()){
 			$("div.selectItem ul li a").eq(1).addClass("active");
 			buyType = $("div.selectItem ul li a").eq(1).data('name');
 			//这个不能在前面，因为0被删除了，1就会在0位
@@ -26,14 +27,11 @@ $(function () {
 		//立即支付
 		$("#btn-setBuy").on("click",function(){
 			$.cookie("wlzBuy" ,buyType , { expires: 1 });
-			$.ajaxSettings.async = false;
-			$.getJSON('buy.json', function(jsonData){
-				if(buyType === "wechat"){
-					$(location).attr("href", jsonData.wechat);
-				}else if(buyType === "alibuy"){
-					$(location).attr("href", jsonData.alibuy);
-				}
-			});
+			if(buyType === "wechat"){
+				$(location).attr("href", "WechatIMG1.jpeg");
+			}else if(buyType === "alibuy"){
+				$(location).attr("href", "https://qr.alipay.com/fkx19379iotrdyu0y2kqy01");
+			}
 		});
 	}
 	//设置购买确认页面
