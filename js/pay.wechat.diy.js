@@ -13,12 +13,11 @@ $(function () {
 		}
 	}
 	if(isWeiXin()){
-		$.cookie("wlzBuy" ,buyType , { expires: 1 });
+		$.cookie("wlzBuy" ,"wechat" , { expires: 1 });
 	}
 	
 	
 	var source = $.cookie("wlzBuy");
-	var buyType = "";
 	if (source === null || source === "" || source === undefined) {
 		
 	}else{
