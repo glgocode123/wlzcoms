@@ -5,8 +5,8 @@ $(function () {
 	
 	function isWeiXin() {
 		var ua = window.navigator.userAgent.toLowerCase();
-		alert(ua);
-		if (ua.match(/MicroMessenger/i) === 'micromessenger') {
+//		if (ua.match(/microMessenger/i) === 'micromessenger') {
+		if(ua.indexOf('micromessenger') !== -1){
 			return true;
 		} else {
 			return false;
