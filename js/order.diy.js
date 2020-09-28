@@ -14,7 +14,7 @@ $(function () {
 			h;
 		var hash = url.slice(url.indexOf("?") + 1).split('&');
 //		alert(hash);
-		for (var i = 0; i < hash.length; i++) {
+		for(var i = 0; i < hash.length; i++){
 			h = hash[i].split("="); //
 			params[h[0]] = h[1];
 //			alert(h);
@@ -53,8 +53,8 @@ $(function () {
 	};
 
 	//购物车操作
-	var CartHelper = function () {
-		this.cookieName = 'wlzCart';
+	var CartHelper = function (cookieName) {
+		this.cookieName = cookieName;
 		
 		//清空购物车cookie
 		this.Clear = function () {
@@ -180,17 +180,10 @@ $(function () {
 	};
 	
 	
-	
 	//==================页面初始化逻辑，主要是操作cookie数据===========================
 	
-	//调用，创建实例
-	var xc = new CartHelper();
 	
-	//获取页面参数
-	//prodida指的是单个产品购买
-	var prodida = decodeURI(UrlParamHash(url).prodida),
-		MobID = readCookieMob();
-	
+	//读取用户登录ID
 	function readCookieMob(){
 		var source = $.cookie("wlzName");
 		if (source === null || source === "" || source === undefined) {
@@ -200,18 +193,45 @@ $(function () {
 		return arr[0];
 	}
 	
-	//页面数据初始化
-//	if($.cookie('wlzName') === MobID){
-//		//如果获取的手机号正确，初始化填入order-form
-//		if (isMobID(MobID)){
-//			$('.order-form input[name="mob"]').val(MobID);
-//			$('.order-form input[name="mob"]').parent().addClass('focus');
-//		}else{
-//			$(location).attr('href', 'login.html?user=false');
-//		}
-//	}else{
-//		$(location).attr('href', 'login.html');
-//	}
+	
+	//展示结账页面账单信息
+	function setBillInfo(proID, proName, proCount, proPrice, proParms){
+		//每次调用增加
+		htmlValCount += proCount;
+		htmlValParms += proPrice*proCount;
+		var	proImg = "",
+			proTitle = "",
+			htmlRowSpacing = "",
+			proParmsCount = "";
+		htmlRowSpacing = "<div class='empty-space h25-xs h45-md'></div>";
+		proImg = "<img src='product/" + proID + "/head-img.jpg'>";
+		proTitle = "<span class='big'>" + proName + "</span>";
+		proPrice = "<span>价格：¥" + proPrice + ".00</span>";
+		proParmsCount = "<p>" + proParms + "\xa0\xa0|\xa0\xa0数量:" + proCount + "件</p>";
+
+		htmlVal += htmlRowSpacing + "<div class='comment'>"+ proImg + "<div class='description'> " + proTitle + proPrice + "<div class='empty-space h10-xs'></div>" + proParmsCount + "<div class='empty-space h15-xs'></div></div></div>";
+		
+		newJSONprodArr.push({
+			"proID":proID,
+			"proName":proName,
+			"proParms":proParms
+		});
+	}
+	
+	//全局变量
+	var htmlVal = "",
+		htmlValCount = 0,//产品总数
+		htmlValParms = 0;//总价格
+	
+	//获取页面参数
+	//prodida指的是单个产品购买
+	var prodida = decodeURI(UrlParamHash(url).prodida),
+		MobID = readCookieMob(),
+		//用户判断从产品页过来的直接购买
+		prodName = decodeURI(UrlParamHash(url).name),
+		prodCount = decodeURI(UrlParamHash(url).count),
+		prodPrice = decodeURI(UrlParamHash(url).price),
+		prodParms = decodeURI(UrlParamHash(url).parms);
 	
 	//如果获取的手机号正确，初始化填入order-form
 	if (isMobID(MobID)){
@@ -221,66 +241,80 @@ $(function () {
 		$(location).attr('href', 'login.html?user=false');
 	}
 	
-	//读取cookie
-	var pro_cart = xc.Read();
 	
-	//cooike有东西
-	if(pro_cart.Count > 0){
-		
-		var htmlVal = "";
-			
-		//产品数组
-		var abc = pro_cart.Items;
-			
-		var proID = "",
-			proImg = "",
-			proTitle = "",
-			htmlRowSpacing = "",
-			proPrice = "",
-			proParmsCount = "";
-		
-		//如果存在值，结算目标（单个）产品
-		if( prodida.substring(0, prodida.length - 1) > 2020000000 ){
-			for(var i = 0; i < abc.length; i++){
-				if( prodida === abc[i].Id ){
-					htmlRowSpacing = "<div class='empty-space h25-xs h45-md'></div>";
-					proID = abc[i].Id.substring(0, abc[i].Id.length - 1);
-					proImg = "<img src='product/" + proID + "/head-img.jpg'>";
-					proTitle = "<span class='big'>" + abc[i].Name + "</span>";
-					proPrice = "<span>价格：¥" + abc[i].Price + ".00</span>";
-					proParmsCount = "<p>" + abc[i].Parms + "\xa0\xa0|\xa0\xa0数量:" + abc[i].Count + "件</p>";
-					
-					htmlVal += htmlRowSpacing + "<div class='comment'>"+ proImg + "<div class='description'> " + proTitle + proPrice + "<div class='empty-space h10-xs'></div>" + proParmsCount + "<div class='empty-space h15-xs'></div></div></div>";
-					continue;
+	//生成订单id：订单时间
+	var myDate = new Date();
+	var orderID = myDate.getFullYear() + "-" + (myDate.getMonth()+1) + "-" + myDate.getDate();
+
+	var newJSONData = {},
+		newJSONHistory = {},
+		newJSONprodArr = {};
+	//参数不为空，说明这个是从产品页或者预售页直接过来
+	//有的产品没有parms
+	if(prodName.length > 0 && prodCount.length > 0 && prodPrice.length > 0){
+		var proID = prodida.substring(0, prodida.length - 1);
+		//设置订单信息
+		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
+	}else{//有可能是从购物车进来的
+		//调用，创建实例
+		var wlzC = new CartHelper("wlzCart");
+		//读取cookie
+		var pro_cart = wlzC.Read();
+		//购物车cooike有东西
+		if(pro_cart.Count > 0){
+			//产品数组
+			var abc = pro_cart.Items;
+			//如果存在值并且>2020000000，结算单个产品(不可能有小于2020000000的值，新网站只有2020后的时间段)
+			if( prodida.substring(0, prodida.length - 1) > 2020000000 ){
+				//循环判断cookie有没有同样的数据
+				for(var i = 0; i < abc.length; i++){
+					//如果有同样的prodida，就是从购物车进来的
+					if( prodida === abc[i].Id ){
+						setBillInfo(abc[i].Id.substring(0, abc[i].Id.length - 1), abc[i].Name, abc[i].Count, abc[i].Price, abc[i].Parms);
+						continue;
+					}
+				}
+			}else{
+				//如果页面没有prodida值传递进来（结账全部产品）
+				for(var j = 0; j < abc.length; j++){
+					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
 				}
 			}
 		}else{
-			//如果页面没有prodida值传递进来（结账全部产品）
-			for(var j = 0; j < abc.length; j++){
-				htmlRowSpacing = "<div class='empty-space h25-xs h45-md'></div>";
-				proID = abc[j].Id.substring(0, abc[j].Id.length - 1);
-				proImg = "<img src='product/" + proID + "/head-img.jpg'>";
-				proTitle = "<span class='big'>" + abc[j].Name + "</span>";
-				proPrice = "<span>价格：¥" + abc[j].Price + ".00</span>";
-				proParmsCount = "<p>" + abc[j].Parms + "\xa0\xa0|\xa0\xa0数量:" + abc[j].Count + "件</p>";
-
-				htmlVal += htmlRowSpacing + "<div class='comment'>" + proImg + "<div class='description'> " + proTitle + proPrice + "<div class='empty-space h10-xs'></div>" + proParmsCount + "<div class='empty-space h15-xs'></div></div></div>";
-			}
-		}
-		
-		htmlVal += "";
-		if ( htmlVal === "" ){
+//			alert("啥都木有！");
+			//可能是用户历史记录进来的
 			$(location).attr('href', '404.html');
-		}else{
-//			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
-			$("span#setProdPrice").text("¥" + pro_cart.Total + ".00");
-			$("span#setPreferential").text("已使用红包（VIP金券），节省了xxx.xx元");
-			//写页面
-			$("div#setProdList").html(htmlVal);
 		}
+	}
+	
+	//写入页面
+	htmlVal += "";
+	if ( htmlVal === "" ){
+		$(location).attr('href', '404.html');
 	}else{
-		alert("啥都木有！");
-//		$(location).attr('href', 'shop.html');
+		newJSONHistory = [
+			{
+				"orderID":myDate.getTime(),
+				"data":orderID,
+				"AWB":"订单处理中...",
+				"price":htmlValParms,
+				"discount":10,
+				"Total":219.00,
+				"prodArr":newJSONprodArr
+			}
+		];
+		newJSONData = [{
+			"userID":13602400000,
+			"Points":99999,
+			"Golden":100,
+			"History":newJSONHistory
+
+		}];
+//			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
+		$("span#setProdPrice").text("¥" + htmlValParms + ".00");
+		$("span#setPreferential").text("已使用红包（VIP金券），节省了xxx.xx元");
+		//写页面
+		$("div#setProdList").html(htmlVal);
 	}
 
 	//=============================================================================================
@@ -303,28 +337,29 @@ $(function () {
         if (error){
         	updateTextPopup('ERROR', msg);
         }else{
-			//取得cookie中
 			
-			
+			//发送交易请求到w数据库
+			$.ajax({
+				type: "POST",
+				url: "http://d3j1728523.wicp.vip/",
+				async: false,
+				contentType: "application/json; charset=utf-8",
+				data: newJSONData,
+				dataType: "json",
+				success: function (message) {
+					if (message > 0) {
+						$(location).attr('href', 'pay.html');
+					}
+				},
+				error: function (message) {
+					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
+				}
+			});
 			
 			//如果数据正确
 			$(location).attr('href', 'i.html');
 			
-//            var url = 'send_mail.php',
-//            	mob = $.trim($this.find('input[name="mob"]').val()),
-//            	name = $.trim($this.find('input[name="name"]').val()),
-//            	subject = ($this.find('input[name="subject"]').length)?$.trim($this.find('input[name="subject"]').val()):'',
-//            	address = $.trim($this.find('textarea[name="address"]').val());
-//
-//            $.post(url,{'mob':mob,'name':name,'subject':subject,'address':address},function(data){
-//	        	updateTextPopup('THANK YOU!', successMessage);
-//	        	$this.append('<input type="reset" class="reset-button"/>');
-//	        	$('.reset-button').click().remove();
-//	        	$this.find('.focus').removeClass('focus');
-//			});
-			
         }
-	  	return false;
 	});
 
 	$(document).on('keyup', '.input-wrapper .input', function(){

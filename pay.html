@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="img/favicon.ico" rel="shortcut icon" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:700,900%7CDidact+Gothic" rel="stylesheet">
+    <title>WENLONGZHANG.com</title>
+    <style type="text/css">
+/*		.form-wrapper {padding: 0 10%; }*/
+		@media (min-width: 991px){
+			.form-wrapper:nth-child(1) {margin-top: -130px;}
+		}
+		.form-wrapper {margin-top: 30px;}
+		@media (max-width: 767px) {
+			.form-wrapper{padding: 0 12px; }
+		}
+		.selectItem ul li{
+/*			display: inline-block;*/
+			display: flex;
+		}
+		.selectItem ul li a{
+			padding: 0 15px;
+			display: flex;
+			position: relative;
+			color: #666;
+			font-size: 16px;
+			height: 50px;
+			width: 100%;
+			line-height: 48px;
+			border: 1px solid #efefef;
+			margin: 8px 4px;
+			background-color: #fff;
+			font-weight: bold;
+		}
+		.selectItem ul li a.active{ 
+			padding: 0 15px;  
+			display: flex;
+			position: relative;
+			color: #222;
+			font-size: 16px;
+			height: 50px;
+			width: 100%;
+			line-height: 48px;
+			border: 2px solid #222;
+			margin: 8px 4px;
+			background-color: #fff;
+			font-weight: bold;
+		}
+		.selectItem ul li a.outStock{
+			padding: 0 15px;  
+			display: block;
+			position: relative;
+			color: #999;
+			font-size: 10px;
+			height: 40px;
+			width: 100%;
+			line-height: 38px;
+			border: 1px solid #efefef;
+			margin: 0 4px;
+			background-color: #efefef;
+			font-weight: bold;
+		}
+		.buy_div{
+			display: block;
+			-webkit-margin-before: 0.8em;
+			/*-webkit-margin-after: 2em;*/
+			-webkit-margin-start: 0px;
+			-webkit-margin-end: 0px;
+			margin: 0.8em 0 0 0;
+			padding: 0.57em 15px;
+			background-color:#f6f6f6;
+			z-index: 4;
+			position: fixed;
+			left: 0;
+			right:0;
+			bottom: 0;
+			margin-left:auto;
+			margin-right:auto;
+			width: 100%;
+			text-align: center;
+/*				max-width: 768px;*/
+		}
+
+		.col-2{
+			width: 100%;
+			float: left;
+		}
+		.btn-warning.active.focus, .btn-warning.active:focus, .btn-warning.active:hover, .btn-warning:active.focus, .btn-warning:active:focus, .btn-warning:active:hover, .open>.dropdown-toggle.btn-warning.focus, .open>.dropdown-toggle.btn-warning:focus, .open>.dropdown-toggle.btn-warning:hover {
+			color: #fff;
+    		background-color: #2c2c2c;
+    		border-color: #000000;
+		}
+		.btn-warning:hover{
+			color: #fff;
+    		background-color: #2c2c2c;
+    		border-color: #000000;
+		}
+		.btn-warning{
+/*			border-color:black;*/
+			border: 2px solid black;
+			margin-left: 10px;
+			padding: 11px 20px;
+		}
+		.buy-btn-warning{
+			background-color: white;
+			color: black;
+			width: 90%;
+		}
+		.buy-btn-warning1{
+			background-color: white;
+			color: black;
+			width: 45%;
+		}
+		.buy-btn-warning2{
+			background-color: black;
+			color: white;
+			width: 40%;
+		}
+	</style>
+</head>
+<body>
+    <!-- LOADER -->
+    <div id="loader-wrapper">
+        <div class="cssload-container">
+            <div class="cssload-whirlpool"><div class="isThePage"></div></div>
+        </div>
+    </div>
+    <!-- LOADER -->
+
+    <!-- HEADER -->
+    <header class="header-style header-style2 header-style3 header-style4">
+        <div class="hamburger-icon3">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header-content">
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <a class="logo" href="index.html">
+                        <img src="img/logo.png" alt="#" />
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-10">
+                    <nav class="normal-s">
+                        <ul>
+                            <li>
+                                <a href="index.html">首页 Home</a>
+                            </li>
+                            <li>
+                                <a href="advance.html">预售 Advance</a>
+                            </li>
+                            <li class="dropdown-plus">
+                            	<a href="shop.html">商品 Shop</a>
+                                <span></span>
+                                <ul>
+                                    <li><a href="shop.html?type=1">新品 - NEW ARRIVAL</a></li>
+                                    <li><a href="shop.html?type=2">现货 - SPOT GOODS</a></li>
+                                    <li><a href="shop.html?type=3">特价 - OFF SALE</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="FAQ.html">问答 FAQ</a>
+                            </li>
+                            <li class="isShow active">
+								<a class="mymember" href="javascript:void(0);">会员中心 Member</a>
+                            </li>
+                            <li class="mycart isShow is-mobile">
+								<a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;购物车&nbsp;&nbsp;(<span>0</span>)&nbsp;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="section">
+                    <p id="menuSlogan" style="font-size: 12px">" YOU DESERVE A BETTER LIFE "</p>
+                </div>
+                
+                <div class="category">
+                    <span class="small-1">营业时间 BUSINESS TIME</span>
+                    <ul>
+<!--                        <li class="active">营业时间 BUSINESS TIME</li>-->
+                        <li>OPEN：&nbsp;AM&nbsp;11:00</li>
+                        <li>CLOSE：&nbsp;PM&nbsp;21:00</li>
+                    </ul>
+                </div>
+                <div class="category">
+                    <span class="small-1">联系客服</span>
+                    <ul>
+<!--                        <li class="active">营业时间 BUSINESS TIME</li>-->
+                        <li class="wechatQRCode">微信商店及在线客服：</li>
+                        <li>常见问答请查看:<br /><a href="FAQ.html">《问答 FQA》</a></li>
+                        <li>客服工作时间为：<p>10：00-18：00</p></li>
+                    </ul>
+                </div>
+            </div>
+<!--            <div class="mob-icon"></div> -->
+        </div>                                                          
+    </header>
+    <!-- HEADER -->
+    
+	<div class="buy_div is-mobile">
+		<div class="col-2">
+			<button id="btn-doneBuy" onclick="window.location.href='404.html'" class="btn btn-warning buy-btn-warning1">已完成支付</button>
+			<button id="btn-resetBuy" onclick="window.location.href='404.html'" class="btn btn-warning buy-btn-warning2" >重新支付</button>
+			<button id="btn-setBuy" onclick="window.location.href='404.html'" class="btn btn-warning buy-btn-warning">立即支付</button>
+		</div>
+	</div>
+
+    <!-- content -->
+    <div id="content-wrapper">
+        
+        <div class="empty-space h45-xs h65-sm"></div>
+        <div class="container-fluid-style2">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+                    <article>
+                        <h2 id="setTitle" class="h2">收银台</h2>
+                        <div class="empty-space h10-xs"></div>
+                        <p class="normal-l grey-dark">支付成功后可在会员中心查看实时状态</p>
+                    </article>
+                </div>
+            </div>
+            <div class="empty-space h25-md h25-xs"></div>
+            <div class="contacts">
+                <div class="row">
+                    <div id="setBuyInfo" class="col-md-6">
+                        <div class="form-wrapper text-center">
+                            <div class="empty-space h25-xs h40-md"></div>
+                            <h1 class="h1  text-center" style="font-size: 56px;">¥ 3000.00</h1>
+                            <div class="empty-space h30-xs"></div>
+                            
+							<div class="selectItem" data-name="buy">
+								<ul>
+									<li><a class="active" data-name="wechat">微信转账</a></li>
+									<li><a data-name="alibuy">支付宝转账</a></li>
+								</ul>
+							</div>
+                           	<div align="left" style="margin: 20px 20px;">
+                           	<p>支付说明：</p>
+                           	<p>本站创新采用如同线下一般的购物体验：让您来输入金额。由专人对您的订单进行跟踪，支付后您可在会员中心查看实时状态。</p>
+                           </div>
+                        	<div class="empty-space h30-xs h40-md"></div>
+                        </div>
+                   
+                   
+                        <div class="form-wrapper text-center">
+                            <div class="empty-space h25-xs h40-md"></div>
+                            <h1 class="h1  text-center" style="font-size: 56px;">¥ 3000.00</h1>
+                            <div class="empty-space h30-xs"></div>
+							<div align="left" style="margin: 20px 20px;">
+								<p>手机号：13600000000</p>
+								<p>收货人：毛毛脑</p>
+								<p>收货地址：毛毛脑有新公司123好首层</p>
+							</div>
+                            <hr />
+							<div align="left" style="margin: 20px 20px; color: black;">
+								支付完成前倾不要关闭此窗口，并根据您的支付情况进行选择
+							</div>
+                        	<div class="empty-space h30-xs h40-md"></div>
+                        </div>
+                   
+						<div align="left" style="margin: 20px 20px;">
+						<p>安全提示：</p>
+						<p>WENLONGZHANG.com不会以任何理由要求您根据应行卡信息或支付额外费用，请谨防钓鱼链接或诈骗电话。</p>
+						</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BLOCK "MAP" -->
+<!--
+            <div class="map-wrapper">
+                <div id="map-canvas" data-lat="40.722690" data-lng="-73.981735" data-zoom="13">
+                </div>
+                <div class="addresses-block">
+                    <a class="marker" data-lat="40.727126" data-lng="-73.984896" data-string="Here is some address or email or phone or something else..."></a>
+                </div>
+            </div>
+-->
+
+        </div>
+
+        <div class="empty-space h10-xs h40-md fl"></div>
+        <!-- footer -->
+        <footer class="footer-style">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="copyright normal-s">
+                            Copyright &copy; 2020 WENLONGZHANG.com All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer -->
+                
+    </div>
+    <!-- content -->
+
+    <!-- SUBMIT -->
+    <div class="submit text-popup overlay">
+        <div class="animation-wrapper full-size"></div>
+        <div class="content-wrapper full-size">
+            <div class="cell-view page-height">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <div class="h2 white"><b class="text-popup-title">submit</b></div>
+                            <div class="empty-space h15-xs"></div>
+                            <div class="white text-popup-message">
+                                The following fields should be filled:- Name - Email - Your Message
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="button-close"></a>
+    </div>
+
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    
+
+    <!-- MAP -->
+    <!---<script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="js/map.js"></script>--->
+
+    <!-- CONTACT -->
+<!--    <script src="js/contact.form.js"></script>-->
+    
+<!--    <script src="js/global.diy.js"></script>-->
+    <script src="js/browser.diy.js"></script>
+    
+<!--    <script src="js/i.page.js"></script>-->
+    <script src="js/pay.diy.js"></script>
+    
+    <script src="js/security.diy.js"></script>
+</body>
+</html>
