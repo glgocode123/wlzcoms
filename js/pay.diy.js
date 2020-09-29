@@ -19,6 +19,8 @@ $(function () {
 			buyType = $("div.selectItem ul li a").eq(1).data('name');
 			//这个不能在前面，因为0被删除了，1就会在0位
 			$("div.selectItem ul li a").eq(0).remove();
+		}else{
+			buyType = $("div.selectItem ul li a").eq(0).data('name');
 		}
 		$("#btn-doneBuy").remove();
 		$("#btn-resetBuy").remove();
