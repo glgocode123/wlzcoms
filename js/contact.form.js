@@ -1,7 +1,11 @@
 $(function() {
 
 	"use strict";
-
+	
+	
+	//先不使用
+	
+	
 	$('.contact-form').on("submit", function(){
 		var $this = $(this);
 						   

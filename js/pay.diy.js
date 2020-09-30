@@ -38,37 +38,43 @@ $(function () {
 	}
 	//设置购买确认页面
 	function setDonePage(){
-		if(buyType === "wechat"){
-			$(location).attr("href", "WeChat.html");
-		}
 		$("#btn-setBuy").remove();
 		$("#setBuyInfo").children().eq(0).remove();
 		//已完成支付
 		$("#btn-doneBuy").on("click",function(){
 			$.removeCookie("wlzOrder");
+			$.removeCookie("wlzBuy");
 			$(location).attr("href", "i.html");
 		});
-		//重新支付
+		//遇到问题
 		$("#btn-resetBuy").on("click",function(){
-			$.removeCookie("wlzBuy");
+//			$.removeCookie("wlzBuy");
 			$(location).attr('href', 'contact.html');
 		});
 	}
 	
 	
-	var source = $.cookie("wlzBuy");
-	var buyType = "";
-	if (source === null || source === "" || source === undefined) {
-		setBuyPage();
-		$("div.selectItem ul li a").on("click",function(){
-			if(!$(this).is(".outStock")){
-				$(this).parents().siblings().children().removeClass("active");
-				$(this).addClass("active");
-				buyType = $(this).data('name');
-			}
-		});
+	var sourceOrder = $.cookie("wlzOrder");
+	if (sourceOrder === null || sourceOrder === "" || sourceOrder === undefined) {
+		$(location).attr("href", "404.html");
 	}else{
-		setDonePage();
+		var source = $.cookie("wlzBuy");
+		var buyType = "";
+
+		if (source === null || source === "" || source === undefined) {
+			setBuyPage();
+			$("div.selectItem ul li a").on("click",function(){
+				if(!$(this).is(".outStock")){
+					$(this).parents().siblings().children().removeClass("active");
+					$(this).addClass("active");
+					buyType = $(this).data('name');
+				}
+			});
+		}else if(isWeiXin()&&source==="wechat"){
+			$(location).attr("href", "WeChat.html");
+		}else{
+			setDonePage();
+		}
 	}
 		
 });
