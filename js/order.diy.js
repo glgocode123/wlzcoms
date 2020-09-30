@@ -182,18 +182,6 @@ $(function () {
 	
 	//==================页面初始化逻辑，主要是操作cookie数据===========================
 	
-	
-	//读取用户登录ID
-	function readCookieMob(){
-		var source = $.cookie("wlzName");
-		if (source === null || source === "" || source === undefined) {
-			return 0;
-		}
-		var arr = source.split("||");
-		return arr[0];
-	}
-	
-	
 	//展示结账页面账单信息
 	function setBillInfo(proID, proName, proCount, proPrice, proParms){
 		//每次调用增加
@@ -223,15 +211,26 @@ $(function () {
 		htmlValCount = 0,//产品总数
 		htmlValParms = 0;//总价格
 	
+	//cookie中的用户信息
+	var	MobID = 0,
+		userPoints = 0,
+		userGolden = 0;
+	var userCookie = $.cookie("wlzName");
+	if (userCookie !== null || userCookie !== "" || userCookie !== undefined) {
+		var userCookieArr = userCookie.split("||");
+		MobID = userCookieArr[0];
+		userPoints = userCookieArr[3];
+		userGolden = userCookieArr[4];
+	}
 	//获取页面参数
 	//prodida指的是单个产品购买
 	var prodida = decodeURI(UrlParamHash(url).prodida),
-		MobID = readCookieMob(),
 		//用户判断从产品页过来的直接购买
 		prodName = decodeURI(UrlParamHash(url).name),
 		prodCount = decodeURI(UrlParamHash(url).count),
 		prodPrice = decodeURI(UrlParamHash(url).price),
 		prodParms = decodeURI(UrlParamHash(url).parms);
+	
 	
 	//如果获取的手机号正确，初始化填入order-form
 	if (isMobID(MobID)){
@@ -244,11 +243,30 @@ $(function () {
 	
 	//生成订单id：订单时间
 	var myDate = new Date();
-	var orderID = myDate.getFullYear() + "-" + (myDate.getMonth()+1) + "-" + myDate.getDate();
-
-	var newJSONData = {},
-		newJSONHistory = {},
-		newJSONprodArr = {};
+	var orderDate = myDate.getFullYear() + "-" + (myDate.getMonth()+1) + "-" + myDate.getDate();
+	//用户信息，买东西一般会变更积分（增加积分）和金池含量（金池优惠抵扣）
+	var newJSONData = function (){
+			this.userID = 0;
+			this.Points = 0;
+			this.Golden = 0;
+			this.History = [];
+	};
+	//历史订单，
+	var	newJSONHistory = function (){
+			this.orderID = myDate.getTime();
+			this.date = orderDate;
+			this.AWB = "订单处理中...";
+			this.price = 0;
+			this.discount = 0;
+			this.Total = 0;
+			this.prodArr = [];
+	};
+	//订单中的产品信息
+	var	newJSONprodArr = function (){
+			this.proID = 0;
+			this.proName = "";
+			this.proParms = "";
+	};
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
 	if(prodName.length > 0 && prodCount.length > 0 && prodPrice.length > 0){
@@ -295,7 +313,7 @@ $(function () {
 		newJSONHistory = [
 			{
 				"orderID":myDate.getTime(),
-				"data":orderID,
+				"date":orderDate,
 				"AWB":"订单处理中...",
 				"price":htmlValParms,
 				"discount":10,
