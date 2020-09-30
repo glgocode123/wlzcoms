@@ -2,21 +2,43 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>404页未找到</title>
+<title>页面加载错误...</title>
 
 <style>
-html,body {
-	margin:0;
-	padding:0;
-}
-canvas {
-	display:block;
-}
+	html,body {
+		margin:0;
+		padding:0;
+	}
+	canvas {
+		display:block;
+	}
+	.juzhongneirong{
+		width: 400px;
+		height: 400px;
+		position: absolute;
+		top: 32%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+/*		text-align:center;*/
+	}
+	.juzhongneirong-son{
+		color: aliceblue;
+		font-size: 64px;
+	}
 </style>
 </head>
 <body>
 
-<div></div>
+<div class="juzhongneirong">
+	<img src="img/logo-404.png"/>
+	<div class="juzhongneirong-son" style="text-align: center;">
+		<span style="font-size: 160px;">404</span>
+		<br />
+		<div style="background-color: aliceblue; color: black; height: 104px;">
+			<a style="font-size: 48px;">返回首页</a>
+		</div>
+	</div>
+</div>
 
 <script>
 var canvas = document.createElement('canvas');
