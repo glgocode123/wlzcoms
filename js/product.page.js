@@ -194,6 +194,9 @@ $(function () {
 	if(isProdID(decodeURI(UrlParamHash(url).prodid))){
 		var truefalse = false;
 		var hrefVal = "";
+		//目前情况：不管是不是用户都现实页面内容
+		//设置页面，此时hrefVal在之后才能获取正确的值
+		setProdPageDetails(UrlParamHash(url).prodid);
 		//如果是用户
 		if(isUser()){
 			//页面属性为用户
@@ -222,7 +225,6 @@ $(function () {
 				$(location).attr("href", hrefVal);
 			}
 		});
-		setProdPageDetails(UrlParamHash(url).prodid);
 	}else{
 		//如果页面id不合适，返回原页
 		$(".mycart").remove();
