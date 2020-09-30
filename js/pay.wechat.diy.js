@@ -29,7 +29,7 @@ $(function () {
 		//重新支付
 		$("#btn-resetBuy").on("click",function(){
 			$.removeCookie("wlzBuy");
-			$(location).attr('href', 'pay.html');
+			$(location).attr('href', 'contact.html');
 		});
 	}
 		

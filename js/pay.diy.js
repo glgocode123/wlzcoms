@@ -28,16 +28,19 @@ $(function () {
 		
 		//立即支付
 		$("#btn-setBuy").on("click",function(){
+			$.cookie("wlzBuy" ,buyType , { expires: 1 });
 			if(buyType === "wechat"){
 				$(location).attr("href", "WeChat.html");
 			}else if(buyType === "alibuy"){
-				$.cookie("wlzBuy" ,buyType , { expires: 1 });
 				$(location).attr("href", "https://qr.alipay.com/fkx19379iotrdyu0y2kqy01");
 			}
 		});
 	}
 	//设置购买确认页面
 	function setDonePage(){
+		if(buyType === "wechat"){
+			$(location).attr("href", "WeChat.html");
+		}
 		$("#btn-setBuy").remove();
 		$("#setBuyInfo").children().eq(0).remove();
 		//已完成支付
@@ -48,7 +51,7 @@ $(function () {
 		//重新支付
 		$("#btn-resetBuy").on("click",function(){
 			$.removeCookie("wlzBuy");
-			$(location).attr('href', 'pay.html');
+			$(location).attr('href', 'contact.html');
 		});
 	}
 	
