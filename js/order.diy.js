@@ -199,11 +199,12 @@ $(function () {
 
 		htmlVal += htmlRowSpacing + "<div class='comment'>"+ proImg + "<div class='description'> " + proTitle + proPrice + "<div class='empty-space h10-xs'></div>" + proParmsCount + "<div class='empty-space h15-xs'></div></div></div>";
 		
-		newJSONprodArr.push({
-			"proID":proID,
-			"proName":proName,
-			"proParms":proParms
-		});
+		var myNewJSONprodArr = new newJSONprodArr();
+		myNewJSONprodArr.proID = proID;
+		myNewJSONprodArr.proName = proName;
+		myNewJSONprodArr.proParms = proParms;
+		
+		return myNewJSONprodArr;
 	}
 	
 	//全局变量

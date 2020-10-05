@@ -56,7 +56,7 @@ $(function () {
 	
 	var sourceOrder = $.cookie("wlzOrder");
 	if (sourceOrder === null || sourceOrder === "" || sourceOrder === undefined) {
-		$(location).attr("href", "404.html");
+//		$(location).attr("href", "404.html");
 	}else{
 		var source = $.cookie("wlzBuy");
 		var buyType = "";
