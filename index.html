@@ -1,384 +1,52 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<!--    <link href="css/swiper.min.css" rel="stylesheet" type="text/css" />-->
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="img/favicon.ico" rel="shortcut icon" />
-<!--    <link href="https://fonts.googleapis.com/css?family=Lato:700,900%7CDidact+Gothic" rel="stylesheet">-->
-    <title>WENLONGZHANG.com</title>
-    <style type="text/css">
-		.submit.overlay {
-			z-index: 16;
-		}
-	</style>
+<meta charset="utf-8">
+<title>页面加载错误...</title>
+
+<style>
+	html,body {
+		margin:0;
+		padding:0;
+		background-color: #02c4fc;
+	}
+	canvas {
+		display:block;
+	}
+	.juzhongneirong{
+		width: 658px;
+		height: 493px;
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		z-index: 10;
+		background-image: url("kfz.gif");
+/*		text-align:center;*/
+	}
+	.juzhongneirong-son{
+		position: absolute;
+		left: 33%;
+		color: aliceblue;
+		font-size: 32px;
+		top: 64%;
+	}
+</style>
 </head>
 <body>
-    <!-- LOADER -->
-    <div id="loader-wrapper">
-        <div class="cssload-container">
-            <div class="cssload-whirlpool"></div>
-        </div>
-    </div>
-    <!-- LOADER -->
 
-    <!-- HEADER -->
-    <header class="header-style header-style2 active">
-        <div class="header-content">
-            <div class="row">
-                <div class="col-xs-6 col-sm-2">
-                    <a class="logo" href="index.html">
-                        <img src="img/logo.png" alt="#" />
-                    </a>
-                </div>
-                <div class="col-xs-6 col-sm-10">
-                    <div class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <div class="hamburger-icon2">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <nav class="normal-s">
-                        <ul>
-                            <li class="active">
-                                <a href="#">首页 Home</a>
-                            </li>
-                            <li>
-                                <a href="advance.html">预售 Advance</a>
-                            </li>
-                            <li class="dropdown-plus">
-                            	<a href="shop.html">商品 Shop</a>
-                                <span></span>
-                                <ul>
-                                    <li><a href="shop.html?type=1">新品 - NEW ARRIVAL</a></li>
-                                    <li><a href="shop.html?type=2">现货 - SPOT GOODS</a></li>
-                                    <li><a href="shop.html?type=3">特价 - OFF SALE</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href	="FAQ.html">问答 FAQ</a>
-                            </li>
-                            <li class="isShow">
-								<a class="mymember" href="javascript:void(0);">会员中心 Member</a>
-                            </li>
-                            <li class="mycart isShow is-mobile">
-								<a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;<span>0</span></a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-<!--            <div class="mob-icon"></div> -->
-        </div>                                                          
-    </header>
-    <!-- HEADER -->
-    
-    <!-- OVERLAY-MENU -->
-    <div class="overlay-wrapper height-min">
-        <div class="overlay-animation"></div>
-        <div class="flex">
-            <div class="flex-in">
-                <div class="overlay-menu">
-                    <div class="container">
-                        <div class="row">
-                            <div class="btn-close"><span></span><span></span></div>
-                            <div class="col-lg-2 col-lg-offset-5">
-                                <ul>
-                                    <li>
-                                        <a href="#">首页 Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="advance.html">预售 Advance</a>
-                                    </li>
-                                    <li class="dropdown-plus">
-                                        <a href="shop.html">商品 Shop</a>
-                                        <span></span>
-										<ul>
-											<li><a href="shop.html?type=1">新品 - NEW ARRIVAL</a></li>
-											<li><a href="shop.html?type=2">现货 - SPOT GOODS</a></li>
-											<li><a href="shop.html?type=3">特价 - OFF SALE</a></li>
-										</ul>
-                                    </li>
-                                    <li>
-                                        <a href="FAQ.html">问答 FAQ</a>
-                                    </li>
-                            <li class="isShow">
-								<a class="mymember" href="javascript:void(0);">会员中心 Member</a>
-                            </li>
-                            <li class="mycart isShow is-mobile">
-								<a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;&nbsp;购物车&nbsp;&nbsp;(<span>0</span>)&nbsp;</a>
-                            </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end OVERLAY-MENU -->
-
-    <!-- content -->
-    <div id="content-wrapper">
-
+<div class="juzhongneirong">
+	<img src="kfz.gif"/>
+	<div class="juzhongneirong-son" style="text-align: center;">
+		<span style="z-index: 20;">Website building...</span>
 <!--
-        <div class="skrollr-item square-xs" data-0="top: 215px; left: 180px; -ms-transform: rotate(30deg); -webkit-transform: rotate(30deg); transform: rotate(30deg);" data-400="top: 250px; left: 250px; -ms-transform: rotate(60deg); -webkit-transform: rotate(60deg); transform: rotate(60deg);"></div>
-        <div class="skrollr-item triangle-md" data-0="top: 315px; left: 870px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-400="top: 230px; left: 770px; -ms-transform: rotate(-90deg); -webkit-transform: rotate(-90deg); transform: rotate(-90deg);"></div>
-        <div class="skrollr-item triangle-md" data-0="top: 210px; right: 150px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-400="top: 300px; right: 200px; -ms-transform: rotate(60deg); -webkit-transform: rotate(60deg); transform: rotate(60deg);"></div>
-        <div class="skrollr-item square-md" data-0="top: 460px; right: 355px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-400="top: 520px; right: 280px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);-ms-transform: rotate(30deg); -webkit-transform: rotate(30deg); transform: rotate(30deg);"></div>
-        <div class="skrollr-item circle-sm" data-0="top: 675px; left: 400px;" data-600="top: 500px; left: 600px;"></div>
-        <div class="skrollr-item circle-lg" data-0="top: 690px; right: 635px;" data-700="top: 780px; right: 670px;"></div>
-        <div class="skrollr-item square-xs" data-0="top: 750px; right: 190px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-700="top: 900; right: 250px; -ms-transform: rotate(-30deg); -webkit-transform: rotate(-30deg); transform: rotate(-30deg);"></div>
-        <div class="skrollr-item triangle-sm" data-0="top: 1035px; left: 240px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-1200="top: 900px; left: 140px; -ms-transform: rotate(-90deg); -webkit-transform: rotate(-90deg); transform: rotate(-90deg);"></div>
-        <div class="skrollr-item triangle-lg" data-0="top: 990px; left: 950px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-1200="top: 1300px; left: 900px; -ms-transform: rotate(120deg); -webkit-transform: rotate(120deg); transform: rotate(120deg);"></div>
-        <div class="skrollr-item circle-md" data-0="top: 1370px; left: 625px;" data-1200="top: 1200px; left: 725px;"></div>
-        <div class="skrollr-item square-lg" data-0="top: 1360px; right: 325px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-1200="top: 1160px; right: 225px; -ms-transform: rotate(-120deg); -webkit-transform: rotate(-120deg); transform: rotate(-120deg);"></div>
-        <div class="skrollr-item triangle-sm" data-0="top: 1540px; left: 850px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-1400="top: 1780px; left: 1050px; -ms-transform: rotate(-190deg); -webkit-transform: rotate(-190deg); transform: rotate(-190deg);"></div>
-        <div class="skrollr-item circle-sm" data-0="top: 1665px; left: 290px;" data-1500="top: 1465px; left: 250px;"></div>
-        <div class="skrollr-item square-xs" data-0="top: 1840px; left: 410px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-1500="top: 1570px; left: 610px; -ms-transform: rotate(140deg); -webkit-transform: rotate(140deg); transform: rotate(140deg);"></div>
-        <div class="skrollr-item square-sm" data-0="top: 2040px; left: 630px; -ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); transform: rotate(0deg);" data-1200="top: 1970px; left: 430px; -ms-transform: rotate(-180deg); -webkit-transform: rotate(-180deg); transform: rotate(-180deg);"></div>
-        <div class="skrollr-item circle-lg" data-0="top: 1640px; right: 165px;" data-1200="top: 1540px; right: 265px;"></div>
-        <div class="skrollr-item triangle-md" data-0="top: 1990px; right: 520px; -ms-transform: rotate(30deg); -webkit-transform: rotate(30deg); transform: rotate(30deg);" data-1300="top: 2060px; right: 260px; -ms-transform: rotate(180deg); -webkit-transform: rotate(180deg); transform: rotate(180deg);"></div>
+		<br />
+		<div style="background-color: aliceblue; color: black;">
+			<a href="index.html" style="color:black;text-decoration:none;">返回首页</a>
+		</div>
 -->
-
-        <div class="empty-space h150-sm h75-xs"></div>
-        <div class="container-fluid-style1">
-            <div class="align-wrapper">
-                <div class="img-block-wrapper">
-                    <div class="empty-space h55-xs h110-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-2.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                               <a class="biggest-1 mouseover-1">头骨脑袋T恤</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-s">新品发售 NEW ARRIVAL</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-block-wrapper">
-                    <div class="empty-space h55-xs h110-sm h220-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-1.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                               <a class="biggest-1 mouseover-1">7月24日启</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-2">订金预售 ADVANCE</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-block-wrapper text-bottom">
-                    <div class="empty-space h55-xs h110-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-3.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                               <a class="biggest-1 mouseover-1">季度清货，进尾货？</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-2">限时特价 OFF SALE</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-block-wrapper">
-                    <div class="empty-space h55-xs h110-sm h220-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-4.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                              <!--先用于作入口习惯，之后可以用于作为比较涉及版权问题的“定制”，再往后用于自主往期-->
-                               <a class="biggest-1 mouseover-1">旧的包</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-2">往期热销 REPUBLICATION</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-block-wrapper">
-                    <div class="empty-space h55-xs h110-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-5.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                              <!--此分类有主打的时候次主打-->
-                               <a class="biggest-1 mouseover-1">当季：</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-2">衣服裤子 CLOTHING</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-block-wrapper">
-                    <div class="empty-space h55-xs h110-sm h220-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-6.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                               <a class="biggest-1 mouseover-1">鬼头耳钉</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-2">配饰 ACCESSORY</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-block-wrapper">
-                    <div class="empty-space h55-xs h110-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-7.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                               <a class="biggest-1 mouseover-1">包包</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-2">饰品 DECORATION</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-block-wrapper text-bottom">
-                    <div class="empty-space h55-xs h110-sm h220-lg"></div>
-                    <div class="img-block">
-                        <a href="#"><img src="img/img-8.jpg" alt=""></a>
-                        <div class="description-wrapper">
-                            <div class="description">
-                               <a class="biggest-1 mouseover-1">骷髅内岛</a>
-                               <div class="empty-space h5-xs"></div>
-                               <p class="small-2">生活 LIFESTYLE</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="empty-space h55-xs h95-sm"></div>
-
-        <!-- footer -->
-        <footer class="footer-style footer-style2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-4 col-xs-12 text-left">
-                        <a class="logo" href="index.html">
-                            <img src="img/logo.png" alt="#" />
-                        </a>
-                        <div class="empty-space h15-xs h0-md"></div>
-                    </div>
-                    <div class="col-md-5 col-sm-8 col-xs-12">
-                        <nav class="small-2">
-                            <ul>
-                                <li class="footer-nav active">
-                                    <a href="#">HOME</a>
-                                </li>
-                                <li class="footer-nav">
-                                    <a href="advance.html">ADVANCE</a>
-                                </li>
-                                <li class="footer-nav">
-                                    <a href="shop.html">SHOP</a>
-                                </li>
-                                <li class="footer-nav">
-                                    <a href="FAQ.html">FAQ</a>
-                                </li>
-                                <li class="footer-nav isShow ">
-                                    <a href="login.html">MEMBER</a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div class="empty-space h20-xs h0-md"></div>
-                    </div>
-					<!--定期订购-->
-                    <div class="col-md-4 col-sm-12 text-right">
-                        <div class="follow">
-                            <a class="social" href="" target="_blank">
-                                <i class="fa fa-wechat" aria-hidden="true"></i>
-                            </a>
-                            <a class="social" href="" target="_blank">
-                                <i class="fa fa-qq" aria-hidden="true"></i>
-                            </a>
-                            <a class="social" href="" target="_blank">
-                                <i class="fa fa-weibo" aria-hidden="true"></i>
-                            </a>
-                            <a id="AddFavorite" class="social" href="javascript:void(0);" target="_self">
-                                <i class="fa fa-bookmark" aria-hidden="true"></i>
-                            </a>
-						</div>
-<!--
-                        </div><form class="subscribe-form">
-                            <div class="input-wrapper">
-                                <div class="input-style">
-                                    <input id="input" name="email" type="text">
-                                    <label for="input">E-mail</label>
-                                </div>
-                                <button class="btn-style1" type="submit"><span>SUBSCRIBE</span></button>
-                            </div>
-                        </form>
--->
-                    </div>
-                </div>
-                <div class="empty-space h40-xs fl"></div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        
-                    </div>
-                </div>
-                <div class="empty-space h35-xs fl"></div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="copyright normal-s">
-                            Copyright &copy; 2020 WENLONGZHANG.com All rights reserved.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- footer -->
-    </div>
-    <!-- content -->
-
-    <!-- SUBSCRIBE定期预定 -->    
-    <!-- 依赖global.diy.js可做打烊 -->
-    <div class="submit text-popup overlay">
-        <div class="animation-wrapper full-size"></div>
-        <div class="content-wrapper full-size">
-            <div class="cell-view page-height">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 text-center">
-                            <div class="h2 white"><b class="text-popup-title">submit</b></div>
-                            <div class="empty-space h15-xs"></div>
-                            <div class="white text-popup-message">
-                                The following fields should be filled:- Name - Email - Your Message
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="button-close"></a>
-    </div>
-    
-
-    <script src="js/jquery-2.2.4.min.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-<!--    <script src="js/swiper.jquery.min.js"></script>-->
-<!--    <script src="js/skrollr.min.js"></script>-->
-    <script src="js/global.js"></script>
-
-    <!-- SUBSCRIBE -->
-<!--    <script src="js/subscribe.form.js"></script>-->
-    
-    <script src="js/global.diy.js"></script>
-    <script src="js/browser.diy.js"></script>
-    
-    <script src="js/security.diy.js"></script>
+	</div>
+</div>
 
 </body>
 </html>
