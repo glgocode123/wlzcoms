@@ -250,12 +250,12 @@ $(function () {
 	//设置历史记录块的：标题，快递号，原价，优惠，终价
 	function setHistoryShow(title, AWB, price, discount, total) {
 		var titleString = title.toString();
-		var sData = titleString.slice(0,4)+"-"+titleString.slice(4,6)+"-"+titleString.slice(6);//"2020-07-20"
+		var sData = titleString.slice(0,4) + "-" + titleString.slice(4,6) + "-" + titleString.slice(6);//"2020-07-20"
 		var sTracking = "商品将1～2日内发货，并在此查看快递单号";
 		if (AWB !== "" || AWB !== undefined || AWB !== null){
-			sTracking = "订单号："+AWB;
+			sTracking = "订单号：" + AWB;
 		}
-		var htmlVarProdMoney = '<div class="comment"><div class="text-center"><hr><span>价格：¥'+price+', 优惠：'+discount+', 实付款：'+total+'</span></div></div>';
+		var htmlVarProdMoney = '<div class="comment"><div class="text-center"><hr><span>价格：¥' + price + ', 优惠：' + discount + ', 实付款：' + total + '</span></div></div>';
 		
 		var htmlVal = '<div class="form-wrapper"><div class="empty-space h25-xs h40-md"></div><h7 class="h7">' + sData + '</h7><hr><span class="big">' + sTracking + '</span><div class="empty-space h30-xs"></div><div class="comments-wrapper">' + htmlVarProdMoney + '<div class="empty-space h50-xs"></div></div></div>';
 		
@@ -285,6 +285,8 @@ $(function () {
 	
 	
 	/*=======================================================================================*/
+	
+	
 	
 	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
 	

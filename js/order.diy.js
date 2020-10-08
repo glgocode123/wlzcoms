@@ -199,18 +199,13 @@ $(function () {
 
 		htmlVal += htmlRowSpacing + "<div class='comment'>"+ proImg + "<div class='description'> " + proTitle + proPrice + "<div class='empty-space h10-xs'></div>" + proParmsCount + "<div class='empty-space h15-xs'></div></div></div>";
 		
-		var myNewJSONprodArr = new newJSONprodArr();
-		myNewJSONprodArr.proID = proID;
-		myNewJSONprodArr.proName = proName;
-		myNewJSONprodArr.proParms = proParms;
-		
-		return myNewJSONprodArr;
 	}
 	
 	//全局变量
 	var htmlVal = "",
 		htmlValCount = 0,//产品总数
-		htmlValParms = 0;//总价格
+		htmlValParms = 0,//总价格
+		htmlValPreferential = 0;//折扣
 	
 	//cookie中的用户信息
 	var	MobID = 0,
@@ -241,39 +236,38 @@ $(function () {
 		$(location).attr('href', 'login.html?user=false');
 	}
 	
+	//用户信息，买东西一般会变更积分（增加积分）和金池含量（金池优惠抵扣）
+	//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|	
+	//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|
+	
+//e//	数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
+//r//	[0]data||AWB||price||discount||Total
+//r//	[1]proID||proName||proParms|&|proID||proName||proParms|&|proID||proName||proParms
+//o//	[2]data||AWB||price||discount||Total
+//r//	[3]proID||proName||proParms|&|proID||proName||proParms
+//!//	Total为0的情况是一定不会出现的，因为如果没有产品何来总价
+	
+	
 	
 	//生成订单id：订单时间
 	var myDate = new Date();
 	var orderDate = myDate.getFullYear() + "-" + (myDate.getMonth()+1) + "-" + myDate.getDate();
-	//用户信息，买东西一般会变更积分（增加积分）和金池含量（金池优惠抵扣）
-	var newJSONData = function (){
-			this.userID = 0;
-			this.Points = 0;
-			this.Golden = 0;
-			this.History = [];
-	};
-	//历史订单，
-	var	newJSONHistory = function (){
-			this.orderID = myDate.getTime();
-			this.date = orderDate;
-			this.AWB = "订单处理中...";
-			this.price = 0;
-			this.discount = 0;
-			this.Total = 0;
-			this.prodArr = [];
-	};
-	//订单中的产品信息
-	var	newJSONprodArr = function (){
-			this.proID = 0;
-			this.proName = "";
-			this.proParms = "";
-	};
+	//写入cookie的数据
+	var orderCookieValue = "";
+	var orderAWB = "订单处理中...";
+	//折扣
+	var discount = 0;
+	
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
 	if(prodName.length > 0 && prodCount.length > 0 && prodPrice.length > 0){
 		var proID = prodida.substring(0, prodida.length - 1);
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
+		//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
+		orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + prodPrice + "||" + discount + "||" + (prodPrice-discount) + "|$|" + proID + "||" + prodName + "||" + prodParms;
+		
+		
 	}else{//有可能是从购物车进来的
 		//调用，创建实例
 		var wlzC = new CartHelper("wlzCart");
@@ -289,15 +283,26 @@ $(function () {
 				for(var i = 0; i < abc.length; i++){
 					//如果有同样的prodida，就是从购物车进来的
 					if( prodida === abc[i].Id ){
+						//设置订单信息
 						setBillInfo(abc[i].Id.substring(0, abc[i].Id.length - 1), abc[i].Name, abc[i].Count, abc[i].Price, abc[i].Parms);
+						//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
+						orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + abc[i].Price + "||" + discount + "||" + (abc[i].Price-discount) + "|$|" + abc[i].Id.substring(0, abc[i].Id.length - 1) + "||" + abc[i].Name + "||" + abc[i].Parms;
 						continue;
 					}
 				}
 			}else{
 				//如果页面没有prodida值传递进来（结账全部产品）
+				var oCV = "";
+				var oCVPrice = 0;
 				for(var j = 0; j < abc.length; j++){
+					//设置订单信息
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
+					oCVPrice += abc[j].Price;
+					//proID||proName||proParms|$|proID||proName||proParms
+					oCV = abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
 				}
+				//|$|orderID||date||AWB||price||discount||Total|$|  "+"  oCV
+				orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + oCVPrice + "||" + discount + "||" + (oCVPrice-discount) + "|$|" + oCV;
 			}
 		}else{
 //			alert("啥都木有！");
@@ -306,32 +311,18 @@ $(function () {
 		}
 	}
 	
-	//写入页面
+	//写入页面的html内容
 	htmlVal += "";
-	if ( htmlVal === "" ){
+	//htmlVal:写入页面的内容 || orderCookieValue：写入cookie的内容
+	if ( htmlVal === "" || orderCookieValue === ""){
 		$(location).attr('href', '404.html');
 	}else{
-		newJSONHistory = [
-			{
-				"orderID":myDate.getTime(),
-				"date":orderDate,
-				"AWB":"订单处理中...",
-				"price":htmlValParms,
-				"discount":10,
-				"Total":219.00,
-				"prodArr":newJSONprodArr
-			}
-		];
-		newJSONData = [{
-			"userID":13602400000,
-			"Points":99999,
-			"Golden":100,
-			"History":newJSONHistory
-
-		}];
 //			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
 		$("span#setProdPrice").text("¥" + htmlValParms + ".00");
-		$("span#setPreferential").text("已使用红包（VIP金券），节省了xxx.xx元");
+		if(htmlValPreferential > 0){
+			$("span#setProdPrice").parent().after('<div><span style="color: black;">已使用红包（VIP金券），节省了' + htmlValPreferential + '元</span></div>');
+		}
+//		$("span#setPreferential").text("已使用红包（VIP金券），节省了xxx.xx元");
 		//写页面
 		$("div#setProdList").html(htmlVal);
 	}
@@ -356,6 +347,11 @@ $(function () {
         if (error){
         	updateTextPopup('ERROR', msg);
         }else{
+			var orderUser = $.trim($('.order-form input[name="name"]').val());
+			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
+			var newJSONData = MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue;
+			//写入cookie，在立即支付页面再写入数据库
+			$.cookie("wlzOrder" , newJSONData , { expires: 1 });
 			
 			//发送交易请求到w数据库
 			$.ajax({

@@ -21,6 +21,8 @@ $(function () {
 			$("div.selectItem ul li a").eq(0).remove();
 		}else{
 			buyType = $("div.selectItem ul li a").eq(0).data('name');
+			//微信的时候去掉淘宝支付选项
+//			$("div.selectItem ul li a").eq(1).remove();
 		}
 		$("#btn-doneBuy").remove();
 		$("#btn-resetBuy").remove();
@@ -48,16 +50,22 @@ $(function () {
 		});
 		//遇到问题
 		$("#btn-resetBuy").on("click",function(){
-//			$.removeCookie("wlzBuy");
+			$.removeCookie("wlzBuy");
 			$(location).attr('href', 'contact.html');
 		});
 	}
 	
 	
-//	var sourceOrder = $.cookie("wlzOrder");
-//	if (sourceOrder === null || sourceOrder === "" || sourceOrder === undefined) {
-//		$(location).attr("href", "404.html");
-//	}else{
+	var sourceOrder = $.cookie("wlzOrder");
+	if (sourceOrder === null || sourceOrder === "" || sourceOrder === undefined) {
+		$(location).attr("href", "404.html");
+	}else{
+		//提取订单cookie并提交？
+		//这里应该是：一按支付按钮，就将订单信息提交到服务数据库，但是订单信息的cookie形态可以直接用，需不需要格式化出来？
+		//提交信息除了订单详情之外，需不需要订单号和金额？页面中需要金额，只是现实，传参就好
+		
+		
+		
 		var source = $.cookie("wlzBuy");
 		var buyType = "";
 
@@ -75,6 +83,6 @@ $(function () {
 		}else{
 			setDonePage();
 		}
-//	}
+	}
 		
 });
