@@ -261,13 +261,14 @@ $(function () {
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
 	if(prodName.length > 0 && prodCount.length > 0 && prodPrice.length > 0){
-					alert("00");
+					alert(prodName.length);
+					alert(prodCount.length);
+					alert(prodPrice.length);
 		var proID = prodida.substring(0, prodida.length - 1);
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
 		//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
 		orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + prodPrice + "||" + discount + "||" + (prodPrice-discount) + "|$|" + proID + "||" + prodName + "||" + prodParms;
-		
 		
 	}else{//有可能是从购物车进来的
 		//调用，创建实例
