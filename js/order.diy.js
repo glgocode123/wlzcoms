@@ -261,6 +261,7 @@ $(function () {
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
 	if(prodName.length > 0 && prodCount.length > 0 && prodPrice.length > 0){
+					alert("00");
 		var proID = prodida.substring(0, prodida.length - 1);
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
@@ -279,6 +280,7 @@ $(function () {
 			var abc = pro_cart.Items;
 			//如果存在值并且>2020000000，结算单个产品(不可能有小于2020000000的值，新网站只有2020后的时间段)
 			if( prodida.substring(0, prodida.length - 1) > 2020000000 ){
+					alert(0);
 				//循环判断cookie有没有同样的数据
 				for(var i = 0; i < abc.length; i++){
 					alert(1);
@@ -297,6 +299,7 @@ $(function () {
 				var oCV = "";
 				var oCVPrice = 0;
 				for(var j = 0; j < abc.length; j++){
+					alert(3);
 					//设置订单信息
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
 					oCVPrice += abc[j].Price;
