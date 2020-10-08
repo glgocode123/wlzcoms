@@ -268,9 +268,6 @@ $(function () {
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
 	if(isNullOrUndefined(prodName) && isNullOrUndefined(prodCount) && isNullOrUndefined(prodPrice)){
-		alert(prodName);
-		alert(prodCount);
-		alert(prodPrice);
 		var proID = prodida.substring(0, prodida.length - 1);
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
@@ -282,17 +279,14 @@ $(function () {
 		var wlzC = new CartHelper();
 		//读取cookie
 		var pro_cart = wlzC.Read();
-		alert(pro_cart.Count);
 		//购物车cooike有东西
 		if(pro_cart.Count > 0){
 			//产品数组
 			var abc = pro_cart.Items;
 			//如果存在值并且>2020000000，结算单个产品(不可能有小于2020000000的值，新网站只有2020后的时间段)
 			if( prodida.substring(0, prodida.length - 1) > 2020000000 ){
-					alert(0);
 				//循环判断cookie有没有同样的数据
 				for(var i = 0; i < abc.length; i++){
-					alert(1);
 					//如果有同样的prodida，就是从购物车进来的
 					if( prodida === abc[i].Id ){
 						//设置订单信息
@@ -303,12 +297,10 @@ $(function () {
 					}
 				}
 			}else{
-					alert(2);
 				//如果页面没有prodida值传递进来（结账全部产品）
 				var oCV = "";
 				var oCVPrice = 0;
 				for(var j = 0; j < abc.length; j++){
-					alert(3);
 					//设置订单信息
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
 					oCVPrice += abc[j].Price;
