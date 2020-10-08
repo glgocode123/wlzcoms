@@ -342,7 +342,8 @@ $(function () {
 //			successMessage = "商品将1～2日内发货，彼时可在会员中心查看快递单号.",
 			error = 0;
 		//如果输入的不是正确的手机号
-        if ($.trim($('.order-form input[name="mob"]').val())) 
+//        if ($.trim($('.order-form input[name="mob"]').val())) 
+        if (isMobID($.trim($('.order-form input[name="mob"]').val()))) 
 		{error = 1; $this.find('input[name="mob"]').parent().addClass('invalid'); msg = msg +  '\n - 手机号';}
 		//如果原先有手机号但是输入没有内容
 		if ($.trim($('.order-form input[name="name"]').val()) === '') 
