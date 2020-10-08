@@ -275,6 +275,7 @@ $(function () {
 		var wlzC = new CartHelper();
 		//读取cookie
 		var pro_cart = wlzC.Read();
+		alert(pro_cart.Count);
 		//购物车cooike有东西
 		if(pro_cart.Count > 0){
 			//产品数组
