@@ -281,6 +281,7 @@ $(function () {
 			if( prodida.substring(0, prodida.length - 1) > 2020000000 ){
 				//循环判断cookie有没有同样的数据
 				for(var i = 0; i < abc.length; i++){
+					alert(1);
 					//如果有同样的prodida，就是从购物车进来的
 					if( prodida === abc[i].Id ){
 						//设置订单信息
@@ -291,6 +292,7 @@ $(function () {
 					}
 				}
 			}else{
+					alert(2);
 				//如果页面没有prodida值传递进来（结账全部产品）
 				var oCV = "";
 				var oCVPrice = 0;
