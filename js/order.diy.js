@@ -53,8 +53,8 @@ $(function () {
 	};
 
 	//购物车操作
-	var CartHelper = function (cookieName) {
-		this.cookieName = cookieName;
+	var CartHelper = function () {
+		this.cookieName = "wlzCart";
 		
 		//清空购物车cookie
 		this.Clear = function () {
@@ -270,7 +270,7 @@ $(function () {
 		
 	}else{//有可能是从购物车进来的
 		//调用，创建实例
-		var wlzC = new CartHelper("wlzCart");
+		var wlzC = new CartHelper();
 		//读取cookie
 		var pro_cart = wlzC.Read();
 		//购物车cooike有东西
