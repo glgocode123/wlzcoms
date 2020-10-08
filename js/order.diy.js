@@ -258,12 +258,12 @@ $(function () {
 	//折扣
 	var discount = 0;
 	
+	function isNullOrUndefined(obj){
+		if(obj===null||obj===undefined||obj===""){return false;}return true;
+	}
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
-	if(prodName.length > 0 && prodCount.length > 0 && prodPrice.length > 0){
-					alert(prodName.length);
-					alert(prodCount.length);
-					alert(prodPrice.length);
+	if(isNullOrUndefined(prodName) && isNullOrUndefined(prodCount) && isNullOrUndefined(prodPrice)){
 		var proID = prodida.substring(0, prodida.length - 1);
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
