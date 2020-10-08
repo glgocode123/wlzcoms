@@ -259,7 +259,11 @@ $(function () {
 	var discount = 0;
 	
 	function isNullOrUndefined(obj){
-		if(obj===null||obj===undefined||obj===""){return false;}return true;
+		if(obj===null||obj===undefined||obj===""){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms

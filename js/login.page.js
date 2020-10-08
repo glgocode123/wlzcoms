@@ -25,7 +25,11 @@ $(function () {
 	/* 功能 - 判断参数是否有内容 */
 	/*================*/
 	function isNullOrUndefined(obj){
-		if(obj===null||obj===undefined||obj===""){return false;}return true;
+		if(obj===null||obj===undefined||obj===""){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 	//userMobID需要改为调用cookie中的登录状态，成功就返回手机号
