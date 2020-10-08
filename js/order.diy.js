@@ -264,6 +264,9 @@ $(function () {
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
 	if(isNullOrUndefined(prodName) && isNullOrUndefined(prodCount) && isNullOrUndefined(prodPrice)){
+		alert(prodName);
+		alert(prodCount);
+		alert(prodPrice);
 		var proID = prodida.substring(0, prodida.length - 1);
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
