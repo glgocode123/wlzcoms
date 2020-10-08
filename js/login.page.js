@@ -25,7 +25,7 @@ $(function () {
 	/* 功能 - 判断参数是否有内容 */
 	/*================*/
 	function isNullOrUndefined(obj){
-		if(obj===null||obj===undefined||obj===""){
+		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
 			return false;
 		}else{
 			return true;
