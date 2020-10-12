@@ -205,6 +205,12 @@ $(function () {
 	$('.messageMemberBenefits').on("click", function(){
         updateTextPopup('会员权益', '1、获得会员积分服务；2、享受对应等级会员礼包；3、获得金池使用权限；4、获得会员折扣资格。');
 	});
+	$('.userServicesAgreement').on("click", function(){
+        updateTextPopup('用户服务协议', '');
+	});
+	$('.privacyClause').on("click", function(){
+        updateTextPopup('私密条款', '');
+	});
 	
 	$(document).on('keyup', '.input-wrapper .input', function(){
 		$(this).parent().removeClass('invalid');
