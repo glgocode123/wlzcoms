@@ -343,6 +343,7 @@ $(function () {
 			error = 0;
 		//如果输入的不是正确的手机号
 //        if ($.trim($('.order-form input[name="mob"]').val()) === '') 
+		alert($.trim($('.order-form input[name="mob"]').val()));
         if (isMobID($.trim($('.order-form input[name="mob"]').val()))) 
 		{error = 1; $this.find('input[name="mob"]').parent().addClass('invalid'); msg = msg +  '\n - 手机号';}
 		//如果原先有手机号但是输入没有内容
