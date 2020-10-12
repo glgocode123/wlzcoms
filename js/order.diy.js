@@ -377,9 +377,9 @@ $(function () {
 					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
 				}
 			});
-			
-			//如果数据正确
-			$(location).attr('href', 'i.html');
+//			
+//			//如果数据正确
+//			$(location).attr('href', 'i.html');
 			
         }
 	});
