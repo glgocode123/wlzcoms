@@ -56,7 +56,7 @@ $(function () {
 
 		//向购物车添加
 		this.Add = function (id, name, count, price, parms) {
-			alert("_id:"+id+"名:"+name+"数量:"+count+"价格:"+price+"参数(备注)："+parms);
+//			alert("_id:"+id+"名:"+name+"数量:"+count+"价格:"+price+"参数(备注)："+parms);
 			
 			//加入功能——如果参数不同，生成不同ID
 			//加入功能——END
@@ -144,10 +144,10 @@ $(function () {
 		//读取COOKIE中的集合
 		this.Read = function () {
 			var source = $.cookie(this.cookieName);
-			alert(source);
+//			alert(source);
 			var cart = new Cart();
 			if (source === null || source === "" || source === undefined || source === "null") {
-				alert(cart.Count+"||"+cart.Items+"||"+cart.Total);
+//				alert(cart.Count+"||"+cart.Items+"||"+cart.Total);
 				return cart;
 			}
 			var arr = source.split("|$|");
