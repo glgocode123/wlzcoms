@@ -29,7 +29,6 @@ $(function () {
 		$.ajax({
 			url: 'http://d3j1728523.wicp.vip/',
 			type: 'GET',
-			dataType: "json",
 			complete: function (response) {
 				alert(response);
 				if (response.status === 200 || response.status === "200" ) {
