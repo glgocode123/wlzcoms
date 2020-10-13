@@ -31,7 +31,7 @@ $(function () {
 			type: 'GET',
 			dataType: "json",
 			complete: function (response) {
-				if (response.status === 200) {
+				if (response.status === 200 || response.status === "200" ) {
 					return true;
 				} else {
 					return false;
@@ -139,6 +139,7 @@ $(function () {
 	/*================*/
 	/* 页面配置 - 初始化判断是否打烊 */
 	/*================*/
+	alert(NetPing());
 	if (NetPing()) {
 	
 		if(CookieEnable()){
