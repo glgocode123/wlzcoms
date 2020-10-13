@@ -138,7 +138,6 @@ $(function () {
 	/*================*/
 	/* 页面配置 - 初始化判断是否打烊 */
 	/*================*/
-	alert(NetPing());
 	if (NetPing()) {
 	
 		if(CookieEnable()){
