@@ -27,8 +27,9 @@ $(function () {
 	function NetPing() {
 		//连接写服务器
 		$.ajax({
-			url: 'http://d3j1728523.wicp.vip/',
+			url: 'https://d3j1728523.wicp.vip/',
 			type: 'GET',
+			dataType: "json",
 			complete: function (response) {
 				if (response.status === 200) {
 					return true;
