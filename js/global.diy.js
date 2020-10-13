@@ -27,6 +27,7 @@ $(function () {
 	function NetPing() {
 		//连接写服务器
 		$.ajax({
+			async: false,
 			url: 'http://d3j1728523.wicp.vip/',
 			type: 'GET',
 			complete: function (response) {
@@ -138,8 +139,9 @@ $(function () {
 	/*================*/
 	/* 页面配置 - 初始化判断是否打烊 */
 	/*================*/
+		alert(NetPing());
 	if (NetPing()) {
-	
+		alert(1);
 		if(CookieEnable()){
 	
 			//如果获取的手机号正确（这个是cookie中的一个数值，还有产品个数，用户基本信息等）
