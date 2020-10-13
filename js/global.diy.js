@@ -30,8 +30,7 @@ $(function () {
 			url: 'http://d3j1728523.wicp.vip/',
 			type: 'GET',
 			complete: function (response) {
-				alert(response.status);
-				if (response.status === 200 ) {
+				if (response.status === 200 || response.status === "200") {
 					return true;
 				} else {
 					return false;
