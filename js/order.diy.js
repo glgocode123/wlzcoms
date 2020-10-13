@@ -374,10 +374,10 @@ $(function () {
 					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					alert(XMLHttpRequest.status);
-					alert(XMLHttpRequest.readyState);
-					alert(textStatus);
-					alert(errorThrown);
+					console.log(XMLHttpRequest.status);
+					console.log(XMLHttpRequest.readyState);
+					console.log(textStatus);
+					console.log(errorThrown);
 				}
 //				error: function (message) {
 //					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
