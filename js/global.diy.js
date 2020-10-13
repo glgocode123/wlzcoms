@@ -25,21 +25,21 @@ $(function () {
 	/* 功能 - 测试网络通不通 */
 	/*================*/
 	function NetPing() {
+		var ajax_return = false;
 		//连接写服务器
 		$.ajax({
 			async: false,
 			url: 'http://d3j1728523.wicp.vip/',
 			type: 'GET',
 			complete: function (response) {
-				alert(response.status);
 				if (response.status === 200 || response.status === "200"){
-					alert(123123123);
-					return true;
+					ajax_return = true;
 				}else{
-					return false;
+					ajax_return = false;
 				}
 			}
 		});
+		return ajax_return;
 	}
 	
 
