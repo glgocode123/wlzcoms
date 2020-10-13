@@ -356,7 +356,7 @@ $(function () {
         }else{
 			var orderUser = $.trim($('.order-form input[name="name"]').val());
 			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
-			var newJSONData = MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue;
+			var newJSONData = "{" + MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue + "}";
 			//写入cookie，在立即支付页面再写入数据库
 			$.cookie("wlzOrder" , newJSONData , { expires: 1 });
 			
@@ -373,9 +373,15 @@ $(function () {
 						$(location).attr('href', 'pay.html');
 					}
 				},
-				error: function (message) {
-					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(XMLHttpRequest.status);
+					alert(XMLHttpRequest.readyState);
+					alert(textStatus);
+					alert(errorThrown);
 				}
+//				error: function (message) {
+//					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
+//				}
 			});
 //			
 //			//如果数据正确
