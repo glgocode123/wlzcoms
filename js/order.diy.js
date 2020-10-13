@@ -369,6 +369,7 @@ $(function () {
 				data: newJSONData,
 				dataType: "json",
 				success: function (message) {
+					alert(message);
 					if (message > 0) {
 						$(location).attr('href', 'pay.html');
 					}
