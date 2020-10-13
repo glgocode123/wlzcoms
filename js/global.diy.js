@@ -31,6 +31,7 @@ $(function () {
 			type: 'GET',
 			dataType: "json",
 			complete: function (response) {
+				alert(response);
 				if (response.status === 200 || response.status === "200" ) {
 					return true;
 				} else {
