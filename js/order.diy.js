@@ -255,6 +255,8 @@ $(function () {
 	//写入cookie的数据
 	var orderCookieValue = "";
 	var orderAWB = "订单处理中...";
+	//写入服务器的数据，和写入cookie是一样的数据，但是格式不同
+	var orderJSONValue = "";
 	//折扣
 	var discount = 0;
 	
@@ -273,6 +275,7 @@ $(function () {
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
 		//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
 		orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + prodPrice + "||" + discount + "||" + (prodPrice-discount) + "|$|" + proID + "||" + prodName + "||" + prodParms;
+		orderJSONValue = '"orderInfo":[' + myDate.getTime() + ',' + orderDate + ',' + orderAWB + ',' + prodPrice + ',' + discount + ',' + (prodPrice-discount) + '],"prodInfo":[' + proID + ',' + prodName + ',' + prodParms + ']';
 		
 	}else{//有可能是从购物车进来的
 		//调用，创建实例
@@ -293,22 +296,35 @@ $(function () {
 						setBillInfo(abc[i].Id.substring(0, abc[i].Id.length - 1), abc[i].Name, abc[i].Count, abc[i].Price, abc[i].Parms);
 						//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
 						orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + abc[i].Price + "||" + discount + "||" + (abc[i].Price-discount) + "|$|" + abc[i].Id.substring(0, abc[i].Id.length - 1) + "||" + abc[i].Name + "||" + abc[i].Parms;
+						orderJSONValue = '"orderInfo":[' + myDate.getTime() + ',' + orderDate + ',' + orderAWB + ',' + abc[i].Price + ',' + discount + ',' + (abc[i].Price-discount) + '],"prodInfo":[' + abc[i].Id.substring(0, abc[i].Id.length - 1) + ',' + abc[i].Name + ',' + abc[i].Parms + ']';
 						continue;
 					}
 				}
 			}else{
 				//如果页面没有prodida值传递进来（结账全部产品）
+				//订单cookie的value
 				var oCV = "";
+				//订单提交json的value
+				var oJV = "";
+				//总价格
 				var oCVPrice = 0;
 				for(var j = 0; j < abc.length; j++){
 					//设置订单信息
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
 					oCVPrice += abc[j].Price;
 					//proID||proName||proParms|$|proID||proName||proParms
-					oCV = abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
+					oCV = "|$|" + abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
+					
+					oJV = abc[j].Id.substring(0, abc[j].Id.length - 1) + ',' + abc[j].Name + ',' + abc[j].Parms;
+					//最后一个不加“，”号
+					if(j < abc.length - 1){
+						oJV += ',';
+					}
 				}
 				//|$|orderID||date||AWB||price||discount||Total|$|  "+"  oCV
-				orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + oCVPrice + "||" + discount + "||" + (oCVPrice-discount) + "|$|" + oCV;
+				orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + oCVPrice + "||" + discount + "||" + (oCVPrice-discount) + oCV;
+				
+				orderJSONValue = '"orderInfo":[' + myDate.getTime() + ',' + orderDate + ',' + orderAWB + ',' + oCVPrice + ',' + discount + ',' + (oCVPrice-discount) + '],"prodInfo":[' + oJV + ']';
 			}
 		}else{
 //			alert("啥都木有！");
@@ -320,7 +336,7 @@ $(function () {
 	//写入页面的html内容
 	htmlVal += "";
 	//htmlVal:写入页面的内容 || orderCookieValue：写入cookie的内容
-	if ( htmlVal === "" || orderCookieValue === ""){
+	if ( htmlVal === "" || orderCookieValue === "" || orderJSONValue === ""){
 		$(location).attr('href', '404.html');
 	}else{
 //			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
@@ -356,12 +372,13 @@ $(function () {
         }else{
 			var orderUser = $.trim($('.order-form input[name="name"]').val());
 			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
-			var newJSONData = "{" + MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue + "}";
+			var newCookieData = MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue;
+			var newJSONData =  '{"userInfo:["' + MobID + "," + userPoints + "," + userGolden + "," + orderUser + "," + orderAddress + '],' + orderJSONValue + "}";
 			
-			alert(newJSONData);
+			alert(newCookieData + "______" + newJSONData);
 			
 			//写入cookie，在立即支付页面再写入数据库
-			$.cookie("wlzOrder" , newJSONData , { expires: 1 });
+			$.cookie("wlzOrder" , newCookieData , { expires: 1 });
 			
 			//发送交易请求到w数据库
 			$.ajax({
