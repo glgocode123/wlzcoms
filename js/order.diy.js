@@ -357,6 +357,9 @@ $(function () {
 			var orderUser = $.trim($('.order-form input[name="name"]').val());
 			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
 			var newJSONData = "{" + MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue + "}";
+			
+			alert(newJSONData);
+			
 			//写入cookie，在立即支付页面再写入数据库
 			$.cookie("wlzOrder" , newJSONData , { expires: 1 });
 			
