@@ -388,7 +388,10 @@ $(function () {
 				url: "http://d3j1728523.wicp.vip/",
 				async: false,
 				contentType: "application/json; charset=utf-8",
-				data: newJSONData,
+				data: {
+				  username:"Yi只猴",
+				  age:18
+        		},
 				dataType: "json",
 				success: function (message) {
 					alert(message);
