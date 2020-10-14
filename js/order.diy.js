@@ -373,7 +373,7 @@ $(function () {
 			var orderUser = $.trim($('.order-form input[name="name"]').val());
 			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
 			var newCookieData = MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue;
-			var newJSONData =  '{"userInfo:["' + MobID + "," + userPoints + "," + userGolden + "," + orderUser + "," + orderAddress + '],' + orderJSONValue + "}";
+			var newJSONData =  '{"userInfo":[' + MobID + "," + userPoints + "," + userGolden + "," + orderUser + "," + orderAddress + '],' + orderJSONValue + "}";
 			
 			alert(newCookieData + "______" + newJSONData);
 			
