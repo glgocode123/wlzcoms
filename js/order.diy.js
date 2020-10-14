@@ -275,7 +275,7 @@ $(function () {
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
 		//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
 		orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + prodPrice + "||" + discount + "||" + (prodPrice-discount) + "|$|" + proID + "||" + prodName + "||" + prodParms;
-		orderJSONValue = '"orderInfo":[' + myDate.getTime() + ',' + orderDate + ',' + orderAWB + ',' + prodPrice + ',' + discount + ',' + (prodPrice-discount) + '],"prodInfo":[' + proID + ',' + prodName + ',' + prodParms + ']';
+		orderJSONValue = '"orderInfo":["' + myDate.getTime() + '","' + orderDate + '","' + orderAWB + '","' + prodPrice + '","' + discount + '","' + (prodPrice-discount) + '"],"prodInfo":["' + proID + '","' + prodName + '","' + prodParms + '"]';
 		
 	}else{//有可能是从购物车进来的
 		//调用，创建实例
@@ -296,7 +296,7 @@ $(function () {
 						setBillInfo(abc[i].Id.substring(0, abc[i].Id.length - 1), abc[i].Name, abc[i].Count, abc[i].Price, abc[i].Parms);
 						//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
 						orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + abc[i].Price + "||" + discount + "||" + (abc[i].Price-discount) + "|$|" + abc[i].Id.substring(0, abc[i].Id.length - 1) + "||" + abc[i].Name + "||" + abc[i].Parms;
-						orderJSONValue = '"orderInfo":[' + myDate.getTime() + ',' + orderDate + ',' + orderAWB + ',' + abc[i].Price + ',' + discount + ',' + (abc[i].Price-discount) + '],"prodInfo":[' + abc[i].Id.substring(0, abc[i].Id.length - 1) + ',' + abc[i].Name + ',' + abc[i].Parms + ']';
+						orderJSONValue = '"orderInfo":["' + myDate.getTime() + '","' + orderDate + '","' + orderAWB + '","' + abc[i].Price + '","' + discount + '","' + (abc[i].Price-discount) + '"],"prodInfo":["' + abc[i].Id.substring(0, abc[i].Id.length - 1) + '","' + abc[i].Name + '","' + abc[i].Parms + '"]';
 						continue;
 					}
 				}
@@ -315,16 +315,18 @@ $(function () {
 					//proID||proName||proParms|$|proID||proName||proParms
 					oCV = "|$|" + abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
 					
-					oJV = abc[j].Id.substring(0, abc[j].Id.length - 1) + ',' + abc[j].Name + ',' + abc[j].Parms;
+					oJV = '"' + abc[j].Id.substring(0, abc[j].Id.length - 1) + '","' + abc[j].Name + '","' + abc[j].Parms;
 					//最后一个不加“，”号
-					if(j < abc.length - 1){
-						oJV += ',';
+					if(j === abc.length - 1){
+						oJV += '"';
+					}else{
+						oJV += '",';
 					}
 				}
 				//|$|orderID||date||AWB||price||discount||Total|$|  "+"  oCV
 				orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + oCVPrice + "||" + discount + "||" + (oCVPrice-discount) + oCV;
 				
-				orderJSONValue = '"orderInfo":[' + myDate.getTime() + ',' + orderDate + ',' + orderAWB + ',' + oCVPrice + ',' + discount + ',' + (oCVPrice-discount) + '],"prodInfo":[' + oJV + ']';
+				orderJSONValue = '"orderInfo":["' + myDate.getTime() + '","' + orderDate + '","' + orderAWB + '","' + oCVPrice + '","' + discount + '","' + (oCVPrice-discount) + '"],"prodInfo":[' + oJV + ']';
 			}
 		}else{
 //			alert("啥都木有！");
@@ -373,7 +375,7 @@ $(function () {
 			var orderUser = $.trim($('.order-form input[name="name"]').val());
 			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
 			var newCookieData = MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue;
-			var newJSONData =  '{"userInfo":[' + MobID + "," + userPoints + "," + userGolden + "," + orderUser + "," + orderAddress + '],' + orderJSONValue + "}";
+			var newJSONData =  '{"userInfo":["' + MobID + '","' + userPoints + '","' + userGolden + '","' + orderUser + '","' + orderAddress + '"],' + orderJSONValue + '}';
 			
 			alert(newCookieData + "______" + newJSONData);
 			
