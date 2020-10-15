@@ -385,13 +385,14 @@ $(function () {
 			//发送交易请求到w数据库
 			$.ajax({
 				type: "POST",
-				url: "http://d3j1728523.wicp.vip/",
+				url: "http://d3j1728523.wicp.vip/posts",
 				async: false,
 				contentType: "application/json; charset=utf-8",
 				data: {
-				  username:"Yi只猴",
-				  age:18
-        		},
+					"id": 2,
+					"title": "abc",
+					"author": "asdfasdfsdf"
+				},
 				dataType: "json",
 				success: function (message) {
 					alert(message);
