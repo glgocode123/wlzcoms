@@ -382,17 +382,19 @@ $(function () {
 			//写入cookie，在立即支付页面再写入数据库
 			$.cookie("wlzOrder" , newCookieData , { expires: 1 });
 			
+			var newData = {
+				"id": 2,
+				"title": "abc",
+				"author": "asdfasdfsdf"
+			};
+			
 			//发送交易请求到w数据库
 			$.ajax({
-				type: "POST",
+				type: "post",
 				url: "http://d3j1728523.wicp.vip/posts",
 				async: false,
 				contentType: "application/json; charset=utf-8",
-				data: {
-					"id": 2,
-					"title": "abc",
-					"author": "asdfasdfsdf"
-				},
+				data: newData,
 				dataType: "json",
 				success: function (message) {
 					alert(message);
