@@ -390,17 +390,15 @@ $(function () {
 				contentType: "application/json",//; charset=utf-8
 				data: newJSONData,
 				dataType: "json",
-				success: function (message) {
-					alert(message);
-					if (message > 0) {
-						$(location).attr('href', 'pay.html');
-					}
+				success: function () {
+					$(location).attr('href', 'pay.html');
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					console.log(XMLHttpRequest.status);
 					console.log(XMLHttpRequest.readyState);
 					console.log(textStatus);
 					console.log(errorThrown);
+					updateTextPopup("Error","您的订单未能提交，请稍后再试！");
 				}
 //				error: function (message) {
 //					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");

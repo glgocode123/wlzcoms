@@ -12,11 +12,9 @@ $(function () {
 		var params = [],
 			h;
 		var hash = url.slice(url.indexOf("?") + 1).split('&');
-//		alert(hash);
 		for (var i = 0; i < hash.length; i++) {
 			h = hash[i].split("="); //
 			params[h[0]] = h[1];
-//			alert(h);
 		}
 		return params;
 	}
@@ -45,6 +43,7 @@ $(function () {
 		return arr[0];
 	}
 	
+	//从什么页面来回到什么页面去
 	function jumpPage(jpMob,jpUserStatus){
 		//判断是从什么页面来的
 		if(isNullOrUndefined(UrlParamHash(url).fromPageType)){
@@ -56,6 +55,7 @@ $(function () {
 					$(location).attr('href', 'cart.html');
 					break;
 				case "product":
+					//如果是product页面进来的，应该存在prodID
 					$(location).attr('href', 'product.html?prodid='+UrlParamHash(url).prodID);
 			}
 		}else if(jpUserStatus === ""){
@@ -83,64 +83,106 @@ $(function () {
 		var wServerUser = false,
 			rServerUser = false;
 		
-		//服务器要等去旅游回来在弄
-//		$.getJSON("http://d3j1728523.wicp.vip/i.json", function(jsonData){
-//			for (var i = 0; i < jsonData.length; i++) {
-//				if(inputMob === jsonData[i]){
-//					wServerUser = true;
-//					continue;
-//				}
-//			}
-//		});
 		//设置为同步请求
 		$.ajaxSettings.async = false;
+		//判断可写服务器
+		$.getJSON("http://d3j1728523.wicp.vip/user", function(jsonData){
+			for (var i = 0; i < jsonData.length; i++) {
+				var jsonMob = jsonData[i].toString();
+				if(inputMob === jsonMob){
+					//已经是用户
+					wServerUser = true;
+					//记录用户ID
+					userMobID = jsonData[i];
+					break;
+				}
+			}
+		});
+		//判断可读服务器
 		$.getJSON("i.json", function(jsonData){
 			for (var i = 0; i < jsonData.length; i++) {
 				var jsonMob = jsonData[i].toString();
 				if(inputMob === jsonMob){
 					//已经是用户
 					rServerUser = true;
-					alert(rServerUser);
 					//记录用户ID
 					userMobID = jsonData[i];
-					continue;
+					break;
 				}
 			}
 		});
-			
-		alert(rServerUser);
+		
 		//目前打烊不能进入登录页面， 所以不用管是否开了写入服务器， 只需要判断能否读到数据就好
 		//判断登录服务器用户存在
 		if(wServerUser){
 			//(因为用户如果修改数据后，可写服务器有完整的基本信息+修改信息)，问题，究竟加入什么内容，因为可写服务器是不安全的，可能比用户cookie更不安全，因为用户cookie是用户自己的，而可写服务器是公开的，但是如果可写服务器的数据与用户本地数据不匹配，又将按照谁的？
-//
-//			if(rServerUser){
-//				$.cookie("wlzName", userMobID+"||RWSU||true||999||123||true", { expires: 1 });
-//				//，有则读取cookie======先读取wServer再读取rServer========
-//				var rwSource = "";
-//				$.cookie("wlzNewHistory", rwSource, { expires: 1 });
-//				//RWSU = Read Write Sever User
-//				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
-//				jumpPage(userMobID,"RWSU");
-//			}else{
-//				//今天注册过的新用户，或用户数据有修改=======（读取json不完整）========
-//				//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
-//				$.cookie("wlzName", userMobID+"||WSU||true||999||123||true", { expires: 1 });
-//				//，有则读取cookie======先读取wServer再读取rServer========
-//				var wSource = "";
-//				$.cookie("wlzNewHistory", wSource, { expires: 1 });
-//				//RWSU = Read Write Sever User
-//				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
-//				jumpPage(userMobID,"WSU");
-//			}
+			
+			
+			//获取历史记录，加入cookie，减少可写服务器的读取次数
+			var wSource = "",
+				userPoints = 0,
+				userGolden = 0,
+				userHistory = 0;
+			//获取用户基本信息
+			$.getJSON("http://d3j1728523.wicp.vip/register", function(jsonData){
+				for(var i=0; i<jsonData.length; i++){
+					if(jsonData[i].MobID === userMobID){
+						userPoints = jsonData[i].Points;
+						userGolden = jsonData[i].Golden;
+						break;
+					}
+				}
+			});
+			//获取用户历史记录
+			$.getJSON("http://d3j1728523.wicp.vip/order", function(jsonData){
+				for(var i=0; i<jsonData.length; i++){
+					if(jsonData[i].MobID === userMobID){
+
+						userHistory = jsonData[i].History.length;
+						
+						for (var j = 0; j < jsonData.History.length; j++) {
+							wSource += jsonData[i].History[j].data + "||" + jsonData[i].History[j].AWB + "||" + jsonData[i].History[j].price + "||" + jsonData[i].History[j].discount + "||" + jsonData[i].History[j].Total + "|$|";
+							for(var k = 0; k < jsonData[i].History[j].prodid.length; k++){
+								wSource += jsonData[i].History[j].prodid[k].proID + "||" + jsonData[i].History[j].prodid[k].proName + "||" + jsonData[i].History[j].prodid[k].proParms;
+								if(j!==jsonData[i].History[j].prodid.length-1){
+									wSource += "|$|";
+								}else{
+									wSource += "|&|";
+								}
+							}
+						}
+						alert(wSource);
+						break;
+
+					}
+				}
+			});
+			if(rServerUser){
+				//cookie数据：0手机号||1老用户&有修改数据||2可写数据库||3积分||4金池||5历史记录数量
+				$.cookie("wlzName", userMobID + "||RWSU||true||" + userPoints + "||" + userGolden + "||" + userHistory , { expires: 1 });
+				//，有则读取cookie======先读取wServer再读取rServer========
+				$.cookie("wlzNewHistory", wSource, { expires: 1 });
+				//RWSU = Read Write Sever User
+				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
+				jumpPage(userMobID,"RWSU");
+			}else{
+				//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
+				//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
+				$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + userHistory , { expires: 1 });
+				//，有则读取cookie======先读取wServer再读取rServer========
+				$.cookie("wlzNewHistory", wSource, { expires: 1 });
+				//RWSU = Read Write Sever User
+				//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
+				jumpPage(userMobID,"WSU");
+			}
 
 
 
 		}else if(rServerUser){//判断只读服务器用户存在的情况
 			//已经是用户
 			$.getJSON("user/" + userMobID + ".json", function(jsonData){
-				alert(jsonData.Points);
-				//cookie数据：0手机号||1没有修改数据||2数据库||3积分||4金池||5历史记录数量
+//				alert(jsonData.Points);
+				//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
 				//读取用户json，为的是保存数据在cookie
 				$.cookie("wlzName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
 				
