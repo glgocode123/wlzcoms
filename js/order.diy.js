@@ -222,7 +222,7 @@ $(function () {
 	//prodida指的是单个产品购买
 	var prodida = decodeURI(UrlParamHash(url).prodida),
 		//直接购买
-		prodid = decodeURI(UrlParamHash(url).prodida),
+		prodid = decodeURI(UrlParamHash(url).prodid),
 		//用户判断从产品页过来的直接购买
 		prodName = decodeURI(UrlParamHash(url).name),
 		prodCount = decodeURI(UrlParamHash(url).count),
