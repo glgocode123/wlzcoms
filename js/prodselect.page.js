@@ -102,7 +102,7 @@ $(function () {
 				//如果是直接购买
 				if(type){
 					//直接购买：一个产品
-					$(location).attr("href", "order.html?prodid=" + prodID + "&name=" + UrlParamHash(url).name + "&price=" + UrlParamHash(url).price + "&Mob=" + MobID + hrefSelectType);
+					$(location).attr("href", "order.html?prodid=" + prodID + "&name=" + UrlParamHash(url).name + "&count=1" + "&price=" + UrlParamHash(url).price + "&Mob=" + MobID + hrefSelectType);
 					
 				}else{
 					//加入购物车：prodid、prodName、prodPrice、prodParms
