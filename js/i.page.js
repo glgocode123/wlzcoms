@@ -59,7 +59,7 @@ $(function () {
 				alert("RWSU");
 				//老用户，有数据修改
 				//如果有此cookie，说明有修改数据在本地
-				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined){
+				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined || wlzNHCookie !=="undefined"){
 					alert(wlzNHCookie);
 					if(wlzNHCookie.split("|$|").length > 0){
 						//有内容
@@ -109,7 +109,7 @@ $(function () {
 				alert("WSU1");
 				//刚刚注册的用户，有修改
 				//如果有此cookie，说明有修改数据在本地
-				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined){
+				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined || wlzNHCookie !== "undefined"){
 					if(wlzNHCookie.split("|$|").length > 0){
 						iCookieHistoryW = wlzNHCookie.split("|$|");
 					}else{
@@ -353,7 +353,7 @@ $(function () {
 	//cookieMobID需要改为调用cookie中的登录状态,与最新数据，数据以可写服务器为主
 	
 	var source = $.cookie("wlzName");
-	if (source === null || source === "" || source === undefined) {
+	if (source === null || source === "" || source === undefined || source === "undefined") {
 		//如果用户没有登录，返回原页
 		$(location).attr('href', 'login.html');
 	}
