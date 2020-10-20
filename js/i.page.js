@@ -17,11 +17,28 @@ $(function () {
 	}
 	
 	/*=======================================================================================*/
-	
+	//访问可写数据库
+//	function getWserverUserInfo(userMobID, userPoints, userGolden){
+//		//访问可写数据库
+//		$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userMobID, function(jsonData){
+//			//可写服务器是最新的数据
+////			iPoints = jsonData.Points;
+////			iGolden = jsonData.Golden;
+//
+//			//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+//			if(userPoints !== jsonData.Points || userGolden !== jsonData.Golden){
+//				alert("error,用户数据不匹配！");
+//				$(location).attr("href","404.html");
+//			}else{
+//				var wUserInfo = new Array(jsonData.Points, jsonData.Golden, jsonData.History);
+//				return wUserInfo;
+//			}
+//		});
+//	}
 	/*================*/
 	/* 写页面功能1 - 填写用户基本信息 */
 	/*================*/
-	function setUserInfo(userInfo) {
+	function setUserInfo(userArrInfo) {
 		
 		//userInfo - cookie数据：0手机号||1服务器状态||2什么数据库||3积分||4金池||5历史记录数量
 		//如果是只读数据库进来的
@@ -32,25 +49,46 @@ $(function () {
 			iHistoryW = [],
 			iCookieHistoryW = [];
 		
-		//用户数据今天有修改过（买过东西 或 做过活动）
-		if(userInfo[2]==="true"){
+		//有修改：老用户买过东西（修改） 或 新用户买过东西（修改） true = RWSU & WSU
+		//else
+		//没修改：老用户没买东西（修改） 或 新用户没买东西（修改） false = RSU & WSU
+		if(userArrInfo[2]==="true"){
 			//用户下面判断有没有cookie记录
 			var wlzNHCookie = $.cookie("wlzNewHistory");
-			if(userInfo[1] === "RWSU"){
+			if(userArrInfo[1] === "RWSU"){
+				alert("RWSU");
 				//老用户，有数据修改
 				//如果有此cookie，说明有修改数据在本地
-				if((wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined) && wlzNHCookie.split("|$|").length > 0){
-					iCookieHistoryW = wlzNHCookie.split("|$|");
+				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined){
+					if(wlzNHCookie.split("|$|").length > 0){
+						//有内容
+						iCookieHistoryW = wlzNHCookie.split("|$|");
+					}else{
+						//访问可写数据库
+						$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
+							//可写服务器是最新的数据
+							iPoints = jsonData.Points;
+							iGolden = jsonData.Golden;
+
+							//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+							if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
+								alert("error,用户数据不匹配！");
+								$(location).attr("href","404.html");
+							}else{
+								iHistoryW = jsonData.History;
+							}
+						});
+					}
 				}else{//cookie：没有历史记录
 					//访问可写数据库
-					$.getJSON("http://d3j1728523.wicp.vip/i.json", function(jsonData){
+					$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
 						//可写服务器是最新的数据
 						iPoints = jsonData.Points;
 						iGolden = jsonData.Golden;
 						
 						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-						if(userInfo[3] !== iPoints || userInfo[4] !== iGolden){
-							alert("error,用户数据不匹配！404");
+						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
+							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
 							iHistoryW = jsonData.History;
@@ -58,34 +96,47 @@ $(function () {
 					});
 				}
 				//访问只读数据库
-				$.getJSON("user/" + userInfo[0] + ".json", function(jsonData){
+				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
 					//可写服务器才是最新的数据，如果为0，说明获取不到可写数据库数据
 					if(iPoints === 0 ){iPoints = jsonData.Points;}
 					if(iGolden === 0 ){iGolden = jsonData.Golden;}
 
-					//用户cookie中的数据 !== 获得的服务器数据 = 用户端有被篡改嫌疑
-					if(userInfo[3] !== iPoints || userInfo[4] !== iGolden){
-						alert("error,用户数据不匹配！404");
-						$(location).attr("href","404.html");
-					}else{
-						iHistoryR = jsonData.History;
-					}
+					//这里无需判断points和golden的数据是否匹配，因为RWSU最新数据是在写入服务器的
+					iHistoryR = jsonData.History;
 				});
-			}else if(userInfo[1]==="WSU"){
+			}else if(userArrInfo[1]==="WSU"){
+				alert("WSU1");
 				//刚刚注册的用户，有修改
 				//如果有此cookie，说明有修改数据在本地
-				if((wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined) && wlzNHCookie.split("|$|").length > 0){
-					iCookieHistoryW = wlzNHCookie.split("|$|");
+				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined){
+					if(wlzNHCookie.split("|$|").length > 0){
+						iCookieHistoryW = wlzNHCookie.split("|$|");
+					}else{
+						//访问可写数据库
+						$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
+							//可写服务器是最新的数据
+							iPoints = jsonData.Points;
+							iGolden = jsonData.Golden;
+
+							//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+							if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
+								alert("error,用户数据不匹配！");
+								$(location).attr("href","404.html");
+							}else{
+								iHistoryW = jsonData.History;
+							}
+						});
+					}
 				}else{//cookie：没有历史记录
 					//访问可写数据库
-					$.getJSON("http://d3j1728523.wicp.vip/i.json", function(jsonData){
+					$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
 						//可写服务器是最新的数据
 						iPoints = jsonData.Points;
 						iGolden = jsonData.Golden;
 						
 						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-						if(userInfo[3] !== iPoints || userInfo[4] !== iGolden){
-							alert("error,用户数据不匹配！404");
+						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
+							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
 							iHistoryW = jsonData.History;
@@ -94,37 +145,43 @@ $(function () {
 				}
 			}
 		}else{
-			if(userInfo[1] === "RSU"){
-				alert(userInfo[0]);
+			if(userArrInfo[1] === "RSU"){
+				alert("RSU");
 				//老用户，今天数据没有任何修改
 				//访问只读数据库
-				$.getJSON("user/" + userInfo[0] + ".json", function(jsonData){
+				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
 					//可写服务器才是最新的数据
 					if(iPoints === 0 ){iPoints = jsonData.Points;}
 					if(iGolden === 0 ){iGolden = jsonData.Golden;}
 					//用户cookie中的数据 !== 获得的服务器数据 = 用户端有被篡改嫌疑
-					if(userInfo[3] !== iPoints.toString() || userInfo[4] !== iGolden.toString()){
-						alert("error,用户数据不匹配！404");
+					if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
+						alert("error,用户数据不匹配！");
 						$(location).attr("href","404.html");
 					}else{
 						iHistoryR = jsonData.History;
 					}
 				});
-			}else if(userInfo[1]==="WSU"){
+			}else if(userArrInfo[1]==="WSU"){
+				alert("WSU2");
 				//刚刚注册的用户，没有修改
-				iHistoryW = [];
-				//目前还没有完成，这个判断究竟具体怎么用
-				alert("提示优惠活动，或者显示用户导向提示");
+//				iHistoryW = [];
+				//目前还没有完成，这个判断究竟具体怎么用（提示优惠活动，或者显示用户导向提示）
+				alert("你获得新用户首单买一赠一资格！即日起在本站购买任何产品都将获赠：屁眼儿菊花残笔记本一份！");
 				
-				$("#setHistory").html("<div class='form-wrapper'><div class='empty-space h25-xs h40-md'></div><h7 class='h7'>购物后才会显示历史记录！</h7><span class='big'>你还没有买过任何产品，购物后将在此显示你的历史购物清单。</span><div class='empty-space h30-xs'></div></div>");
+				$("#setHistory").html("<div class='form-wrapper'><div class='empty-space h25-xs h40-md'></div><h7 class='h7'>购物后才有历史记录！</h7><span class='big'>你还没有买过任何产品，购物后将在此显示你的历史购物清单。</span><div class='empty-space h30-xs'></div></div>");
+			}else{
+				$(location).attr("href","404.html");
 			}
 		}
 		
+		//经过以上的流程，如果不跳转到404，用户数据是匹配的，所以
+		//下面直接使用用户数据就好
 		
-		$("#iMob").text(userInfo[0]);
+		//页面写入：手机号
+		$("#iMob").text(userArrInfo[0]);
 		
-		//模拟获取的基本信息----用户积分
-		var userPoints = userInfo[3];
+		//页面写入：用户积分
+		var userPoints = userArrInfo[3];
 		$("#iPoints").text(userPoints);
 		//用模拟用户积分获得----会员等级
 		var userLevel = "数据错误";
@@ -140,7 +197,7 @@ $(function () {
 		$("#iLevel").text(userLevel);
 		
 		//模拟获取的基本信息----金池含量
-		$("#iGolden").text(userInfo[4]);
+		$("#iGolden").text(userArrInfo[4]);
 		
 		
 		//只读数据库历史记录太大不记录cookie，因为cookie最好4K以内
@@ -149,13 +206,13 @@ $(function () {
 			//写入cookie，同步写入页面显示，可以减少对写入服务器的访问
 			setServerHistory(true, iHistoryW);
 		}
+		//如果有数据，说明当天购买信息在cookie，同时上面的逻辑是不会执行的
+		if(iCookieHistoryW.length > 0){
+			setCookieHistory(iCookieHistoryW);
+		}
 		//如果有数据，说明老用户，读取只读服务器写入数据
 		if(iHistoryR.length > 0){
 			setServerHistory(false, iHistoryR);
-		}
-		//如果有数据，说明有cookie，同时上面的逻辑是不会执行的（因为逻辑判断没有访问服务器）
-		if(iCookieHistoryW.length > 0){
-			setCookieHistory(iCookieHistoryW);
 		}
 	}
 	
@@ -295,14 +352,14 @@ $(function () {
 		//如果用户没有登录，返回原页
 		$(location).attr('href', 'login.html');
 	}
-	var arr = source.split("||");
+	var userArr = source.split("||");
 	
 	/*================*/
 	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
 	/*================*/
 	
-	if(isMobID(decodeURI(arr[0]))){
-		setUserInfo(arr);
+	if(isMobID(decodeURI(userArr[0]))){
+		setUserInfo(userArr);
 	}else{
 		//如果页面id不合适，返回原页
 		$(location).attr('href', 'login.html');
