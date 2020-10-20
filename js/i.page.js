@@ -204,14 +204,17 @@ $(function () {
 		//如果有数据，说明第一次访问，还没有记录cookie
 		if(iHistoryW.length > 0){
 			//写入cookie，同步写入页面显示，可以减少对写入服务器的访问
+			alert(0);
 			setServerHistory(true, iHistoryW);
 		}
 		//如果有数据，说明当天购买信息在cookie，同时上面的逻辑是不会执行的
 		if(iCookieHistoryW.length > 0){
+			alert(1);
 			setCookieHistory(iCookieHistoryW);
 		}
 		//如果有数据，说明老用户，读取只读服务器写入数据
 		if(iHistoryR.length > 0){
+			alert(2);
 			setServerHistory(false, iHistoryR);
 		}
 	}
