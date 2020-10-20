@@ -60,6 +60,7 @@ $(function () {
 				//老用户，有数据修改
 				//如果有此cookie，说明有修改数据在本地
 				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined){
+					alert(wlzNHCookie);
 					if(wlzNHCookie.split("|$|").length > 0){
 						//有内容
 						iCookieHistoryW = wlzNHCookie.split("|$|");
