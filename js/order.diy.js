@@ -270,6 +270,7 @@ $(function () {
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
 	if(isNullOrUndefined(prodName) && isNullOrUndefined(prodCount) && isNullOrUndefined(prodPrice)){
+		alert(0);
 		var proID = prodida.substring(0, prodida.length - 1);
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
@@ -278,6 +279,7 @@ $(function () {
 		orderJSONValue = '"orderInfo":["' + myDate.getTime() + '","' + orderDate + '","' + orderAWB + '","' + prodPrice + '","' + discount + '","' + (prodPrice-discount) + '"],"prodInfo":["' + proID + '","' + prodName + '","' + prodParms + '"]';
 		
 	}else{//有可能是从购物车进来的
+		alert(1);
 		//调用，创建实例
 		var wlzC = new CartHelper();
 		//读取cookie
@@ -339,8 +341,10 @@ $(function () {
 	htmlVal += "";
 	//htmlVal:写入页面的内容 || orderCookieValue：写入cookie的内容
 	if ( htmlVal === "" || orderCookieValue === "" || orderJSONValue === ""){
+		alert(3);
 		$(location).attr('href', '404.html');
 	}else{
+		alert(4);
 //			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
 		$("span#setProdPrice").text("¥" + htmlValParms + ".00");
 		if(htmlValPreferential > 0){
