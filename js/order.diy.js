@@ -271,16 +271,13 @@ $(function () {
 	}
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
-	alert(prodName);
-	alert(prodCount);
-	alert(prodPrice);
 	if(!isNullOrUndefined(prodName) && !isNullOrUndefined(prodCount) && !isNullOrUndefined(prodPrice)){
 		alert(0);
 		var proID = 0;
 		if(isNullOrUndefined(prodid) && !isNullOrUndefined(prodida)){
 			proID = prodida.substring(0, prodida.length - 1);
 		}else{
-			proID = prodida;
+			proID = prodid;
 		}
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
