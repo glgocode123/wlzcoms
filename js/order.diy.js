@@ -269,7 +269,7 @@ $(function () {
 			return false;
 		}
 	}
-	//参数不为空，说明这个是从产品页或者预售页直接过来
+	//参数不为空，说明这个是从产品页或者预售页直接过来(直接购买)
 	//有的产品没有parms
 	if(!isNullOrUndefined(prodName) && !isNullOrUndefined(prodCount) && !isNullOrUndefined(prodPrice)){
 		alert(0);
