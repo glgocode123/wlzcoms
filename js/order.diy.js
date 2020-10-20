@@ -221,6 +221,8 @@ $(function () {
 	//获取页面参数
 	//prodida指的是单个产品购买
 	var prodida = decodeURI(UrlParamHash(url).prodida),
+		//直接购买
+		prodid = decodeURI(UrlParamHash(url).prodida),
 		//用户判断从产品页过来的直接购买
 		prodName = decodeURI(UrlParamHash(url).name),
 		prodCount = decodeURI(UrlParamHash(url).count),
@@ -262,16 +264,24 @@ $(function () {
 	
 	function isNullOrUndefined(obj){
 		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
-			return false;
-		}else{
 			return true;
+		}else{
+			return false;
 		}
 	}
 	//参数不为空，说明这个是从产品页或者预售页直接过来
 	//有的产品没有parms
-	if(isNullOrUndefined(prodName) && isNullOrUndefined(prodCount) && isNullOrUndefined(prodPrice)){
+	alert(prodName);
+	alert(prodCount);
+	alert(prodPrice);
+	if(!isNullOrUndefined(prodName) && !isNullOrUndefined(prodCount) && !isNullOrUndefined(prodPrice)){
 		alert(0);
-		var proID = prodida.substring(0, prodida.length - 1);
+		var proID = 0;
+		if(isNullOrUndefined(prodid) && !isNullOrUndefined(prodida)){
+			proID = prodida.substring(0, prodida.length - 1);
+		}else{
+			proID = prodida;
+		}
 		//设置订单信息
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
 		//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
