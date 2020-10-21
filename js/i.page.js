@@ -57,9 +57,24 @@ $(function () {
 			var wlzNHCookie = $.cookie("wlzNewHistory");
 			if(userArrInfo[1] === "RWSU"){
 				alert("RWSU");
-				//老用户，有数据修改
-				//如果有此cookie，说明有修改数据在本地
-				if(wlzNHCookie !== null || wlzNHCookie !== "null" || wlzNHCookie !== "" || wlzNHCookie !== undefined || wlzNHCookie !== "undefined"){
+				
+				//cookie：没有历史记录
+				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
+					//访问可写数据库
+					$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
+						//可写服务器是最新的数据
+						iPoints = jsonData.Points;
+						iGolden = jsonData.Golden;
+						
+						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
+							alert("error,用户数据不匹配！");
+							$(location).attr("href","404.html");
+						}else{
+							iHistoryW = jsonData.History;
+						}
+					});
+				}else{//老用户，有数据修改//如果有此cookie，说明有修改数据在本地
 					alert(wlzNHCookie);
 					if(wlzNHCookie.split("|$|").length > 0){
 						//有内容
@@ -80,21 +95,6 @@ $(function () {
 							}
 						});
 					}
-				}else{//cookie：没有历史记录
-					//访问可写数据库
-					$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
-						//可写服务器是最新的数据
-						iPoints = jsonData.Points;
-						iGolden = jsonData.Golden;
-						
-						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
-							alert("error,用户数据不匹配！");
-							$(location).attr("href","404.html");
-						}else{
-							iHistoryW = jsonData.History;
-						}
-					});
 				}
 				//访问只读数据库
 				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
