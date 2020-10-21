@@ -225,6 +225,7 @@ $(function () {
 	/* 历史购买记录 —— 分为：server和cookie两种调用方法 */
 	/*================*/
 	function setServerHistory(takeCookie, historyArray) {
+		alert(historyArray.length);
 		//一边生成历史记录cookie的rSource，一遍写入页面内容，最后才是记录cookie，如果中途断开了，最多这次记录不成功，下次进入这个页面还会在来一次。
 		var rSource = "";
 		//循环产品块
