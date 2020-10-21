@@ -62,7 +62,7 @@ $(function () {
 				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
 					//访问可写数据库
 					$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
-						alert(jsonData[1].Points);
+						alert(jsonData[0].Points);
 						//可写服务器是最新的数据
 						iPoints = jsonData.Points;
 						iGolden = jsonData.Golden;
