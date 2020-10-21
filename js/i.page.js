@@ -225,7 +225,6 @@ $(function () {
 	/* 历史购买记录 —— 分为：server和cookie两种调用方法 */
 	/*================*/
 	function setServerHistory(takeCookie, historyArray) {
-		alert(historyArray.length);
 		//一边生成历史记录cookie的rSource，一遍写入页面内容，最后才是记录cookie，如果中途断开了，最多这次记录不成功，下次进入这个页面还会在来一次。
 		var rSource = "";
 		//循环产品块
@@ -253,16 +252,16 @@ $(function () {
 				
 				//设置产品cookie数据
 				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
-				//如果不是最后一个产品加|$|，最后就加|&|
-				if(j!==historyArray[i].prodArr.length - 1){
-					rSource += "|$|";
+				//如果是最后一个产品加|$|，不是就加|&|
+				if(j===historyArray[i].prodArr.length - 1){
+					//如果不是最后块，加区分符
+					if(i !==  historyArray.length - 1){
+						rSource += "|$|";
+					}
+				}else{
+					rSource += "|&|";
 					//如果不是最后一个产品，加个行距
 					prodtype = true;
-				}else{
-					//如果是最后一个块，无需加
-					if(i !==  historyArray.length - 1){
-						rSource += "|&|";
-					}
 				}
 				
 				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
