@@ -62,19 +62,16 @@ $(function () {
 				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
 					//访问可写数据库
 					$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
-						alert(jsonData[0].Points);
 						//可写服务器是最新的数据
-						iPoints = jsonData.Points;
-						iGolden = jsonData.Golden;
+						iPoints = jsonData[0].Points;
+						iGolden = jsonData[0].Golden;
 						
-						alert(userArrInfo[3] + "::" + iPoints);
-						alert(userArrInfo[4] + "::" + iGolden);
 						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
 						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
 							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
-							iHistoryW = jsonData.History;
+							iHistoryW = jsonData[0].History;
 						}
 					});
 				}else{//老用户，有数据修改//如果有此cookie，说明有修改数据在本地
@@ -86,15 +83,15 @@ $(function () {
 						//访问可写数据库
 						$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
 							//可写服务器是最新的数据
-							iPoints = jsonData.Points;
-							iGolden = jsonData.Golden;
+							iPoints = jsonData[0].Points;
+							iGolden = jsonData[0].Golden;
 
 							//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
 							if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
 								alert("error,用户数据不匹配！");
 								$(location).attr("href","404.html");
 							}else{
-								iHistoryW = jsonData.History;
+								iHistoryW = jsonData[0].History;
 							}
 						});
 					}
@@ -119,15 +116,15 @@ $(function () {
 						//访问可写数据库
 						$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
 							//可写服务器是最新的数据
-							iPoints = jsonData.Points;
-							iGolden = jsonData.Golden;
+							iPoints = jsonData[0].Points;
+							iGolden = jsonData[0].Golden;
 
 							//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
 							if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
 								alert("error,用户数据不匹配！");
 								$(location).attr("href","404.html");
 							}else{
-								iHistoryW = jsonData.History;
+								iHistoryW = jsonData[0].History;
 							}
 						});
 					}
@@ -135,15 +132,15 @@ $(function () {
 					//访问可写数据库
 					$.getJSON("http://d3j1728523.wicp.vip/register?MobID="+userArrInfo[0], function(jsonData){
 						//可写服务器是最新的数据
-						iPoints = jsonData.Points;
-						iGolden = jsonData.Golden;
+						iPoints = jsonData[0].Points;
+						iGolden = jsonData[0].Golden;
 						
 						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
 						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
 							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
-							iHistoryW = jsonData.History;
+							iHistoryW = jsonData[0].History;
 						}
 					});
 				}
