@@ -287,12 +287,12 @@ $(function () {
 			//偶数数组（头尾数据）
 			if((i+2)%2 === 0){
 				alert(cookieHistoryArray[i]);
-				var iDate = cookieHistoryArray[i].splice("||");
+				var iDate = cookieHistoryArray[i].split("||");
 				setHistoryShow(iDate[0], iDate[1], iDate[2], iDate[3], iDate[4]);
 			}else{
-				var iProd = cookieHistoryArray[i].splice("|&|");
+				var iProd = cookieHistoryArray[i].split("|&|");
 				for(var j = 0; j < iProd.length; j++){
-					var jDate = iProd[j].splice("||");
+					var jDate = iProd[j].split("||");
 					//如果不是最后一个
 					if(j !== iProd[j].length - 1){
 						setHistoryShowProduct(true, jDate[0], jDate[1], jDate[2]);
