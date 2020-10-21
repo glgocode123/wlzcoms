@@ -286,6 +286,7 @@ $(function () {
 		for(var i = 0; i < cookieHistoryArray.length; i++){
 			//偶数数组（头尾数据）
 			if((i+2)%2 === 0){
+				alert(cookieHistoryArray[i]);
 				var iDate = cookieHistoryArray[i].splice("||");
 				setHistoryShow(iDate[0], iDate[1], iDate[2], iDate[3], iDate[4]);
 			}else{
