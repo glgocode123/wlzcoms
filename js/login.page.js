@@ -145,7 +145,11 @@ $(function () {
 		$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+inputMob, function(jsonData){
 			//判断是否存在
 			if(jsonData.length > 0){
+				
+				//用户存在
 				wServerUser = true;
+				//记录用户ID
+				userMobID = inputMob;
 				
 				var userPoints = jsonData[0].Points,
 					userGolden = jsonData[0].Golden;
