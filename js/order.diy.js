@@ -385,8 +385,8 @@ $(function () {
         }else{
 			var orderUser = $.trim($('.order-form input[name="name"]').val());
 			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
-			var newCookieData = MobID + "||" + userPoints + "||" + userGolden + "||" + orderUser + "||" + orderAddress + orderCookieValue;
-			var newJSONData =  '{"userInfo":["' + MobID + '","' + userPoints + '","' + userGolden + '","' + orderUser + '","' + orderAddress + '"],' + orderJSONValue + '}';
+			var newCookieData = MobID + "||" + orderUser + "||" + orderAddress + "||" + userPoints + "||" + userGolden + "||" + orderCookieValue;
+			var newJSONData =  '{"MobID":' + MobID + ',"Name":' + orderUser + ',"Address":' + ',"Points":' + userPoints + ',"Golden":' + userGolden + orderAddress + ',"History"' + orderJSONValue + '}';
 			
 			alert(newCookieData + "______" + newJSONData);
 			
@@ -396,7 +396,7 @@ $(function () {
 			//发送交易请求到w数据库
 			$.ajax({
 				type: "post",
-				url: "http://d3j1728523.wicp.vip/posts",
+				url: "http://d3j1728523.wicp.vip/register",
 				async: false,
 				contentType: "application/json",//; charset=utf-8
 				data: newJSONData,

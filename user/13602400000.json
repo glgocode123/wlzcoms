@@ -4,7 +4,19 @@
 	"History":[
 		{
 			"data":20200801,
-			"AWB":111111111,
+			"AWB":"111111111",
+			"MobNum":13602400123,
+			"Points":[
+				true, 
+				1230
+			],
+			"Golden":[
+				false, 
+				100
+			],
+			"Mob":13602412312,
+			"Name": "一只猪",
+			"Address": "收货地址",
 			"price":229.00,
 			"discount":10,
 			"Total":219.00,
@@ -23,7 +35,18 @@
 		},
 		{
 			"data":20200801,
-			"AWB":111111111,
+			"AWB":"111111111",
+			"Points":[
+				true, 
+				1230
+			],
+			"Golden":[
+				false, 
+				100
+			],
+			"Mob":13602412312,
+			"Name": "一只猪",
+			"Address": "收货地址",
 			"price":229.00,
 			"discount":10,
 			"Total":219.00,
