@@ -122,8 +122,7 @@ $(function () {
 	function getSeverDate(inputMob){
 
 		//用于判断服务器是否有数据
-		var wServerUser = false,
-			rServerUser = false;
+		var rServerUser = false;
 		
 		//设置为同步请求
 		$.ajaxSettings.async = false;
@@ -148,8 +147,6 @@ $(function () {
 			//判断是否存在
 			if(jsonData.length > 0){
 				
-				//用户存在
-				wServerUser = true;
 				//记录用户ID
 				userMobID = inputMob;
 				
@@ -225,39 +222,31 @@ $(function () {
 					//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
 					jumpPage(userMobID,"WSU");
 				}
-			}else{
-				wServerUser = false;
+			}else{//如果可写服务器没有数据，判断只读服务器
+				
+				//如果只读服务器有此用户，就读取用户数据
+				if(rServerUser){
+					//已经是用户
+					$.getJSON("user/" + userMobID + ".json", function(jsonData){
+		//				alert(jsonData.Points);
+						//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
+						//读取用户json，为的是保存数据在cookie
+						$.cookie("wlzName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
+
+						//RSU = Read Sever User
+		//				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
+						jumpPage(userMobID,"RSU");
+					});
+				}else{//如果只读服务器也没有数据
+
+					//把来者注册成新用户
+
+					//如果注册不成功
+					updateTextPopup("error","当前无法注册！请24小时后再试！");
+
+				}
 			}
 		});
-		
-		//如果可写服务器没有数据，判断只读服务器
-		if(!wServerUser){
-			//如果只读服务器有此用户，就读取用户数据
-			if(rServerUser){
-				//已经是用户
-				$.getJSON("user/" + userMobID + ".json", function(jsonData){
-	//				alert(jsonData.Points);
-					//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
-					//读取用户json，为的是保存数据在cookie
-					$.cookie("wlzName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
-
-					//RSU = Read Sever User
-	//				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
-					jumpPage(userMobID,"RSU");
-				});
-			}else{//如果只读服务器也没有数据
-			
-				//把来者注册成新用户
-
-				//如果注册不成功
-				updateTextPopup("error","当前无法注册！请24小时后再试！");
-				
-			}
-			
-		}else{//这是不可能存在的情况，因为可写服务器如果有数据，上上面就已经跳转了：jumpPage
-			alert("系统错误，请24小时后再试！");
-			$(location).attr('href', '404.html');
-		}
 	}
 	
 	/*=======================================================================================*/
