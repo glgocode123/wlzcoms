@@ -199,6 +199,7 @@ $(function () {
 				//如果只读服务器存在
 				//是老用户并且有修改（可写服务器）
 				if(rServerUser){
+					alert("RWSU");
 					//老用户
 					$.getJSON("user/" + userMobID + ".json", function(jsonData){
 						//cookie数据：0手机号||1老用户&有修改数据||2可写数据库||3积分||4金池||5历史记录数量
@@ -210,6 +211,7 @@ $(function () {
 						jumpPage(userMobID,"RWSU");
 					});
 				}else{
+					alert("WSU");
 					//新用户
 					//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
 					//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
