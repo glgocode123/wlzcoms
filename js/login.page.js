@@ -59,8 +59,10 @@ $(function () {
 					$(location).attr('href', 'product.html?prodid='+UrlParamHash(url).prodID);
 			}
 		}else if(jpUserStatus === ""){
+			alert("跳转到i");
 			$(location).attr('href', 'i.html?Mob=' + jpMob);
 		}else{
+			alert("跳转到i");
 			$(location).attr('href', 'i.html?Mob=' + jpMob + "&userStatus="+jpUserStatus);
 		}
 	}
