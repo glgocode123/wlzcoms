@@ -185,7 +185,7 @@ $(function () {
 							//Order中最后一个产品块
 							if(k === jsonData[0].Order[j].prodArr.length - 1){
 								//不是最后一个记录块
-								if(j === jsonData[0].Order.length - 1){
+								if(j !== jsonData[0].Order.length - 1){
 									wSource += "|$|";
 								}
 							}else{
