@@ -252,11 +252,11 @@ $(function () {
 						success: function () {
 							//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
 							//读取用户json，为的是保存数据在cookie
-							$.cookie("wlzName", userMobID + "||NSU||false||" + 0 + "||" + 0 + "||" + 0, { expires: 1 });
+							$.cookie("wlzName", inputMob + "||NSU||false||" + 0 + "||" + 0 + "||" + 0, { expires: 1 });
 
 							//NSU = New Sever User
-			//				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=NSU");
-							jumpPage(userMobID,"NSU");
+			//				$(location).attr('href', 'i.html?Mob=' + inputMob + "&userStatus=NSU");
+							jumpPage(inputMob,"NSU");
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							console.log(XMLHttpRequest.status);

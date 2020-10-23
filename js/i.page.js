@@ -39,7 +39,7 @@ $(function () {
 		
 		//有修改：老用户买过东西（修改） 或 新用户买过东西（修改） true = RWSU & WSU
 		//else
-		//没修改：老用户没买东西（修改） 或 新用户没买东西（修改） false = RSU & WSU
+		//没修改：老用户没买东西（修改） 或 新用户没买东西（修改） false = RSU & NSU
 		if(userArrInfo[2]==="true"){
 			//用户下面判断有没有cookie记录
 			var wlzNHCookie = $.cookie("wlzNewHistory");
