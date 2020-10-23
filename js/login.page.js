@@ -238,7 +238,8 @@ $(function () {
 						jumpPage(userMobID,"RSU");
 					});
 				}else{//如果只读服务器也没有数据
-
+					
+					var newJSONData =  '{"MobID":' + userMobID + ',"Points":' + 0 + ',"Golden":' + 0 + '}';
 					//把来者注册成新用户
 					//发送交易请求到w数据库
 					$.ajax({
@@ -246,11 +247,7 @@ $(function () {
 						url: "http://d3j1728523.wicp.vip/user",
 						async: false,
 						contentType: "application/json",//; charset=utf-8
-						data: {
-							MobID:userMobID,
-							Points:0,
-							Golden:0
-						},
+						data: newJSONData,
 						dataType: "json",
 						success: function () {
 							//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
