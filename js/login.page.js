@@ -239,7 +239,7 @@ $(function () {
 					});
 				}else{//如果只读服务器也没有数据
 					
-					var newJSONData =  '{"MobID":' + userMobID + ',"Points":' + 0 + ',"Golden":' + 0 + '}';
+					var newJSONData =  '{"MobID":' + userMobID + ',"Points":' + '0' + ',"Golden":' + '0' + '}';
 					//把来者注册成新用户
 					//发送交易请求到w数据库
 					$.ajax({
