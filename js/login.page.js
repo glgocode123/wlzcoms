@@ -240,7 +240,37 @@ $(function () {
 				}else{//如果只读服务器也没有数据
 
 					//把来者注册成新用户
+					//发送交易请求到w数据库
+					$.ajax({
+						type: "post",
+						url: "http://d3j1728523.wicp.vip/user",
+						async: false,
+						contentType: "application/json",//; charset=utf-8
+						data: {
+							MobID:userMobID,
+							Points:0,
+							Golden:0
+						},
+						dataType: "json",
+						success: function () {
+							//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
+							//读取用户json，为的是保存数据在cookie
+							$.cookie("wlzName", userMobID + "||NSU||false||" + 0 + "||" + 0 + "||" + 0, { expires: 1 });
 
+							//NSU = New Sever User
+			//				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=NSU");
+							jumpPage(userMobID,"NSU");
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							console.log(XMLHttpRequest.status);
+							console.log(XMLHttpRequest.readyState);
+							console.log(textStatus);
+							console.log(errorThrown);
+							updateTextPopup("Error","您的订单未能提交，请稍后再试！");
+						}
+					});
+					
+					
 					//如果注册不成功
 					updateTextPopup("error","当前无法注册！请24小时后再试！");
 

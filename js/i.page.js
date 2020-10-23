@@ -150,7 +150,7 @@ $(function () {
 						iHistoryR = jsonData.History;
 					}
 				});
-			}else if(userArrInfo[1]==="WSU"){
+			}else if(userArrInfo[1]==="NSU"){
 				alert("WSU2");
 				//刚刚注册的用户，没有修改
 //				iHistoryW = [];
