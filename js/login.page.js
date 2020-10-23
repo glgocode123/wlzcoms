@@ -180,7 +180,7 @@ $(function () {
 							wSource += 
 								jsonData[0].Order[j].prodArr[k].proID + "||" + 
 								jsonData[0].Order[j].prodArr[k].proName + "||" + 
-								jsonData[0].Order[j].prodArr[k].proParms;
+								jsonData[0].Order[j].prodArr[k].proParm;
 
 							//Order中最后一个产品块
 							if(k === jsonData[0].Order[j].prodArr.length - 1){

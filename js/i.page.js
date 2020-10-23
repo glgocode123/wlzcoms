@@ -359,22 +359,5 @@ $(function () {
 		$(location).attr('href', 'login.html');
 	}
 	
-	
-//	//判断 - 页面传入的Mob是否正确
-//	if(isMobID(decodeURI(UrlParamHash(url).Mob))){
-//		cookieMobID = UrlParamHash(url).Mob;
-//		//如果获取的手机号正确，初始化填入表格中
-//		setUserInfo(cookieMobID);
-//	}else{
-//		//二次判断 - 读取cookie
-//		if(true){
-//			//模拟正确
-//			cookieMobID = 13822262354;
-//			$(location).attr('href', 'i.html?Mob='+cookieMobID);
-//		}else{
-//			//如果页面id不合适，返回原页
-//			$(location).attr('href', 'login.html');
-//		}
-//	}
 
 });
