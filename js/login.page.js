@@ -150,54 +150,59 @@ $(function () {
 				//记录用户ID
 				userMobID = inputMob;
 				
-				var userPoints = jsonData[0].Points,
+				var wServerH = false,
+					userPoints = jsonData[0].Points,
 					userGolden = jsonData[0].Golden;
 				
 				//读取用户订单记录，用于写cookie
 				$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+inputMob, function(jsonDataOrder){
-					alert(jsonDataOrder);
-					var wSource = "";
-					
-					for (var j = 0; j < jsonDataOrder[0].Order.length; j++) {
-						
-						//块：记录
-						wSource += 
-							jsonDataOrder[0].Order[j].data + "||" + 
-							jsonDataOrder[0].Order[j].AWB + "||" + 
-							jsonDataOrder[0].Order[j].MobNum + "||" + 
-							jsonDataOrder[0].Order[j].Points[0] + "||" + 
-							jsonDataOrder[0].Order[j].Points[1] + "||" + 
-							jsonDataOrder[0].Order[j].Golden[0] + "||" + 
-							jsonDataOrder[0].Order[j].Golden[1] + "||" + 
-							jsonDataOrder[0].Order[j].Name + "||" + 
-							jsonDataOrder[0].Order[j].Address + "||" + 
-							jsonDataOrder[0].Order[j].price + "||" + 
-							jsonDataOrder[0].Order[j].discount + "||" + 
-							jsonDataOrder[0].Order[j].Total + "|$|";
+					if(isNullOrUndefined(jsonDataOrder)){
+						var wSource = "";
 
-						for(var k = 0; k < jsonDataOrder[0].Order[j].prodArr.length; k++){
+						for (var j = 0; j < jsonDataOrder[0].Order.length; j++) {
 
-							//块：产品
+							//块：记录
 							wSource += 
-								jsonDataOrder[0].Order[j].prodArr[k].proID + "||" + 
-								jsonDataOrder[0].Order[j].prodArr[k].proName + "||" + 
-								jsonDataOrder[0].Order[j].prodArr[k].proParm;
+								jsonDataOrder[0].Order[j].data + "||" + 
+								jsonDataOrder[0].Order[j].AWB + "||" + 
+								jsonDataOrder[0].Order[j].MobNum + "||" + 
+								jsonDataOrder[0].Order[j].Points[0] + "||" + 
+								jsonDataOrder[0].Order[j].Points[1] + "||" + 
+								jsonDataOrder[0].Order[j].Golden[0] + "||" + 
+								jsonDataOrder[0].Order[j].Golden[1] + "||" + 
+								jsonDataOrder[0].Order[j].Name + "||" + 
+								jsonDataOrder[0].Order[j].Address + "||" + 
+								jsonDataOrder[0].Order[j].price + "||" + 
+								jsonDataOrder[0].Order[j].discount + "||" + 
+								jsonDataOrder[0].Order[j].Total + "|$|";
 
-							//Order中最后一个产品块
-							if(k === jsonDataOrder[0].Order[j].prodArr.length - 1){
-								//不是最后一个记录块
-								if(j !== jsonDataOrder[0].Order.length - 1){
-									wSource += "|$|";
+							for(var k = 0; k < jsonDataOrder[0].Order[j].prodArr.length; k++){
+
+								//块：产品
+								wSource += 
+									jsonDataOrder[0].Order[j].prodArr[k].proID + "||" + 
+									jsonDataOrder[0].Order[j].prodArr[k].proName + "||" + 
+									jsonDataOrder[0].Order[j].prodArr[k].proParm;
+
+								//Order中最后一个产品块
+								if(k === jsonDataOrder[0].Order[j].prodArr.length - 1){
+									//不是最后一个记录块
+									if(j !== jsonDataOrder[0].Order.length - 1){
+										wSource += "|$|";
+									}
+								}else{
+									wSource += "|&|";
 								}
-							}else{
-								wSource += "|&|";
 							}
 						}
+						wServerH = true;
+						alert(wSource);
+						//，有则读取cookie======先读取wServer再读取rServer========
+						$.cookie("wlzNewHistory", wSource, { expires: 1 });
+					}else{
+						//今天没有买东西/操作
 					}
 					
-					alert(wSource);
-					//，有则读取cookie======先读取wServer再读取rServer========
-					$.cookie("wlzNewHistory", wSource, { expires: 1 });
 				});
 						  
 				//如果只读服务器存在
@@ -217,11 +222,10 @@ $(function () {
 					//新用户
 					//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
 					//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
-					var wlznhval = $.cookie("wlzNewHistory");
-					if(wlznhval.length > 0){
+					if(wServerH){
 						$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
 					}else{
-						$.cookie("wlzName", userMobID + "||WSU||false||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+						$.cookie("wlzName", userMobID + "||NSU||false||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
 					}
 					
 
