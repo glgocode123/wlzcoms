@@ -118,6 +118,9 @@ $(function () {
 	// 五种状态：（RWSU老用户有更新、WSU新用户有更新、RSU老用户没更新、NSU注册新用户、404）
 	//
 	/*=======================================================================================*/
+	function setNewHistoryCookie(){
+		
+	}
 	//inputMob，用户输入的手机号码
 	function getSeverDate(inputMob){
 
@@ -154,38 +157,38 @@ $(function () {
 					userGolden = jsonData[0].Golden;
 				
 				//读取用户订单记录，用于写cookie
-				$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+inputMob, function(jsonData){
+				$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+inputMob, function(jsonDataOrder){
 					var wSource = "";
 					
-					for (var j = 0; j < jsonData[0].Order.length; j++) {
+					for (var j = 0; j < jsonDataOrder[0].Order.length; j++) {
 						
 						//块：记录
 						wSource += 
-							jsonData[0].Order[j].data + "||" + 
-							jsonData[0].Order[j].AWB + "||" + 
-							jsonData[0].Order[j].MobNum + "||" + 
-							jsonData[0].Order[j].Points[0] + "||" + 
-							jsonData[0].Order[j].Points[1] + "||" + 
-							jsonData[0].Order[j].Golden[0] + "||" + 
-							jsonData[0].Order[j].Golden[1] + "||" + 
-							jsonData[0].Order[j].Name + "||" + 
-							jsonData[0].Order[j].Address + "||" + 
-							jsonData[0].Order[j].price + "||" + 
-							jsonData[0].Order[j].discount + "||" + 
-							jsonData[0].Order[j].Total + "|$|";
+							jsonDataOrder[0].Order[j].data + "||" + 
+							jsonDataOrder[0].Order[j].AWB + "||" + 
+							jsonDataOrder[0].Order[j].MobNum + "||" + 
+							jsonDataOrder[0].Order[j].Points[0] + "||" + 
+							jsonDataOrder[0].Order[j].Points[1] + "||" + 
+							jsonDataOrder[0].Order[j].Golden[0] + "||" + 
+							jsonDataOrder[0].Order[j].Golden[1] + "||" + 
+							jsonDataOrder[0].Order[j].Name + "||" + 
+							jsonDataOrder[0].Order[j].Address + "||" + 
+							jsonDataOrder[0].Order[j].price + "||" + 
+							jsonDataOrder[0].Order[j].discount + "||" + 
+							jsonDataOrder[0].Order[j].Total + "|$|";
 
-						for(var k = 0; k < jsonData[0].Order[j].prodArr.length; k++){
+						for(var k = 0; k < jsonDataOrder[0].Order[j].prodArr.length; k++){
 
 							//块：产品
 							wSource += 
-								jsonData[0].Order[j].prodArr[k].proID + "||" + 
-								jsonData[0].Order[j].prodArr[k].proName + "||" + 
-								jsonData[0].Order[j].prodArr[k].proParm;
+								jsonDataOrder[0].Order[j].prodArr[k].proID + "||" + 
+								jsonDataOrder[0].Order[j].prodArr[k].proName + "||" + 
+								jsonDataOrder[0].Order[j].prodArr[k].proParm;
 
 							//Order中最后一个产品块
-							if(k === jsonData[0].Order[j].prodArr.length - 1){
+							if(k === jsonDataOrder[0].Order[j].prodArr.length - 1){
 								//不是最后一个记录块
-								if(j !== jsonData[0].Order.length - 1){
+								if(j !== jsonDataOrder[0].Order.length - 1){
 									wSource += "|$|";
 								}
 							}else{
@@ -203,10 +206,10 @@ $(function () {
 				//是老用户并且有修改（可写服务器）
 				if(rServerUser){
 					//老用户
-					$.getJSON("user/" + userMobID + ".json", function(jsonData){
+					$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
 						//cookie数据：0手机号||1老用户&有修改数据||2可写数据库||3积分||4金池||5历史记录数量
 						//读取用户json，为的是保存数据在cookie
-						$.cookie("wlzName", userMobID + "||RWSU||true||" + userPoints + "||" + userGolden + "||" + jsonData.History.length, { expires: 1 });
+						$.cookie("wlzName", userMobID + "||RWSU||true||" + userPoints + "||" + userGolden + "||" + jsonDataUserInfo.History.length, { expires: 1 });
 
 						//RWSU = Read Write Sever User
 						//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
@@ -216,14 +219,11 @@ $(function () {
 					//新用户
 					//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
 					//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
-					
-					$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userMobID, function(jsonData){
-						if(jsonData.length > 0){
-							$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
-						}else{
-							$.cookie("wlzName", userMobID + "||WSU||false||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
-						}
-					});
+					if($.cookie("wlzNewHistory").length > 0){
+						$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+					}else{
+						$.cookie("wlzName", userMobID + "||WSU||false||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+					}
 					
 
 					//RWSU = Read Write Sever User
@@ -235,11 +235,11 @@ $(function () {
 				//如果只读服务器有此用户，就读取用户数据
 				if(rServerUser){
 					//已经是用户
-					$.getJSON("user/" + userMobID + ".json", function(jsonData){
-		//				alert(jsonData.Points);
+					$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
+		//				alert(jsonDataUserInfo.Points);
 						//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
 						//读取用户json，为的是保存数据在cookie
-						$.cookie("wlzName", userMobID + "||RSU||false||" + jsonData.Points + "||" + jsonData.Golden + "||" + jsonData.History.length, { expires: 1 });
+						$.cookie("wlzName", userMobID + "||RSU||false||" + jsonDataUserInfo.Points + "||" + jsonDataUserInfo.Golden + "||" + jsonDataUserInfo.History.length, { expires: 1 });
 
 						//RSU = Read Sever User
 		//				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
