@@ -103,6 +103,10 @@ $(function () {
 						iPoints = jsonData[0].Points;
 						iGolden = jsonData[0].Golden;
 						
+						alert(userArrInfo[3]);
+						alert(iPoints);
+						alert(userArrInfo[4]);
+						alert(iGolden);
 						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
 						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
 							alert("error,用户数据不匹配！");
