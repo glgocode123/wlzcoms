@@ -216,7 +216,15 @@ $(function () {
 					//新用户
 					//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
 					//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
-					$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+					
+					$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userMobID, function(jsonData){
+						if(jsonData.length > 0){
+							$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+						}else{
+							$.cookie("wlzName", userMobID + "||WSU||false||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+						}
+					});
+					
 
 					//RWSU = Read Write Sever User
 					//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");

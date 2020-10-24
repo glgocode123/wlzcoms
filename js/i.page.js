@@ -43,6 +43,7 @@ $(function () {
 		if(userArrInfo[2]==="true"){
 			//用户下面判断有没有cookie记录
 			var wlzNHCookie = $.cookie("wlzNewHistory");
+			//老用户买过东西/修改
 			if(userArrInfo[1] === "RWSU"){
 				alert("RWSU");
 				
@@ -94,6 +95,8 @@ $(function () {
 					iHistoryR = jsonData.History;
 				});
 			}else if(userArrInfo[1]==="WSU"){
+				//新用户买过东西/修改
+				
 				alert("WSU1");
 				//刚刚注册的用户，没有买过东西
 				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
