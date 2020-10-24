@@ -95,9 +95,23 @@ $(function () {
 				});
 			}else if(userArrInfo[1]==="WSU"){
 				alert("WSU1");
-				//刚刚注册的用户，有修改
-				//如果有此cookie，说明有修改数据在本地
-				if(wlzNHCookie !== null || wlzNHCookie !== "" || wlzNHCookie !== undefined || wlzNHCookie !== "undefined"){
+				//刚刚注册的用户，没有买过东西
+				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
+					//访问可写数据库
+					$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
+						//可写服务器是最新的数据
+						iPoints = jsonData[0].Points;
+						iGolden = jsonData[0].Golden;
+						
+						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
+							alert("error,用户数据不匹配！");
+							$(location).attr("href","404.html");
+						}else{
+							iHistoryW = getWserverHistory(userArrInfo[0]);
+						}
+					});
+				}else{//有修改数据在本地
 					if(wlzNHCookie.split("|$|").length > 0){
 						iCookieHistoryW = wlzNHCookie.split("|$|");
 					}else{
@@ -116,21 +130,6 @@ $(function () {
 							}
 						});
 					}
-				}else{//cookie：没有历史记录
-					//访问可写数据库
-					$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
-						//可写服务器是最新的数据
-						iPoints = jsonData[0].Points;
-						iGolden = jsonData[0].Golden;
-						
-						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-						if(userArrInfo[3] !== iPoints || userArrInfo[4] !== iGolden){
-							alert("error,用户数据不匹配！");
-							$(location).attr("href","404.html");
-						}else{
-							iHistoryW = getWserverHistory(userArrInfo[0]);
-						}
-					});
 				}
 			}
 		}else{
@@ -193,17 +192,14 @@ $(function () {
 		//如果有数据，说明第一次访问，还没有记录cookie
 		if(iHistoryW.length > 0){
 			//写入cookie，同步写入页面显示，可以减少对写入服务器的访问
-			alert(0);
 			setServerHistory(true, iHistoryW);
 		}
 		//如果有数据，说明当天购买信息在cookie，同时上面的逻辑是不会执行的
 		if(iCookieHistoryW.length > 0){
-			alert(1);
 			setCookieHistory(iCookieHistoryW);
 		}
 		//如果有数据，说明老用户，读取只读服务器写入数据
 		if(iHistoryR.length > 0){
-			alert(2);
 			setServerHistory(false, iHistoryR);
 		}
 	}
@@ -271,6 +267,7 @@ $(function () {
 		//[2]data||AWB||price||discount||Total
 		//[3]proID||proName||proParms|&|proID||proName||proParms
 		//Total为0的情况是一定不会出现的，因为如果没有产品何来总价
+		
 		for(var i = 0; i < cookieHistoryArray.length; i++){
 			//偶数数组（头尾数据）
 			if((i+2)%2 === 0){
