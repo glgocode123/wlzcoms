@@ -118,9 +118,6 @@ $(function () {
 	// 五种状态：（RWSU老用户有更新、WSU新用户有更新、RSU老用户没更新、NSU注册新用户、404）
 	//
 	/*=======================================================================================*/
-	function setNewHistoryCookie(){
-		
-	}
 	//inputMob，用户输入的手机号码
 	function getSeverDate(inputMob){
 
