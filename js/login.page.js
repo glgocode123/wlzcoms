@@ -156,7 +156,7 @@ $(function () {
 				
 				//读取用户订单记录，用于写cookie
 				$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+inputMob, function(jsonDataOrder){
-					if(isNullOrUndefined(jsonDataOrder)){
+					if(jsonDataOrder.length > 0){
 						var wSource = "";
 
 						for (var j = 0; j < jsonDataOrder[0].Order.length; j++) {
