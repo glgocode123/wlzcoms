@@ -330,7 +330,7 @@ $(function () {
 		/*================*/
 		
 		//计算出获得的积分（当前积分 + 本次购物应获的积分）
-		var countPoints = userWServerPoints + Math.round(htmlValParms/10)；
+		var countPoints = userWServerPoints + Math.round(htmlValParms/10);
 			
 		newJSONDataUser += '"Points":' + countPoints + ',"Golden":' + countGolden + '}';
 		
