@@ -240,7 +240,7 @@ $(function () {
 	
 	//全局变量
 	var htmlVal = "",
-		htmlValCount = 0,//产品总数
+//		htmlValCount = 0,//产品总数
 		htmlValParms = 0,//总价格
 		//计算出剩下的金池(当前金池 - 本次可用金池)
 		countGolden = 0,
@@ -534,12 +534,12 @@ $(function () {
 				//老用户
 				if(jsonDataUserInfo.length > 0){
 
-					userWServerPoints = jsonDataUserInfo.Points,
+					userWServerPoints = jsonDataUserInfo.Points;
 					userWServerGolden = jsonDataUserInfo.Golden;
 					
 				}else{//新用户
 
-					userWServerPoints = 0,
+					userWServerPoints = 0;
 					userWServerGolden = 0;
 				}
 
