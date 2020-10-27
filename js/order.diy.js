@@ -3,37 +3,23 @@ $(function () {
 
 	"use strict";
 	
-	// 获得当前页id
-	var url = location.href;
-	
-	/*================*/
-	/* 功能 - 提取url中的解析字符串 */
-	/*================*/
-	function UrlParamHash(url) {
-		var params = [],
-			h;
-		var hash = url.slice(url.indexOf("?") + 1).split('&');
-//		alert(hash);
-		for(var i = 0; i < hash.length; i++){
-			h = hash[i].split("="); //
-			params[h[0]] = h[1];
-//			alert(h);
-		}
-		return params;
-	}
-	
-	/*================*/
-	/* 功能 - 判断手机号格式是否正确 */
-	/*================*/
-	function isMobID(mobid){
-		var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/);
-//		alert(pattern.exec(prodid));
-		if (!pattern.exec(mobid)){return false;}
-		return true;
-	}
-	
 	/*=======================================================================================*/
+	// 介绍：
+	// 1、购物车逻辑
+	// 2、页面初始化
+	// 3、写入cookie
+	// 4、页面展示控制
+	// 5、页面事件控制
+	/*=======================================================================================*/
+	
+	//上级页面只有cart和直接购买（预售）
+	//三种：直接购买单个产品，购物车单个产品，购物车全部产品
+	
+	//w服务器中的积分&金池都是今天的量，不会将只读服务器的历史量加进来，而且用户i.page中也只是显示只读的
 
+	/*=======================================================================================*/
+	// 购物车逻辑
+	/*=======================================================================================*/
 
 	//JS中this指的是全局变量,假如全局变量没有此参数时相当于在此方法中重新定义,如果全局变量中有此参数那么this仍然绑定到外部函数的this变量上
 
@@ -179,8 +165,37 @@ $(function () {
 		};
 	};
 	
+	/*=======================================================================================*/
+	// 全局功能
+	/*=======================================================================================*/
 	
-	//==================页面初始化逻辑，主要是操作cookie数据===========================
+	
+	/*================*/
+	/* 功能 - 判断手机号格式是否正确 */
+	/*================*/
+	function isMobID(mobid){
+		var pattern = new RegExp(/^1[3,4,5,7,8][0-9]{9}$/);
+//		alert(pattern.exec(prodid));
+		if (!pattern.exec(mobid)){return false;}
+		return true;
+	}
+	
+	/*================*/
+	/* 功能 - 消息框 —— 插件 */
+	/*================*/
+	function updateTextPopup(title, text){
+		$('.text-popup .text-popup-title').text(title);
+		$('.text-popup .text-popup-message').text(text);
+		$('.text-popup').addClass('active');
+	}
+	
+	function isNullOrUndefined(obj){
+		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	//展示结账页面账单信息
 	function setBillInfo(proID, proName, proCount, proPrice, proParms){
@@ -201,23 +216,198 @@ $(function () {
 		
 	}
 	
+	
+	/*=======================================================================================*/
+	// 2、页面初始化
+	/*=======================================================================================*/
+	
+	// 获得当前页id
+	var url = location.href;
+	
+	/*================*/
+	/* 功能 - 提取url中的解析字符串 */
+	/*================*/
+	function UrlParamHash(url) {
+		var params = [],
+			h;
+		var hash = url.slice(url.indexOf("?") + 1).split('&');
+//		alert(hash);
+		for(var i = 0; i < hash.length; i++){
+			h = hash[i].split("="); //
+			params[h[0]] = h[1];
+//			alert(h);
+		}
+		return params;
+	}
+	
+	
 	//全局变量
 	var htmlVal = "",
 		htmlValCount = 0,//产品总数
 		htmlValParms = 0,//总价格
+		//计算出剩下的金池(当前金池 - 本次可用金池)
+		countGolden = 0,
 		htmlValPreferential = 0;//折扣
 	
 	//cookie中的用户信息
 	var	MobID = 0,
 		userPoints = 0,
-		userGolden = 0;
-	var userCookie = $.cookie("wlzName");
+		userGolden = 0,
+		userCookie = $.cookie("wlzName");
 	if (userCookie !== null || userCookie !== "" || userCookie !== undefined) {
 		var userCookieArr = userCookie.split("||");
 		MobID = userCookieArr[0];
 		userPoints = userCookieArr[3];
 		userGolden = userCookieArr[4];
 	}
+	
+	//如果获取的手机号正确，初始化填入order-form
+	if (isMobID(MobID)){
+		$('.order-form input[name="mob"]').val(MobID);
+		$('.order-form input[name="mob"]').parent().addClass('focus');
+	}else{
+		$(location).attr('href', 'login.html?user=false');
+	}
+	
+	
+	
+	/*=======================================================================================*/
+	// 3、
+	/*=======================================================================================*/
+	
+	//写入数据库并生成cookie
+	function submitData(userMobURL, orderCookieProArrValue, orderJSONProArrValue){
+	
+		//生成订单id：订单时间
+		var myDate = new Date();
+		var orderDate = myDate.getFullYear() + "-" + (myDate.getMonth()+1) + "-" + myDate.getDate();
+		var orderAWB = "订单处理中...";
+		
+		//收货人基本信息
+		var orderMobNum = $.trim($('.order-form input[name="mob"]').val());
+		var orderUser = $.trim($('.order-form input[name="name"]').val());
+		var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
+	
+		/*================*/
+		/* 数据 -  newCookieData：cookie数据结构*/
+		/*================*/
+		
+		//用户信息，买东西一般会变更积分（增加积分）和金池含量（金池优惠抵扣）
+		//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|	
+		//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|
+	
+//e//	数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
+//r//	[0]data||AWB||price||discount||Total
+//r//	[1]proID||proName||proParms|&|proID||proName||proParms|&|proID||proName||proParms
+//o//	[2]data||AWB||price||discount||Total
+//r//	[3]proID||proName||proParms|&|proID||proName||proParms
+//!//	Total为0的情况是一定不会出现的，因为如果没有产品何来总价
+		
+		//记录订单cookie（格式：订单id || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据 ）
+		var newCookieData = myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValParms + "||" + htmlValPreferential + "||" + (htmlValParms - htmlValPreferential) +  orderCookieProArrValue;
+		
+		alert(newCookieData);
+
+		//写入cookie，在立即支付页面再写入数据库
+		$.cookie("wlzOrder" , newCookieData , { expires: 1 });
+		
+		
+		/*================*/
+		/* 数据 -  newJSONData：提交服务器的数据结构*/
+		/*================*/
+		
+		//决定是增加还是修改
+		var newJSONDataUser = "";
+		var newJSONDataOrder = "";
+		if(userMobURL === ""){
+			newJSONDataUser = '{"MobID":' + MobID + ',';
+			newJSONDataOrder = '{"MobID":' + MobID + ',';
+		}else{
+			
+			newJSONDataUser = '{';
+			newJSONDataOrder = '{';
+		}
+		
+		/*================*/
+		/* 数据提交user*/
+		/*================*/
+		
+		//计算出获得的积分（当前积分 + 本次购物应获的积分）
+		var countPoints = userWServerPoints + Math.round(orderPrice/10)；
+			
+		newJSONDataUser += '"Points":' + countPoints + ',"Golden":' + countGolden + '}';
+		
+		alert(newJSONDataUser);
+		//发送交易请求到w数据库
+		$.ajax({
+			type: "post",
+			url: "http://d3j1728523.wicp.vip/user" + userMobURL,
+			async: false,
+			contentType: "application/json",//; charset=utf-8
+			data: newJSONDataUser,
+			dataType: "json",
+			success: function () {
+		
+				/*================*/
+				/* 数据提交order*/
+				/*================*/
+				
+				//用户MobID || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据
+//				newJSONDataOrder += '"data":' + orderDate + ',"AWB":' + orderAWB + ',"MobNum":' + orderMobNum + ',"Name":' + orderUser + ',"Address":' + orderAddress + ',"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
+				
+				newJSONDataOrder += '"data":' + orderDate + ',"AWB":' + orderAWB + ',"MobNum":' + orderMobNum + ',"Name":' + orderUser + ',"Address":' + orderAddress + ',"Points":[' + 'true,' + Math.round(orderPrice/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
+
+				alert(newJSONDataOrder);
+
+				//发送交易请求到w数据库
+				$.ajax({
+					type: "post",
+					url: "http://d3j1728523.wicp.vip/order" + userMobURL,
+					async: false,
+					contentType: "application/json",//; charset=utf-8
+					data: newJSONDataOrder,
+					dataType: "json",
+					success: function () {
+						$(location).attr('href', 'pay.html');
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						console.log(XMLHttpRequest.status);
+						console.log(XMLHttpRequest.readyState);
+						console.log(textStatus);
+						console.log(errorThrown);
+						$.removeCookie('wlzOrder',{ path: '/'}); 
+						alert("您的订单未能提交，请稍后再试！");
+						$(location).attr('href', 'index.html');
+					}
+		//				error: function (message) {
+		//					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
+		//				}
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.status);
+				console.log(XMLHttpRequest.readyState);
+				console.log(textStatus);
+				console.log(errorThrown);
+				$.removeCookie('wlzOrder',{ path: '/'}); 
+				alert("您的订单未能提交，请稍后再试！");
+				$(location).attr('href', 'index.html');
+			}
+//				error: function (message) {
+//					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
+//				}
+		});
+		
+//			
+//			//如果数据正确
+//			$(location).attr('href', 'i.html');
+	}
+	
+	/*=======================================================================================*/
+	// 4、页面展示控制 & 数据初始化
+	/*=======================================================================================*/
+	
+	
 	//获取页面参数
 	//prodida指的是单个产品购买
 	var prodida = decodeURI(UrlParamHash(url).prodida),
@@ -229,63 +419,40 @@ $(function () {
 		prodPrice = decodeURI(UrlParamHash(url).price),
 		prodParms = decodeURI(UrlParamHash(url).parms);
 	
-	
-	//如果获取的手机号正确，初始化填入order-form
-	if (isMobID(MobID)){
-		$('.order-form input[name="mob"]').val(MobID);
-		$('.order-form input[name="mob"]').parent().addClass('focus');
-	}else{
-		$(location).attr('href', 'login.html?user=false');
-	}
-	
-	//用户信息，买东西一般会变更积分（增加积分）和金池含量（金池优惠抵扣）
-	//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|	
-	//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|
-	
-//e//	数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
-//r//	[0]data||AWB||price||discount||Total
-//r//	[1]proID||proName||proParms|&|proID||proName||proParms|&|proID||proName||proParms
-//o//	[2]data||AWB||price||discount||Total
-//r//	[3]proID||proName||proParms|&|proID||proName||proParms
-//!//	Total为0的情况是一定不会出现的，因为如果没有产品何来总价
-	
-	
-	
-	//生成订单id：订单时间
-	var myDate = new Date();
-	var orderDate = myDate.getFullYear() + "-" + (myDate.getMonth()+1) + "-" + myDate.getDate();
 	//写入cookie的数据
 	var orderCookieValue = "";
-	var orderAWB = "订单处理中...";
 	//写入服务器的数据，和写入cookie是一样的数据，但是格式不同
 	var orderJSONValue = "";
-	//折扣
-	var discount = 0;
+	//全局使用的总价格
+	var orderPrice = 0;
 	
-	function isNullOrUndefined(obj){
-		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	//参数不为空，说明这个是从产品页或者预售页直接过来(直接购买)
+	//参数不为空，说明这个是从 "产品页" 或者 "预售页" 直接过来(直接购买)
 	//有的产品没有parms
 	if(!isNullOrUndefined(prodName) && !isNullOrUndefined(prodCount) && !isNullOrUndefined(prodPrice)){
+		
+		//结算单个产品的产品总价
+		orderPrice = prodPrice;
+		
 		alert(0);
 		var proID = 0;
+		//获得proID
 		if(isNullOrUndefined(prodid) && !isNullOrUndefined(prodida)){
 			proID = prodida.substring(0, prodida.length - 1);
 		}else{
 			proID = prodid;
 		}
-		//设置订单信息
+		
+		//设置订单信息（url的参数）
 		setBillInfo(proID, prodName, prodCount, prodPrice, prodParms);
-		//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
-		orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + prodPrice + "||" + discount + "||" + (prodPrice-discount) + "|$|" + proID + "||" + prodName + "||" + prodParms;
-		orderJSONValue = '"orderInfo":["' + myDate.getTime() + '","' + orderDate + '","' + orderAWB + '","' + prodPrice + '","' + discount + '","' + (prodPrice-discount) + '"],"prodInfo":["' + proID + '","' + prodName + '","' + prodParms + '"]';
+		
+		
+		//订单数组（|$|proID||proName||proParms）
+		orderCookieValue = "|$|" + proID + "||" + prodName + "||" + prodParms;
+		
+		orderJSONValue = ',"prodArr":[{' + '"proID":' + proID + ',"proName":' + prodName + ',"proParm":' + prodParms + '}]';
 		
 	}else{//有可能是从购物车进来的
+		
 		alert(1);
 		//调用，创建实例
 		var wlzC = new CartHelper();
@@ -295,53 +462,108 @@ $(function () {
 		if(pro_cart.Count > 0){
 			//产品数组
 			var abc = pro_cart.Items;
-			//如果存在值并且>2020000000，结算单个产品(不可能有小于2020000000的值，新网站只有2020后的时间段)
+			
+			//如果存在prodida值，并且>2020000000，结算单个产品(不可能有小于2020000000的值，新网站只有2020后的时间段)
 			if( prodida.substring(0, prodida.length - 1) > 2020000000 ){
 				//循环判断cookie有没有同样的数据
 				for(var i = 0; i < abc.length; i++){
 					//如果有同样的prodida，就是从购物车进来的
 					if( prodida === abc[i].Id ){
+						
+						//结算单个产品的产品总价
+						orderPrice = abc[i].Price;
+						
 						//设置订单信息
 						setBillInfo(abc[i].Id.substring(0, abc[i].Id.length - 1), abc[i].Name, abc[i].Count, abc[i].Price, abc[i].Parms);
-						//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms
-						orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + abc[i].Price + "||" + discount + "||" + (abc[i].Price-discount) + "|$|" + abc[i].Id.substring(0, abc[i].Id.length - 1) + "||" + abc[i].Name + "||" + abc[i].Parms;
-						orderJSONValue = '"orderInfo":["' + myDate.getTime() + '","' + orderDate + '","' + orderAWB + '","' + abc[i].Price + '","' + discount + '","' + (abc[i].Price-discount) + '"],"prodInfo":["' + abc[i].Id.substring(0, abc[i].Id.length - 1) + '","' + abc[i].Name + '","' + abc[i].Parms + '"]';
+						
+						//订单数组（|$|proID||proName||proParms）
+						orderCookieValue = "|$|" + abc[i].Id.substring(0, abc[i].Id.length - 1) + "||" + abc[i].Name + "||" + abc[i].Parms;
+		
+						orderJSONValue = ',"prodArr":[{' + '"proID":' + abc[i].Id.substring(0, abc[i].Id.length - 1) + ',"proName":' + abc[i].Name + ',"proParm":' + abc[i].Parms + '}]';
 						continue;
 					}
 				}
-			}else{
-				//如果页面没有prodida值传递进来（结账全部产品）
-				//订单cookie的value
-				var oCV = "";
-				//订单提交json的value
-				var oJV = "";
-				//总价格
-				var oCVPrice = 0;
+			}else{//如果页面没有prodida值传递进来（结账全部产品）
+				
+				orderJSONValue = ',"prodArr":[';
+				
 				for(var j = 0; j < abc.length; j++){
+					
+					//累计购物车产品的总价
+					orderPrice += abc[j].Price;
+					
 					//设置订单信息
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
-					oCVPrice += abc[j].Price;
-					//proID||proName||proParms|$|proID||proName||proParms
-					oCV = "|$|" + abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
 					
-					oJV = '"' + abc[j].Id.substring(0, abc[j].Id.length - 1) + '","' + abc[j].Name + '","' + abc[j].Parms;
+					//订单数组 |$|proID||proName||proParms|$|proID||proName||proParms
+					orderCookieValue = "|$|" + abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
+					
+					orderJSONValue += '{"proID":' + abc[j].Id.substring(0, abc[j].Id.length - 1) + ',"proName":' + abc[j].Name + ',"proParm":' + abc[j].Parms + '}';
 					//最后一个不加“，”号
-					if(j === abc.length - 1){
-						oJV += '"';
-					}else{
-						oJV += '",';
+					if(j !== abc.length - 1){
+						orderJSONValue += ',';
 					}
 				}
-				//|$|orderID||date||AWB||price||discount||Total|$|  "+"  oCV
-				orderCookieValue = "|$|" + myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + oCVPrice + "||" + discount + "||" + (oCVPrice-discount) + oCV;
 				
-				orderJSONValue = '"orderInfo":["' + myDate.getTime() + '","' + orderDate + '","' + orderAWB + '","' + oCVPrice + '","' + discount + '","' + (oCVPrice-discount) + '"],"prodInfo":[' + oJV + ']';
+				orderJSONValue = ']';
+				
 			}
 		}else{
 //			alert("啥都木有！");
 			//可能是用户历史记录进来的
 			$(location).attr('href', '404.html');
 		}
+	}
+//		htmlValCount = 0,//产品总数
+//		htmlValParms = 0,//总价格
+//		htmlValPreferential = 0;//折扣
+	
+	//获得数据库用户今日修改数据
+	var userIsNotNull = false,
+		userWServerPoints = 0,
+		userWServerGolden = 0;
+	$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+MobID, function(jsonData){
+		
+		//如果今天有数据（新用户/老用户有修改）
+		if(jsonData.length > 0){
+			
+			userIsNotNull = true;
+			userWServerPoints = jsonData[0].Points;
+			userWServerGolden = jsonData[0].Golden;
+			
+		}else{//如果w服务器没有，看只读服务器
+			
+			//查看可写服务器，判断用户是否新用户
+			$.getJSON("user/" + MobID + ".json", function(jsonDataUserInfo){
+
+				//老用户
+				if(jsonDataUserInfo.length > 0){
+
+					userWServerPoints = jsonDataUserInfo.Points,
+					userWServerGolden = jsonDataUserInfo.Golden;
+					
+				}else{//新用户
+
+					userWServerPoints = 0,
+					userWServerGolden = 0;
+				}
+
+			});
+		}
+	});
+	
+	//计算出将要使用的金池 htmlValPreferential
+	//如果总价应用的金池数 小于 金池总数
+	if(userWServerGolden > Math.floor(orderPrice*15/100)){
+		//可用的金池数
+		htmlValPreferential = Math.floor(orderPrice*15/100);
+		//剩余的金池数
+		countGolden = userWServerGolden - htmlValPreferential;
+	}else{
+		//可用的金池数
+		htmlValPreferential = userWServerGolden;
+		//将金池用完
+		countGolden = 0;
 	}
 	
 	//写入页面的html内容
@@ -353,16 +575,19 @@ $(function () {
 	}else{
 		alert(4);
 //			$("span#setProdNum").text("共" + pro_cart.Count + "件，");
-		$("span#setProdPrice").text("¥" + htmlValParms + ".00");
+		$("span#setProdPrice").text("¥" + (htmlValParms - htmlValPreferential) + ".00");
 		if(htmlValPreferential > 0){
-			$("span#setProdPrice").parent().after('<div><span style="color: black;">已使用红包（VIP金券），节省了' + htmlValPreferential + '元</span></div>');
+			$("span#setProdPrice").parent().after('<div><span style="color: black;">已使用折扣（金池），节省了' + htmlValPreferential + '元</span></div>');
 		}
-//		$("span#setPreferential").text("已使用红包（VIP金券），节省了xxx.xx元");
 		//写页面
 		$("div#setProdList").html(htmlVal);
 	}
-
-	//=============================================================================================
+	
+	/*=======================================================================================*/
+	// 5、页面事件控制
+	/*=======================================================================================*/
+	
+	//提交事件&数据逻辑
 	$('#btnOrder').on("click", function(){
 		var $this = $('.order-form');
 						   
@@ -383,53 +608,55 @@ $(function () {
         if (error){
         	updateTextPopup('ERROR', msg);
         }else{
-			var orderUser = $.trim($('.order-form input[name="name"]').val());
-			var orderAddress = $.trim($('.order-form textarea[name="address"]').val());
-			var newCookieData = MobID + "||" + orderUser + "||" + orderAddress + "||" + userPoints + "||" + userGolden + "||" + orderCookieValue;
-			var newJSONData =  '{"MobID":' + MobID + ',"Name":' + orderUser + ',"Address":' + ',"Points":' + userPoints + ',"Golden":' + userGolden + orderAddress + ',"History"' + orderJSONValue + '}';
 			
-			alert(newCookieData + "______" + newJSONData);
+			//获得Cookie用户今日的购买历史
+			var wlzNHCookie = $.cookie("wlzNewHistory");
 			
-			//写入cookie，在立即支付页面再写入数据库
-			$.cookie("wlzOrder" , newCookieData , { expires: 1 });
 			
-			//发送交易请求到w数据库
-			$.ajax({
-				type: "post",
-				url: "http://d3j1728523.wicp.vip/register",
-				async: false,
-				contentType: "application/json",//; charset=utf-8
-				data: newJSONData,
-				dataType: "json",
-				success: function () {
-					$(location).attr('href', 'pay.html');
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					console.log(XMLHttpRequest.status);
-					console.log(XMLHttpRequest.readyState);
-					console.log(textStatus);
-					console.log(errorThrown);
-					updateTextPopup("Error","您的订单未能提交，请稍后再试！");
+			//今天有操作（w服务器）
+			if(userIsNotNull){
+				//本地cookie购买历史
+				if(isNullOrUndefined(wlzNHCookie)){
+					
+					//有wlzNewHistory cookie的时候，与数据库对比
+					if(userWServerPoints === userPoints && userWServerGolden === userGolden){
+						
+						//数据匹配，用修改的方式，写入服务器（登录用户，最新Points，最新Golden）
+						submitData("?MobID="+MobID, orderCookieValue, orderJSONValue);
+						
+					}else{//本地或者数据库可能被串改
+						
+						$(location).attr('href', '404.html');
+					}
+					
+				}else{//本地cookie可能被删除
+					$.removeCookie('wlzName',{ path: '/'}); 
+					alert("ERROR!请从新登录！");
 				}
-//				error: function (message) {
-//					updateTextPopup("Error","您的订单未能提交，请稍后再试！(ErCode:"+message+")");
-//				}
-			});
-//			
-//			//如果数据正确
-//			$(location).attr('href', 'i.html');
+			}else if(!userIsNotNull){//今天没有操作（w服务器）
+				//如果本地有修改数据
+				if(isNullOrUndefined(wlzNHCookie)){
+					
+					//本地或者数据库可能被串改
+					$(location).attr('href', '404.html');
+					
+				}else{//本地没有数据
+					
+					//以新增的方式提交，今天的新用户，所以积分什么的都是0
+					submitData("", orderCookieValue, orderJSONValue);
+					
+				}
+			}else{//？？？这个情况应该不会出现
+				$(location).attr('href', '404.html');
+			}
+			
 			
         }
 	});
-
+	
+	//输入框事件，用于操作那个黑色提示浮块
 	$(document).on('keyup', '.input-wrapper .input', function(){
 		$(this).parent().removeClass('invalid');
 	});
-
-	function updateTextPopup(title, text){
-		$('.text-popup .text-popup-title').text(title);
-		$('.text-popup .text-popup-message').text(text);
-		$('.text-popup').addClass('active');
-	}
-		
+	
 });
