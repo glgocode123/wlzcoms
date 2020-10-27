@@ -199,9 +199,6 @@ $(function () {
 	
 	//展示结账页面账单信息
 	function setBillInfo(proID, proName, proCount, proPrice, proParms){
-		//每次调用增加
-		htmlValCount += proCount;
-		htmlValParms += proPrice*proCount;
 		var	proImg = "",
 			proTitle = "",
 			htmlRowSpacing = "",
@@ -333,7 +330,7 @@ $(function () {
 		/*================*/
 		
 		//计算出获得的积分（当前积分 + 本次购物应获的积分）
-		var countPoints = userWServerPoints + Math.round(orderPrice/10)；
+		var countPoints = userWServerPoints + Math.round(htmlValParms/10)；
 			
 		newJSONDataUser += '"Points":' + countPoints + ',"Golden":' + countGolden + '}';
 		
@@ -355,7 +352,7 @@ $(function () {
 				//用户MobID || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据
 //				newJSONDataOrder += '"data":' + orderDate + ',"AWB":' + orderAWB + ',"MobNum":' + orderMobNum + ',"Name":' + orderUser + ',"Address":' + orderAddress + ',"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
 				
-				newJSONDataOrder += '"data":' + orderDate + ',"AWB":' + orderAWB + ',"MobNum":' + orderMobNum + ',"Name":' + orderUser + ',"Address":' + orderAddress + ',"Points":[' + 'true,' + Math.round(orderPrice/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
+				newJSONDataOrder += '"data":' + orderDate + ',"AWB":' + orderAWB + ',"MobNum":' + orderMobNum + ',"Name":' + orderUser + ',"Address":' + orderAddress + ',"Points":[' + 'true,' + Math.round(htmlValParms/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
 
 				alert(newJSONDataOrder);
 
@@ -423,15 +420,13 @@ $(function () {
 	var orderCookieValue = "";
 	//写入服务器的数据，和写入cookie是一样的数据，但是格式不同
 	var orderJSONValue = "";
-	//全局使用的总价格
-	var orderPrice = 0;
 	
 	//参数不为空，说明这个是从 "产品页" 或者 "预售页" 直接过来(直接购买)
 	//有的产品没有parms
 	if(!isNullOrUndefined(prodName) && !isNullOrUndefined(prodCount) && !isNullOrUndefined(prodPrice)){
 		
 		//结算单个产品的产品总价
-		orderPrice = prodPrice;
+		htmlValParms = prodPrice;
 		
 		alert(0);
 		var proID = 0;
@@ -471,7 +466,7 @@ $(function () {
 					if( prodida === abc[i].Id ){
 						
 						//结算单个产品的产品总价
-						orderPrice = abc[i].Price;
+						htmlValParms = abc[i].Price;
 						
 						//设置订单信息
 						setBillInfo(abc[i].Id.substring(0, abc[i].Id.length - 1), abc[i].Name, abc[i].Count, abc[i].Price, abc[i].Parms);
@@ -490,7 +485,7 @@ $(function () {
 				for(var j = 0; j < abc.length; j++){
 					
 					//累计购物车产品的总价
-					orderPrice += abc[j].Price;
+					htmlValParms += abc[j].Price;
 					
 					//设置订单信息
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
@@ -554,9 +549,9 @@ $(function () {
 	
 	//计算出将要使用的金池 htmlValPreferential
 	//如果总价应用的金池数 小于 金池总数
-	if(userWServerGolden > Math.floor(orderPrice*15/100)){
+	if(userWServerGolden > Math.floor(htmlValParms*15/100)){
 		//可用的金池数
-		htmlValPreferential = Math.floor(orderPrice*15/100);
+		htmlValPreferential = Math.floor(htmlValParms*15/100);
 		//剩余的金池数
 		countGolden = userWServerGolden - htmlValPreferential;
 	}else{
