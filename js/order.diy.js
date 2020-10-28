@@ -518,8 +518,8 @@ $(function () {
 	
 	//获得数据库用户今日修改数据
 	var userIsNotNull = false,
-		userWServerPoints = "",
-		userWServerGolden = "";
+		userWServerPoints = "0",
+		userWServerGolden = "0";
 	$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+MobID, function(jsonData){
 		
 		//如果今天有数据（新用户/老用户有修改）
@@ -528,6 +528,8 @@ $(function () {
 			userIsNotNull = true;
 			userWServerPoints += jsonData[0].Points;
 			userWServerGolden += jsonData[0].Golden;
+			alert("userWServerPoints:" + userWServerPoints);
+			alert("userWServerGolden:" + userWServerGolden);
 			
 		}else{//如果w服务器没有，看只读服务器
 			
