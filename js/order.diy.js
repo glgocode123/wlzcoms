@@ -341,7 +341,7 @@ $(function () {
 		alert(newJSONDataUser);
 		//发送交易请求到w数据库
 		$.ajax({
-			type: "post",
+			type: ajaxType,
 			url: "http://d3j1728523.wicp.vip/user" + userMobURL,
 			async: false,
 			contentType: "application/json",//; charset=utf-8
@@ -362,7 +362,7 @@ $(function () {
 
 				//发送交易请求到w数据库
 				$.ajax({
-					type: "post",
+					type: ajaxType,
 					url: "http://d3j1728523.wicp.vip/order" + userMobURL,
 					async: false,
 					contentType: "application/json",//; charset=utf-8
