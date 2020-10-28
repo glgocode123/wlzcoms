@@ -273,7 +273,7 @@ $(function () {
 	/*=======================================================================================*/
 	
 	//写入数据库并生成cookie
-	function submitData(userMobURL, orderCookieProArrValue, orderJSONProArrValue){
+	function submitData(orderCookieProArrValue, orderJSONProArrValue){
 	
 		//生成订单id：订单时间
 		var myDate = new Date();
@@ -314,17 +314,10 @@ $(function () {
 		/* 数据 -  newJSONData：提交服务器的数据结构*/
 		/*================*/
 		
-		//决定是增加还是修改
-		var newJSONDataUser = "";
-		var newJSONDataOrder = "";
 		var ajaxType = "";
-		if(userMobURL === ""){
-			newJSONDataUser = '{"MobID":' + MobID + ',';
-			newJSONDataOrder = '{"MobID":' + MobID + ',';
+		if(userItemID === ""){
 			ajaxType = "post";
 		}else{
-			newJSONDataUser = '{';
-			newJSONDataOrder = '{';
 			ajaxType = "PUT";
 		}
 		
@@ -335,14 +328,14 @@ $(function () {
 		//计算出获得的积分（当前积分 + 本次购物应获的积分）
 		var countPoints = userWServerPoints + Math.round(htmlValParms/10);
 			
-		newJSONDataUser += '"Points":' + countPoints + ',"Golden":' + countGolden + '}';
+		var newJSONDataUser = '{"MobID":' + MobID + ',"Points":' + countPoints + ',"Golden":' + countGolden + '}';
 		
-		alert("http://d3j1728523.wicp.vip/user" + userMobURL);
+		alert("http://d3j1728523.wicp.vip/user" + userItemID);
 		alert(newJSONDataUser);
 		//发送交易请求到w数据库
 		$.ajax({
 			type: ajaxType,
-			url: "http://d3j1728523.wicp.vip/user" + userMobURL,
+			url: "http://d3j1728523.wicp.vip/user" + userItemID,
 			async: false,
 			contentType: "application/json",//; charset=utf-8
 			data: newJSONDataUser,
@@ -356,14 +349,14 @@ $(function () {
 				//用户MobID || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据
 //				newJSONDataOrder += '"data":' + orderDate + ',"AWB":' + orderAWB + ',"MobNum":' + orderMobNum + ',"Name":' + orderUser + ',"Address":' + orderAddress + ',"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
 				
-				newJSONDataOrder += '"data":"' + orderDate + '","AWB":"' + orderAWB + '","MobNum":' + orderMobNum + ',"Name":"' + orderUser + '","Address":"' + orderAddress + '","Points":[' + 'true,' + Math.round(htmlValParms/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
+				var newJSONDataOrder = '{"MobID":' + MobID + ',"data":"' + orderDate + '","AWB":"' + orderAWB + '","MobNum":' + orderMobNum + ',"Name":"' + orderUser + '","Address":"' + orderAddress + '","Points":[' + 'true,' + Math.round(htmlValParms/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
 
 				alert(newJSONDataOrder);
 
 				//发送交易请求到w数据库
 				$.ajax({
 					type: ajaxType,
-					url: "http://d3j1728523.wicp.vip/order" + userMobURL,
+					url: "http://d3j1728523.wicp.vip/order" + userItemID,
 					async: false,
 					contentType: "application/json",//; charset=utf-8
 					data: newJSONDataOrder,
@@ -627,7 +620,7 @@ $(function () {
 					if(userWServerPoints.toString() === userPoints && userWServerGolden.toString() === userGolden){
 						
 						//数据匹配，用修改的方式，写入服务器（登录用户，最新Points，最新Golden）
-						submitData(userItemID, orderCookieValue, orderJSONValue);
+						submitData(orderCookieValue, orderJSONValue);
 						
 					}else{//本地或者数据库可能被串改
 						alert("1404");
@@ -649,7 +642,7 @@ $(function () {
 				}else{//本地没有数据
 					
 					//以新增的方式提交，今天的新用户，所以积分什么的都是0
-					submitData("", orderCookieValue, orderJSONValue);
+					submitData(orderCookieValue, orderJSONValue);
 					
 				}
 			}else{//？？？这个情况应该不会出现
