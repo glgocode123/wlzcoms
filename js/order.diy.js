@@ -301,8 +301,9 @@ $(function () {
 //!//	Total为0的情况是一定不会出现的，因为如果没有产品何来总价
 		
 		//记录订单cookie（格式：订单id || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据 ）
-		htmlValPreferential += "";
-		var newCookieData = myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValParms + "||" + htmlValPreferential + "||" + (htmlValParms - htmlValPreferential) +  orderCookieProArrValue;
+		var toStringHtmlValPreferential = "";
+			toStringHtmlValPreferential = htmlValPreferential + "";
+		var newCookieData = myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValParms + "||" + toStringHtmlValPreferential + "||" + (htmlValParms - htmlValPreferential) +  orderCookieProArrValue;
 		
 		alert(newCookieData);
 
@@ -333,7 +334,7 @@ $(function () {
 		//计算出获得的积分（当前积分 + 本次购物应获的积分）
 		var countPoints = userWServerPoints + Math.round(htmlValParms/10);
 			
-		newJSONDataUser += '"Points":' + countPoints + ',"Golden":' + countGolden + '}';
+		newJSONDataUser += '"Points":"' + countPoints + '","Golden":"' + countGolden + '"}';
 		
 		alert("http://d3j1728523.wicp.vip/user" + userMobURL);
 		alert(newJSONDataUser);
