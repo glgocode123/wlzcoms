@@ -302,8 +302,7 @@ $(function () {
 		
 		//记录订单cookie（格式：订单id || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据 ）
 		alert(htmlValPreferential);
-		var newCookieData = "";
-		newCookieData = myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValParms + "||" + htmlValPreferential + "||" + (htmlValParms - htmlValPreferential) +  orderCookieProArrValue;
+		var newCookieData = myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValParms + "||" + htmlValPreferential + "||" + (htmlValParms - htmlValPreferential) +  orderCookieProArrValue;
 		
 		alert(newCookieData);
 
@@ -518,8 +517,8 @@ $(function () {
 	
 	//获得数据库用户今日修改数据
 	var userIsNotNull = false,
-		userWServerPoints = "0",
-		userWServerGolden = "0";
+		userWServerPoints = 0,
+		userWServerGolden = 0;
 	$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+MobID, function(jsonData){
 		
 		//如果今天有数据（新用户/老用户有修改）
@@ -544,8 +543,8 @@ $(function () {
 					
 				}else{//新用户
 
-					userWServerPoints = "0";
-					userWServerGolden = "0";
+					userWServerPoints = 0;
+					userWServerGolden = 0;
 				}
 
 			});
