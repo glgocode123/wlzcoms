@@ -335,6 +335,7 @@ $(function () {
 			
 		newJSONDataUser += '"Points":' + countPoints + ',"Golden":' + countGolden + '}';
 		
+		alert("http://d3j1728523.wicp.vip/user" + userMobURL);
 		alert(newJSONDataUser);
 		//发送交易请求到w数据库
 		$.ajax({
@@ -611,7 +612,7 @@ $(function () {
 			
 			//今天有操作（w服务器）
 			if(userIsNotNull){
-				//本地cookie购买历史
+				//本地没cookie购买历史
 				if(isNullOrUndefined(wlzNHCookie)){
 					
 					alert(userWServerPoints);
