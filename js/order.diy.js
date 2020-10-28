@@ -515,8 +515,8 @@ $(function () {
 	
 	//获得数据库用户今日修改数据
 	var userIsNotNull = false,
-		userWServerPoints = 0,
-		userWServerGolden = 0;
+		userWServerPoints = "",
+		userWServerGolden = "";
 	$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+MobID, function(jsonData){
 		
 		//如果今天有数据（新用户/老用户有修改）
