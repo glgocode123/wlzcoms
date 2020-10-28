@@ -622,7 +622,7 @@ $(function () {
 					alert(userWServerGolden);
 					alert(userGolden);
 					//有wlzNewHistory cookie的时候，与数据库对比
-					if(userWServerPoints === userPoints && userWServerGolden === userGolden){
+					if(userWServerPoints.toString() === userPoints && userWServerGolden.toString() === userGolden){
 						
 						//数据匹配，用修改的方式，写入服务器（登录用户，最新Points，最新Golden）
 						submitData("?MobID="+MobID, orderCookieValue, orderJSONValue);
