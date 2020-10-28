@@ -539,8 +539,8 @@ $(function () {
 					
 				}else{//新用户
 
-					userWServerPoints = 0;
-					userWServerGolden = 0;
+					userWServerPoints = "0";
+					userWServerGolden = "0";
 				}
 
 			});
