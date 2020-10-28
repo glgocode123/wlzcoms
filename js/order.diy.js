@@ -317,13 +317,15 @@ $(function () {
 		//决定是增加还是修改
 		var newJSONDataUser = "";
 		var newJSONDataOrder = "";
+		var ajaxType = "";
 		if(userMobURL === ""){
 			newJSONDataUser = '{"MobID":' + MobID + ',';
 			newJSONDataOrder = '{"MobID":' + MobID + ',';
+			ajaxType = "post";
 		}else{
-			
 			newJSONDataUser = '{';
 			newJSONDataOrder = '{';
+			ajaxType = "PUT";
 		}
 		
 		/*================*/
