@@ -620,7 +620,7 @@ $(function () {
 						submitData("?MobID="+MobID, orderCookieValue, orderJSONValue);
 						
 					}else{//本地或者数据库可能被串改
-						
+						alert("1404");
 						$(location).attr('href', '404.html');
 					}
 					
@@ -632,6 +632,7 @@ $(function () {
 				//如果本地有修改数据
 				if(isNullOrUndefined(wlzNHCookie)){
 					
+						alert("2404");
 					//本地或者数据库可能被串改
 					$(location).attr('href', '404.html');
 					
@@ -642,6 +643,7 @@ $(function () {
 					
 				}
 			}else{//？？？这个情况应该不会出现
+						alert("3404");
 				$(location).attr('href', '404.html');
 			}
 			
