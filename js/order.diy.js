@@ -520,17 +520,17 @@ $(function () {
 	//获得数据库用户今日修改数据
 	var userIsNotNull = false,
 		userWServerPoints = 0,
-		userWServerGolden = 0;
+		userWServerGolden = 0,
+		userItemID = "";
 	$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+MobID, function(jsonData){
 		
 		//如果今天有数据（新用户/老用户有修改）
 		if(jsonData.length > 0){
 			
 			userIsNotNull = true;
+			userItemID = "/" + jsonData[0].id;
 			userWServerPoints += jsonData[0].Points;
 			userWServerGolden += jsonData[0].Golden;
-			alert("userWServerPoints:" + userWServerPoints);
-			alert("userWServerGolden:" + userWServerGolden);
 			
 		}else{//如果w服务器没有，看只读服务器
 			
@@ -627,7 +627,7 @@ $(function () {
 					if(userWServerPoints.toString() === userPoints && userWServerGolden.toString() === userGolden){
 						
 						//数据匹配，用修改的方式，写入服务器（登录用户，最新Points，最新Golden）
-						submitData("?MobID="+MobID, orderCookieValue, orderJSONValue);
+						submitData(userItemID, orderCookieValue, orderJSONValue);
 						
 					}else{//本地或者数据库可能被串改
 						alert("1404");
