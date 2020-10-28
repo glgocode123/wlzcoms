@@ -309,18 +309,6 @@ $(function () {
 		//写入cookie，在立即支付页面再写入数据库
 		$.cookie("wlzOrder" , newCookieData , { expires: 1 });
 		
-		
-		/*================*/
-		/* 数据 -  newJSONData：提交服务器的数据结构*/
-		/*================*/
-		
-		var ajaxType = "";
-		if(userItemID === ""){
-			ajaxType = "post";
-		}else{
-			ajaxType = "PUT";
-		}
-		
 		/*================*/
 		/* 数据提交user*/
 		/*================*/
@@ -329,7 +317,13 @@ $(function () {
 		var countPoints = userWServerPoints + Math.round(htmlValParms/10);
 			
 		var newJSONDataUser = '{"MobID":' + MobID + ',"Points":' + countPoints + ',"Golden":' + countGolden + '}';
-		
+		//判断是新增还是修改，只有user才会用，order只使用新增
+		var ajaxType = "";
+		if(userItemID === ""){
+			ajaxType = "post";
+		}else{
+			ajaxType = "PUT";
+		}
 		alert("http://d3j1728523.wicp.vip/user" + userItemID);
 		alert(newJSONDataUser);
 		//发送交易请求到w数据库
@@ -345,18 +339,14 @@ $(function () {
 				/*================*/
 				/* 数据提交order*/
 				/*================*/
-				
-				//用户MobID || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据
-//				newJSONDataOrder += '"data":' + orderDate + ',"AWB":' + orderAWB + ',"MobNum":' + orderMobNum + ',"Name":' + orderUser + ',"Address":' + orderAddress + ',"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
-				
 				var newJSONDataOrder = '{"MobID":' + MobID + ',"data":"' + orderDate + '","AWB":"' + orderAWB + '","MobNum":' + orderMobNum + ',"Name":"' + orderUser + '","Address":"' + orderAddress + '","Points":[' + 'true,' + Math.round(htmlValParms/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
 
 				alert(newJSONDataOrder);
 
 				//发送交易请求到w数据库
 				$.ajax({
-					type: ajaxType,
-					url: "http://d3j1728523.wicp.vip/order" + userItemID,
+					type: "post",
+					url: "http://d3j1728523.wicp.vip/order",
 					async: false,
 					contentType: "application/json",//; charset=utf-8
 					data: newJSONDataOrder,
@@ -612,14 +602,9 @@ $(function () {
 				//本地没cookie购买历史
 				if(isNullOrUndefined(wlzNHCookie)){
 					
-					alert(userWServerPoints);
-					alert(userPoints);
-					alert(userWServerGolden);
-					alert(userGolden);
 					//有wlzNewHistory cookie的时候，与数据库对比
 					if(userWServerPoints.toString() === userPoints && userWServerGolden.toString() === userGolden){
 						
-						//数据匹配，用修改的方式，写入服务器（登录用户，最新Points，最新Golden）
 						submitData(orderCookieValue, orderJSONValue);
 						
 					}else{//本地或者数据库可能被串改
@@ -630,23 +615,23 @@ $(function () {
 				}else{//本地cookie可能被删除
 					$.removeCookie('wlzName',{ path: '/'}); 
 					alert("ERROR!请从新登录！");
+					$(location).attr('href', 'login.html');
 				}
 			}else if(!userIsNotNull){//今天没有操作（w服务器）
-				//如果本地有修改数据
+				//但本地有修改数据
 				if(isNullOrUndefined(wlzNHCookie)){
 					
-						alert("2404");
+					alert("2404");
 					//本地或者数据库可能被串改
 					$(location).attr('href', '404.html');
 					
 				}else{//本地没有数据
 					
-					//以新增的方式提交，今天的新用户，所以积分什么的都是0
 					submitData(orderCookieValue, orderJSONValue);
 					
 				}
 			}else{//？？？这个情况应该不会出现
-						alert("3404");
+				alert("3404");
 				$(location).attr('href', '404.html');
 			}
 			
