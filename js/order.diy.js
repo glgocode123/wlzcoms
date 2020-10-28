@@ -611,6 +611,7 @@ $(function () {
 			//今天有操作（w服务器）
 			if(userIsNotNull){
 				//本地cookie购买历史
+				alert(wlzNHCookie);
 				if(isNullOrUndefined(wlzNHCookie)){
 					
 					//有wlzNewHistory cookie的时候，与数据库对比
