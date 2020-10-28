@@ -523,8 +523,8 @@ $(function () {
 		if(jsonData.length > 0){
 			
 			userIsNotNull = true;
-			userWServerPoints = jsonData[0].Points;
-			userWServerGolden = jsonData[0].Golden;
+			userWServerPoints += jsonData[0].Points;
+			userWServerGolden += jsonData[0].Golden;
 			
 		}else{//如果w服务器没有，看只读服务器
 			
@@ -534,8 +534,8 @@ $(function () {
 				//老用户
 				if(jsonDataUserInfo.length > 0){
 
-					userWServerPoints = jsonDataUserInfo.Points;
-					userWServerGolden = jsonDataUserInfo.Golden;
+					userWServerPoints += jsonDataUserInfo.Points;
+					userWServerGolden += jsonDataUserInfo.Golden;
 					
 				}else{//新用户
 
@@ -618,7 +618,7 @@ $(function () {
 					alert(userWServerGolden);
 					alert(userGolden);
 					//有wlzNewHistory cookie的时候，与数据库对比
-					if(userWServerPoints.parseFloat() === userPoints && userWServerGolden.parseFloat() === userGolden){
+					if(userWServerPoints === userPoints && userWServerGolden === userGolden){
 						
 						//数据匹配，用修改的方式，写入服务器（登录用户，最新Points，最新Golden）
 						submitData("?MobID="+MobID, orderCookieValue, orderJSONValue);
