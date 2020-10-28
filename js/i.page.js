@@ -157,7 +157,7 @@ $(function () {
 					}
 				});
 			}else if(userArrInfo[1]==="NSU"){
-				alert("WSU2");
+				alert("NSU");
 				//刚刚注册的用户，没有修改
 //				iHistoryW = [];
 				//目前还没有完成，这个判断究竟具体怎么用（提示优惠活动，或者显示用户导向提示）
