@@ -3,6 +3,14 @@ $(function () {
 
 	"use strict";
 	
+	function isNullOrUndefined(obj){
+		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	function isWeiXin() {
 		var ua = window.navigator.userAgent.toLowerCase();
 //		if (ua.match(/microMessenger/i) === 'micromessenger') {
@@ -19,11 +27,11 @@ $(function () {
 	}
 	
 	var sourceOrder = $.cookie("wlzOrder");
-	if (sourceOrder === null || sourceOrder === "" || sourceOrder === undefined) {
-		$(location).attr("href", "404.html");
+	if (isNullOrUndefined(sourceOrder)) {
+		$(location).attr("href", "shop.html");
 	}else{
 		var source = $.cookie("wlzBuy");
-		if (source === null || source === "" || source === undefined) {
+		if (isNullOrUndefined(source)) {
 			$(location).attr("href", "pay.html");
 		}
 		

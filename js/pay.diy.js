@@ -47,7 +47,7 @@ $(function () {
 	
 	var sourceOrder = $.cookie("wlzOrder");
 	if (sourceOrder === null || sourceOrder === "" || sourceOrder === undefined) {
-		$(location).attr("href", "404.html");
+		$(location).attr("href", "shop.html");
 	}else{
 		//提取订单cookie并提交？
 		//这里应该是：一按支付按钮，就将订单信息提交到服务数据库，但是订单信息的cookie形态可以直接用，需不需要格式化出来？
