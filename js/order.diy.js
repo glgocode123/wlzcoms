@@ -251,20 +251,24 @@ $(function () {
 		userPoints = 0,
 		userGolden = 0,
 		userCookie = $.cookie("wlzName");
-	if (userCookie !== null || userCookie !== "" || userCookie !== undefined) {
+	if (userCookie === null || userCookie === "" || userCookie === undefined) {
+		$(location).attr('href', 'login.html');
+	}else{
 		var userCookieArr = userCookie.split("||");
 		MobID = userCookieArr[0];
 		userPoints = userCookieArr[3];
 		userGolden = userCookieArr[4];
+		
+		//如果获取的手机号正确，初始化填入order-form
+		if (isMobID(MobID)){
+			//为收货手机号赋值，并设置状态
+			$('.order-form input[name="mob"]').val(MobID);
+			$('.order-form input[name="mob"]').parent().addClass('focus');
+		}else{
+			$(location).attr('href', 'login.html?user=false');
+		}
 	}
 	
-	//如果获取的手机号正确，初始化填入order-form
-	if (isMobID(MobID)){
-		$('.order-form input[name="mob"]').val(MobID);
-		$('.order-form input[name="mob"]').parent().addClass('focus');
-	}else{
-		$(location).attr('href', 'login.html?user=false');
-	}
 	
 	
 	
