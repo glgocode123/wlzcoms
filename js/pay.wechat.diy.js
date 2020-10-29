@@ -25,18 +25,6 @@ $(function () {
 		var source = $.cookie("wlzBuy");
 		if (source === null || source === "" || source === undefined) {
 			$(location).attr("href", "pay.html");
-		}else{
-			//已完成支付
-			$("#btn-doneBuy").on("click",function(){
-				$.removeCookie("wlzOrder");
-				$.removeCookie("wlzBuy");
-				$(location).attr("href", "i.html");
-			});
-			//遇到问题
-			$("#btn-resetBuy").on("click",function(){
-				$.removeCookie("wlzBuy");
-				$(location).attr('href', 'contact.html');
-			});
 		}
 		
 	}

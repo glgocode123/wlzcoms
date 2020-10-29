@@ -302,7 +302,8 @@ $(function () {
 		
 		//记录订单cookie（格式：订单id || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据 ）
 		alert(htmlValPreferential);
-		var newCookieData = myDate.getTime() + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValParms + "||" + htmlValPreferential + "||" + (htmlValParms - htmlValPreferential) +  orderCookieProArrValue;
+		var orderID = myDate.getTime();
+		var newCookieData = orderID + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValParms + "||" + htmlValPreferential + "||" + (htmlValParms - htmlValPreferential) +  orderCookieProArrValue;
 		
 		alert(newCookieData);
 
@@ -339,7 +340,7 @@ $(function () {
 				/*================*/
 				/* 数据提交order*/
 				/*================*/
-				var newJSONDataOrder = '{"MobID":' + MobID + ',"data":"' + orderDate + '","AWB":"' + orderAWB + '","MobNum":' + orderMobNum + ',"Name":"' + orderUser + '","Address":"' + orderAddress + '","Points":[' + 'true,' + Math.round(htmlValParms/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
+				var newJSONDataOrder = '{"orderID":' + orderID + ',"MobID":' + MobID + ',"data":"' + orderDate + '","AWB":"' + orderAWB + '","MobNum":' + orderMobNum + ',"Name":"' + orderUser + '","Address":"' + orderAddress + '","Points":[' + 'true,' + Math.round(htmlValParms/10) + '],"Golden":[' + 'false,' + htmlValPreferential + '],"price":' + htmlValParms + ',"discount":' + htmlValPreferential + ',"Total":' + (htmlValParms - htmlValPreferential) + orderJSONProArrValue + "}";
 
 				alert(newJSONDataOrder);
 

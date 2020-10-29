@@ -42,17 +42,6 @@ $(function () {
 	function setDonePage(){
 		$("#btn-setBuy").remove();
 		$("#setBuyInfo").children().eq(0).remove();
-		//已完成支付
-		$("#btn-doneBuy").on("click",function(){
-			$.removeCookie("wlzOrder");
-			$.removeCookie("wlzBuy");
-			$(location).attr("href", "i.html");
-		});
-		//遇到问题
-		$("#btn-resetBuy").on("click",function(){
-			$.removeCookie("wlzBuy");
-			$(location).attr('href', 'contact.html');
-		});
 	}
 	
 	
