@@ -3,6 +3,13 @@ $(function () {
 
 	"use strict";
 	
+	function isNullOrUndefined(obj){
+		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	
 	var userCookie = $.cookie("wlzName");
 	
@@ -10,7 +17,7 @@ $(function () {
 	$("#btn-doneBuy").on("click",function(){
 		
 		//wlzName cookie 有内容
-		if(userCookie > 0){
+		if(isNullOrUndefined(userCookie)){
 			
 			var arr = userCookie.split("||");
 			//写入cookie
@@ -78,7 +85,7 @@ $(function () {
 	$("#btn-resetBuy").on("click",function(){
 		
 		//wlzName cookie 有内容
-		if(userCookie > 0){
+		if(isNullOrUndefined(userCookie)){
 			
 			var arr = userCookie.split("||");
 			
