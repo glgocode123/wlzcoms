@@ -33,6 +33,7 @@ $(function () {
 	}
 
 	if (isWap() || isWeiXin()) {
+		alert(1);
 		iBrowser = true;//手机浏览器或者微信
 		$(".is-mobile").css("display","block");
 		removeObject(".is-unmobile");

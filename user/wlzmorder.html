@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+    <style type="text/css">
+		div{
+			font-size: 24px;
+		}
+		h1{
+			font-size: 40px;
+		}
+		span{
+			font-size: 48px;
+		}
+		p{
+			font-size: 32px;
+		}
+		button{
+			font-size: 48px;
+		}
+		input{
+			font-size: 53px;
+			border:5px solid black;
+		}
+		.radioxx{
+		    width: 48px;
+		    height: 48px;
+		}
+	</style>
+</head>
+
+<body>
+	<button type="button" onClick="javascript:window.open('wlzmuser.html')">打开用户查询页</button>
+	<br /><br />
+	
+	<h1>order表：（如果内容为空，查询全部）</h1><br /><br />
+	<form>
+		<input class="radioxx" type="radio" name="serch" value="1" onClick="serchClick('serchTotal');">
+		<span>以收款查询</span>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="radioxx" type="radio" name="serch" value="2" onClick="serchClick('serchID');">
+		<span>ID查询</span>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="radioxx" type="radio" name="serch" value="3" onClick="serchClick('serchAll');">
+		<span>全部查询</span>
+	</form><br /><br />
+	
+	<div id="serchTotal" style="display:none;">
+		<input name="serchTotalVal" type="text" class="input">
+		<button type="button" class="serch">查询</button><br /><br />
+	</div>
+	
+	<div id="serchID" style="display:none;">
+		<form>
+			<input class="radioxx" type="radio" name="sid" value="MobID">
+			<span>用户手机号</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="radioxx" type="radio" name="sid" value="id">
+			<span>系统ID</span>
+		</form>
+		<br />
+		<input name="mob" type="text" class="input">
+		<button type="button" class="serch">查询</button>
+	</div>
+	
+	<div id="serchAll" style="display:none;">
+		<button type="button" class="serch">查询</button><br />
+	</div>
+	
+	<br />
+	<div>
+		<span>这里显示查询出来的内容:</span>
+		<div id="showSerchValue">
+			显示内容显示内容
+		</div>
+	</div>
+	<br /><br />
+	
+	<h1>操作order表：</h1><br /><br />
+	<div id="serchOrderID">
+		<form>
+			<input class="radioxx" type="radio" name="rsOID" value="id">
+			<span>ID</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="radioxx" type="radio" name="rsOID" value="orderID">
+			<span>orderID</span>
+		</form>
+		<br />
+		<input name="mob" type="text" class="input">
+		<button type="button" class="serch">绑定</button>
+	</div>
+	<br />
+	
+	<div>
+		<span>下面显示“绑定项”的内容:</span>
+		<br /><br />
+		<div id="">
+			<span>系统ID:</span>
+			<span id="sysid">如没有显示，请勿操作！</span>
+			<br /><br />
+			<span>订单ID:</span>
+			<span id="orderID">如没有显示，请勿操作！</span>
+			<br /><br />
+			<span>用户ID:</span>
+			<span id="MobID">如没有显示，请勿操作！</span>
+			<br /><br />
+			<span>订单日期：</span>
+			<input name="data" type="text"><br />
+			<br /><br />
+			<span>订单状态：</span>
+			<input name="AWB" type="text"><br /><br />
+			<button type="button" id="setFH">设置为发货中</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" id="setYC">设置为异常</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" id="setCL">设置为处理中</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="button" id="setSH">设置为审核</button>
+			<br /><br />
+			<span>收获人号码：</span>
+			<input name="MobNum" type="text"><br />
+			<br /><br />
+			<span>收货人：</span>
+			<input name="Name" type="text"><br />
+			<br /><br />
+			<span>收货地址：</span>
+			<input name="Address" type="text"><br />
+			<br /><br />
+			<span>增/减：</span>
+			<input name="tfPoints" type="text"><br />
+			<br /><br />
+			<span>积分：</span>
+			<input name="Points" type="text">
+			<br /><br />
+			<span>增/减：</span>
+			<input name="tfGolden" type="text"><br />
+			<br /><br />
+			<span>金池：</span>
+			<input name="Golden" type="text">
+			<br /><br />
+			<span>总价：</span>
+			<input name="price" type="text"><br />
+			<br /><br />
+			<span>折扣：</span>
+			<input name="discount" type="text"><br />
+			<br /><br />
+			<span>终价：</span>
+			<input name="Total" type="text"><br />
+			<br />
+			<div id="prodArr">这里显示订单中的产品</div><br />
+		</div>
+	</div>
+	
+	
+	<br />
+		
+	<button type="button" class="typeInfo">修改以上可选项目</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="typeDel">删除次条订单</button>&nbsp;&nbsp;&nbsp;&nbsp;<br /><br />
+
+	<div>
+		<span>这里显示操作后的内容:</span>
+		<div id="showTYPEzt">
+			状态：成功/失败
+		</div>
+<!--
+		<div id="showTYPEnr">
+			现况：显示内容显示内容
+		</div>
+-->
+	</div>
+
+
+    <script src="../js/jquery-2.2.4.min.js"></script>
+    <script src="../js/browser.diy.js"></script>
+	<script type="text/javascript">
+		//页面显示控制
+		function serchClick(showItem){
+			switch (showItem){  
+				case 'serchTotal':
+				   $("#serchTotal").show();
+				   $("#serchAll").hide();
+				   $("#serchID").hide();
+				   break;  
+				case 'serchAll':
+				   $("#serchAll").show();
+				   $("#serchTotal").hide();
+				   $("#serchID").hide();
+				   break;  
+				case 'serchID':
+				   $("#serchID").show();
+				   $("#serchTotal").hide();
+				   $("#serchAll").hide();
+			}  
+		}
+	</script>
+    <script src="wlzmorder.js"></script>
+</body>
+</html>

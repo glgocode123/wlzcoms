@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+    <style type="text/css">
+		div{
+			font-size: 24px;
+		}
+		h1{
+			font-size: 40px;
+		}
+		span{
+			font-size: 48px;
+		}
+		p{
+			font-size: 32px;
+		}
+		button{
+			font-size: 48px;
+		}
+		input{
+			font-size: 53px;
+			border:5px solid black;
+		}
+		.radioxx{
+		    width: 48px;
+		    height: 48px;
+		}
+	</style>
+</head>
+
+<body>
+	<button type="button" onClick="javascript:window.open('wlzmorder.html')">打开订单查询页</button>
+	<br /><br />
+	
+	<h1>泛查询user表：（用于大范围查询）</h1><br />
+	<form>
+		<input class="radioxx" type="radio" name="sex" value="1" onClick="serchClick('serchAll');">
+		<span>全部查询</span>&nbsp;&nbsp;
+		<input class="radioxx" type="radio" name="sex" value="2" onClick="serchClick('serchBuy');">
+		<span>今日有购买</span>
+	</form><br />
+	
+	<div id="serchAll" style="display:none;">
+		<button type="button" class="serch">查询</button><br />
+	</div>
+	
+	<div id="serchBuy" style="display:none;">
+		<form>
+			<input class="radioxx" type="radio" name="isBuy" value="true">
+			<span>有购买</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="radioxx" type="radio" name="isBuy" value="false">
+			<span>没有购买</span><br />
+		</form>
+		<br /><br />
+		<button type="button" class="serch">查询</button>
+	</div>
+	
+	<br />
+	<div>
+		<span>这里显示查询出来的内容:</span>
+		<div id="showSerchValue">
+			<p>显示内容显示内容</p>
+		</div>
+	</div>
+	<br />
+	
+	<h1>操作user表：</h1><br />
+	<div id="serchID">
+		<form>
+			<input class="radioxx" type="radio" name="rsID" value="id">
+			<span>ID</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="radioxx" type="radio" name="rsID" value="MobID">
+			<span>MobID</span>
+		</form>
+		<br />
+		<input id="chaxun" name="mob" type="text" class="input">
+		<button type="button" class="serch">绑定</button>
+	</div>
+	
+	<br />
+	<div>
+		<span>下面显示“绑定项”的内容:</span>
+		<br /><br />
+		<div id="">
+			<span>id:</span>
+			<span id="ssvid">如没有显示，请勿操作！</span>
+			<br /><br />
+			<span>MobID:</span>
+			<span id="ssvMobID">如没有显示，请勿操作！</span>
+			<br /><br />
+			<span>积分：</span>
+			<input name="ssvP" type="text" class="input"><br />
+			<span>如果为空，不会修改积分</span>
+			<br /><br />
+			<span>金池：</span>
+			<input name="ssvG" type="text" class="input"><br />
+			<span>如果为空，不会修改金池</span>
+			<br /><br />
+			<span>是否已购买：</span>
+			<input name="ssvBuy" type="text" class="input"><br />
+			<span>如果为空，不会修改金池</span>
+			<br /><br />
+			<span>是否黑名单：</span>
+			<input name="ssvBad" type="text" class="input"><br />
+			<span>如果为空，不会修改金池</span>
+			<br /><br />
+		</div>
+	</div>
+	<br /><br />
+	
+	<button type="button" class="typeInfo">修改</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="typeDel">删除</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="addBad">添加进黑名单</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="delBad">解除黑名单</button><br />
+	
+	<br />
+	<div>
+		<span>这里显示操作后的内容:</span>
+		<div id = "showTYPEzt">
+			<p>状态：成功/失败</p>
+		</div>
+<!--
+		<div id="showTYPEnr">
+			<p>现况：显示内容显示内容</p>
+		</div>
+-->
+	</div>
+	
+
+
+    <script src="../js/jquery-2.2.4.min.js"></script>
+    <script src="../js/browser.diy.js"></script>
+	<script type="text/javascript">
+		//页面显示控制
+		function serchClick(showItem){
+			switch (showItem){  
+				case 'serchAll':
+				   $("#serchAll").show();
+				   $("#serchBuy").hide();
+				   break;  
+				case 'serchBuy':
+				   $("#serchBuy").show();
+				   $("#serchAll").hide();
+			}  
+		}
+	</script>
+    <script src="wlzmuser.js"></script>
+</body>
+</html>
