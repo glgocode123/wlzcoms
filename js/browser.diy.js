@@ -8,7 +8,6 @@ $(function () {
 	
 	function isWap() {
 		if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-			alert(navigator.userAgent);
 			return true;
 		} else {
 			return false;
@@ -35,7 +34,6 @@ $(function () {
 	}
 
 	if (isWap() || isWeiXin()) {
-		alert(1);
 		iBrowser = true;//手机浏览器或者微信
 		$(".is-mobile").css("display","block");
 		removeObject(".is-unmobile");
