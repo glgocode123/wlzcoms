@@ -8,6 +8,7 @@ $(function () {
 	
 	function isWap() {
 		if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+			alert(navigator.userAgent);
 			return true;
 		} else {
 			return false;
@@ -16,6 +17,7 @@ $(function () {
 
 	function isWeiXin() {
 		var ua = window.navigator.userAgent.toLowerCase();
+		alert(ua);
 		if (ua.match(/MicroMessenger/i) === 'micromessenger') {
 			return true;
 		} else {
