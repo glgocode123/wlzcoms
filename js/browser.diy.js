@@ -16,7 +16,6 @@ $(function () {
 
 	function isWeiXin() {
 		var ua = window.navigator.userAgent.toLowerCase();
-		alert(ua);
 		if (ua.match(/MicroMessenger/i) === 'micromessenger') {
 			return true;
 		} else {
@@ -29,7 +28,6 @@ $(function () {
 	/* 0 - 删除元素 */
 	/*================*/
 	function removeObject(objectName){
-//		alert(objectName);
 		$(objectName).remove();
 	}
 
