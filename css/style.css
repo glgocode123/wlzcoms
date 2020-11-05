@@ -1286,7 +1286,7 @@ article{position: relative; float: left; width: 100%;}
 .swiper-with-pagination.style3 .swiper-slide:nth-child(even) > a:before{margin-top: 50px; height: calc(100% - 50px);}
 
 @media (min-width: 1200px) {
-  .banner .bg{background-attachment: fixed; background-size: 100%;}
+  .banner .bg{/*background-attachment: fixed;*/ background-size: 100%;}
   .service a:hover{border-color: #222;}
   .service a:hover span{border-color: #222; padding-left: 35px;}
   .service a:hover span:before{width: 20px;}
