@@ -223,14 +223,14 @@ $(function () {
 	$("p#menuSlogan").on('click', function () {
 		updateTextPopup2("你值得享有更好的生活", "只有时间的沉淀才能做出好的产品，今时今日你还能相信把时间都花到开店和推销上的品牌可以做好产品吗？你没看错，我们是第一家会打烊的艺术家线上品牌店；把时间用在刀刃上，只为让产品更接近完美。");
 	});
-	//移动经过侧边菜单中的微信
-	$("li.wechatQRCode").mouseover(function(){
-		$(this).after("<img src='img/qrcode.png' style='width: 100%;'>");
-	});
-	$("li.wechatQRCode").mouseleave(function(){
-		$(this).next().remove();
-	});
-	//
+	
+//	//移动经过侧边菜单中的微信
+//	$("li.wechatQRCode").mouseover(function(){
+//		$(this).after("<img src='img/qrcode.png' style='width: 100%;'>");
+//	});
+//	$("li.wechatQRCode").mouseleave(function(){
+//		$(this).next().remove();
+//	});
 	
 	
 });
