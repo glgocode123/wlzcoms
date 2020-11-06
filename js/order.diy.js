@@ -321,7 +321,7 @@ $(function () {
 		//计算出获得的积分（当前积分 + 本次购物应获的积分）
 		var countPoints = userWServerPoints + Math.round(htmlValParms/10);
 			
-		var newJSONDataUser = '{"MobID":' + MobID + ',"Points":' + countPoints + ',"Golden":' + countGolden + '}';
+		var newJSONDataUser = '{"MobID":' + MobID + ',"Points":' + countPoints + ',"Golden":' + countGolden + ',"Buy":true' + ',"Bad":false}';
 		//判断是新增还是修改，只有user才会用，order只使用新增
 		var ajaxType = "";
 		if(userItemID === ""){
@@ -506,38 +506,59 @@ $(function () {
 //		htmlValPreferential = 0;//折扣
 	
 	//获得数据库用户今日修改数据
-	var userIsNotNull = false,
+	var isOldUser = false,
+		isNewUser = false,
 		userWServerPoints = 0,
 		userWServerGolden = 0,
 		userItemID = "";
+			
+	//1、首先判断固定服务器（用此顺序因为要判断黑户，防止用户修改可写服务器）
+	$.getJSON("user/" + MobID + ".json", function(jsonDataUserInfo){
+
+		//如果用户是黑户，删除用户登录信息，跳转404
+		if(jsonDataUserInfo.Bad){
+			$.removeCookie('wlzName',{ path: '/'});
+			$(location).attr('href', '404.html');
+		}
+
+		//老用户
+		if(jsonDataUserInfo.length > 0){
+
+			isOldUser = true;
+			userWServerPoints += jsonDataUserInfo.Points;
+			userWServerGolden += jsonDataUserInfo.Golden;
+
+		}else{//不是老用户
+
+			userWServerPoints = 0;
+			userWServerGolden = 0;
+		}
+
+	});
+	//2、然后判断可写服务器（如果可写服务器有数据，这样的顺序也能替换成最新数据）
 	$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+MobID, function(jsonData){
 		
-		//如果今天有数据（新用户/老用户有修改）
+		//如果用户是黑户，删除用户登录信息，跳转404
+		if(jsonData[0].Bad){
+			$.removeCookie('wlzName',{ path: '/'});
+			$(location).attr('href', '404.html');
+		}
+		
+		//如果今天有数据（新注册用户/老用户有修改）
 		if(jsonData.length > 0){
 			
-			userIsNotNull = true;
+			isNewUser = true;
 			userItemID = "/" + jsonData[0].id;
 			userWServerPoints += jsonData[0].Points;
 			userWServerGolden += jsonData[0].Golden;
 			
-		}else{//如果w服务器没有，看只读服务器
+		}else{//如果w服务器也没有用户数据
 			
-			//查看可写服务器，判断用户是否新用户
-			$.getJSON("user/" + MobID + ".json", function(jsonDataUserInfo){
-
-				//老用户
-				if(jsonDataUserInfo.length > 0){
-
-					userWServerPoints += jsonDataUserInfo.Points;
-					userWServerGolden += jsonDataUserInfo.Golden;
-					
-				}else{//新用户
-
-					userWServerPoints = 0;
-					userWServerGolden = 0;
-				}
-
-			});
+			//也不是老用户
+			if(!isOldUser){//不是用户，一般情况下不可能进入这个页面
+				$.removeCookie('wlzName',{ path: '/'});
+				$(location).attr('href', '404.html');
+			}
 		}
 	});
 	
@@ -603,7 +624,7 @@ $(function () {
 			
 			
 			//今天有操作（w服务器）
-			if(userIsNotNull){
+			if(isNewUser){
 				//本地没cookie购买历史
 				if(isNullOrUndefined(wlzNHCookie)){
 					
@@ -622,7 +643,7 @@ $(function () {
 					alert("ERROR!请从新登录！");
 					$(location).attr('href', 'login.html');
 				}
-			}else if(!userIsNotNull){//今天没有操作（w服务器）
+			}else if(!isNewUser){//今天没有操作（w服务器）
 				//但本地有修改数据
 				if(isNullOrUndefined(wlzNHCookie)){
 					
