@@ -16,9 +16,17 @@ $(function () {
 	//已完成支付
 	$("#btn-doneBuy").on("click",function(){
 		
-		//wlzName cookie 有内容
+		//wlzName cookie 没有内容
 		if(isNullOrUndefined(userCookie)){
 			
+			$.removeCookie("wlzBuy");
+			$.removeCookie("wlzCart");
+			$.removeCookie("wlzOrder");
+			//如果没有用户登录cookie
+			$(location).attr("href", "404.html");
+			
+		}else{
+
 			var arr = userCookie.split("||");
 			//写入cookie
 			
@@ -52,34 +60,10 @@ $(function () {
 					$.removeCookie("wlzBuy");
 					$(location).attr("href", "404.html");	
 					
-					//服务器都没有用户数据，还删除个屁啊。。。
-//					$.ajax({
-//						type:"DELETE",
-//						url:"http://localhost:3000/users?MobID="+arr[0],
-//						async: false,
-//						dataType:"json",
-//						success:function(){
-//							$.removeCookie("wlzName");
-//							$.removeCookie("wlzOrder");
-//							$.removeCookie("wlzBuy");
-//						
-//							$(location).attr("href", "404.html");
-//						},
-//						error:function(err){
-//							console.error(err);
-//						}
-//					});
 				}
 
 			});
 			
-		}else{
-
-			$.removeCookie("wlzBuy");
-			$.removeCookie("wlzCart");
-			$.removeCookie("wlzOrder");
-			//如果没有用户登录cookie
-			$(location).attr("href", "404.html");
 		}
 		
 	});
@@ -89,6 +73,14 @@ $(function () {
 		
 		//wlzName cookie 有内容
 		if(isNullOrUndefined(userCookie)){
+			
+			$.removeCookie("wlzBuy");
+			$.removeCookie("wlzCart");
+			$.removeCookie("wlzOrder");
+			//如果没有用户登录cookie
+			$(location).attr("href", "404.html");
+			
+		}else{
 			
 			var arr = userCookie.split("||");
 			
@@ -128,15 +120,8 @@ $(function () {
 				}
 					
 			});
-			
-		}else{
-			
 
-			$.removeCookie("wlzBuy");
-			$.removeCookie("wlzCart");
-			$.removeCookie("wlzOrder");
-			//如果没有用户登录cookie
-			$(location).attr("href", "404.html");
+			
 		}
 		
 	});
