@@ -5,9 +5,9 @@ $(function () {
 	
 	function isNullOrUndefined(obj){
 		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
-			return false;
-		}else{
 			return true;
+		}else{
+			return false;
 		}
 	}
 	
