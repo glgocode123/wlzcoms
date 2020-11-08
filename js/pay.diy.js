@@ -15,7 +15,7 @@ $(function () {
 	//设置购买页面
 	function setBuyPage(){
 		alert(sourceOrder);
-		$("#showInMoney").html(sourceOrder.split("||")[8]);
+		$("#showInMoney").html(sourceOrder.split("|$|")[0].split("||")[8]);
 		if(!isWeiXin()){
 			$("div.selectItem ul li a").eq(1).addClass("active");
 			buyType = $("div.selectItem ul li a").eq(1).data('name');
