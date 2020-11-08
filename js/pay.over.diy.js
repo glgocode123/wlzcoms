@@ -3,6 +3,9 @@ $(function () {
 
 	"use strict";
 	
+	//设置为同步请求
+	$.ajaxSettings.async = false;
+	
 	function isNullOrUndefined(obj){
 		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
 			return true;
@@ -29,10 +32,8 @@ $(function () {
 
 			var arr = userCookie.split("||");
 			//写入cookie
-				alert(arr[0]);
 			
 			$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+arr[0], function(jsonData){
-				alert(jsonData.length);
 				if(jsonData.length > 0){
 					alert(arr[1]);
 					
