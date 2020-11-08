@@ -644,19 +644,20 @@ $(function () {
 					$(location).attr('href', 'login.html');
 				}
 			}else if(!isNewUser){//今天没有操作（w服务器）
-				//但本地有修改数据
-				alert(wlzNHCookie);
+				
+				//本地没有数据
 				if(isNullOrUndefined(wlzNHCookie)){
+					
+					submitData(orderCookieValue, orderJSONValue);
+					
+				}else{//但本地有修改数据
 					
 					alert("2404");
 					//本地或者数据库可能被串改
 					$(location).attr('href', '404.html');
 					
-				}else{//本地没有数据
-					
-					submitData(orderCookieValue, orderJSONValue);
-					
 				}
+				
 			}else{//？？？这个情况应该不会出现
 				alert("3404");
 				$(location).attr('href', '404.html');
