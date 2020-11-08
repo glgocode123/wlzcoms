@@ -29,9 +29,12 @@ $(function () {
 
 			var arr = userCookie.split("||");
 			//写入cookie
+				alert(arr[0]);
 			
 			$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+arr[0], function(jsonData){
+				alert(jsonData.length);
 				if(jsonData.length > 0){
+					alert(arr[1]);
 					
 					switch (arr[1]) {
 						case "RWSU":
