@@ -220,9 +220,11 @@ $(function () {
 	$(".typeDel").on("click",function(){
 		sysid = $("#sysid").text();
 		
+		alert(sysid);
+		
 		$.ajax({
 			type: "DELETE",
-			url: "http://d3j1728523.wicp.vip/user/" + sysid,
+			url: "http://d3j1728523.wicp.vip/order/" + sysid,
 			async: false,
 			dataType: "json",
 			success: function () {
