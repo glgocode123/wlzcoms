@@ -74,7 +74,10 @@ $(function () {
 			});
 			
 		}else{
-			
+
+			$.removeCookie("wlzBuy");
+			$.removeCookie("wlzCart");
+			$.removeCookie("wlzOrder");
 			//如果没有用户登录cookie
 			$(location).attr("href", "404.html");
 		}
@@ -128,6 +131,10 @@ $(function () {
 			
 		}else{
 			
+
+			$.removeCookie("wlzBuy");
+			$.removeCookie("wlzCart");
+			$.removeCookie("wlzOrder");
 			//如果没有用户登录cookie
 			$(location).attr("href", "404.html");
 		}
