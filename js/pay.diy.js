@@ -41,6 +41,17 @@ $(function () {
 	}
 	//设置购买确认页面
 	function setDonePage(){
+		
+		//终价
+		$("#showOutMoney").html(sourceOrderInfoArr[8]);
+		//收货人手机
+		$("#showUserInfo").children("p").eq(0).html(sourceOrderInfoArr[3]);
+		//收货人姓名
+		$("#showUserInfo").children("p").eq(1).html(sourceOrderInfoArr[4]);
+		//收货人地址
+		$("#showUserInfo").children("p").eq(2).html(sourceOrderInfoArr[5]);
+		
+		
 		$("#btn-setBuy").remove();
 		$("#setBuyInfo").children().eq(0).remove();
 	}
