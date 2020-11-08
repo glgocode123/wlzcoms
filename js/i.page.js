@@ -45,7 +45,8 @@ $(function () {
 			var wlzNHCookie = $.cookie("wlzNewHistory");
 			//老用户买过东西/修改
 			if(userArrInfo[1] === "RWSU"){
-				alert("RWSU");
+//				alert("RWSU");
+				alert("RWSU:" + wlzNHCookie);
 				
 				//cookie：没有历史记录
 				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
