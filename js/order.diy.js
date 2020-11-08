@@ -645,6 +645,7 @@ $(function () {
 				}
 			}else if(!isNewUser){//今天没有操作（w服务器）
 				//但本地有修改数据
+				alert(wlzNHCookie);
 				if(isNullOrUndefined(wlzNHCookie)){
 					
 					alert("2404");
