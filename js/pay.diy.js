@@ -14,8 +14,7 @@ $(function () {
 	}
 	//设置购买页面
 	function setBuyPage(){
-		alert(sourceOrder);
-		$("#showInMoney").html(sourceOrder.split("|$|")[0].split("||")[8]);
+		$("#showInMoney").html(sourceOrderInfoArr[8]);
 		if(!isWeiXin()){
 			$("div.selectItem ul li a").eq(1).addClass("active");
 			buyType = $("div.selectItem ul li a").eq(1).data('name');
@@ -47,7 +46,10 @@ $(function () {
 	}
 	
 	
-	var sourceOrder = $.cookie("wlzOrder");
+	var sourceOrder = $.cookie("wlzOrder"),
+		sourceOrderInfoArr = [],
+		sourceOrderProdArr = [];
+	
 	if (sourceOrder === null || sourceOrder === "" || sourceOrder === undefined) {
 		$(location).attr("href", "shop.html");
 	}else{
@@ -55,7 +57,8 @@ $(function () {
 		//这里应该是：一按支付按钮，就将订单信息提交到服务数据库，但是订单信息的cookie形态可以直接用，需不需要格式化出来？
 		//提交信息除了订单详情之外，需不需要订单号和金额？页面中需要金额，只是现实，传参就好
 		
-		
+		sourceOrderInfoArr = sourceOrder.split("|$|")[0].split("||");
+		sourceOrderProdArr = sourceOrder.split("|$|")[1].split("||");
 		
 		var source = $.cookie("wlzBuy");
 		var buyType = "";
