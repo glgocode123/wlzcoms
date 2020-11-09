@@ -50,9 +50,18 @@ $(function () {
 						case "NSU":
 							$.cookie("wlzName", arr[0] + "||WSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5], { expires: 1 });
 					} 
+					
+					
 					var sourceOrder = $.cookie("wlzOrder");
 					var sourceHistory = $.cookie("wlzNewHistory");
-					$.cookie("wlzNewHistory", sourceHistory + "|$|" + sourceOrder, { expires: 1 });
+					var sourceHistoryVal = "";
+					if(isNullOrUndefined(sourceHistory)){
+						sourceHistoryVal = sourceHistory + "|$|" + sourceOrder;
+					}else{
+						sourceHistoryVal = sourceOrder;
+					}
+					$.cookie("wlzNewHistory", sourceHistoryVal, { expires: 1 });
+					
 					
 					$.removeCookie("wlzOrder");
 					$.removeCookie("wlzBuy");
