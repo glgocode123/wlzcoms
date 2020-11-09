@@ -273,6 +273,7 @@ $(function () {
 		}
 		
 	}
+	
 	function setCookieHistory(cookieHistoryArray) {
 		//数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
 		//[0]data||AWB||price||discount||Total

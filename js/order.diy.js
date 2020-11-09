@@ -293,17 +293,6 @@ $(function () {
 		/* 数据 -  newCookieData：cookie数据结构*/
 		/*================*/
 		
-		//用户信息，买东西一般会变更积分（增加积分）和金池含量（金池优惠抵扣）
-		//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|	
-		//userID||Points||Golden|&|	//orderID||date||AWB||price||discount||Total|$|proID||proName||proParms|$|proID||proName||proParms|$|proID||proName||proParms|&|
-	
-//e//	数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
-//r//	[0]data||AWB||price||discount||Total
-//r//	[1]proID||proName||proParms|&|proID||proName||proParms|&|proID||proName||proParms
-//o//	[2]data||AWB||price||discount||Total
-//r//	[3]proID||proName||proParms|&|proID||proName||proParms
-//!//	Total为0的情况是一定不会出现的，因为如果没有产品何来总价
-		
 		//记录订单cookie（格式：订单id || 订单时间 || 订单状态AWB || 订单手机号 || 订单用户名 || 订单用户地址 || 总价 || 折扣 || 折后总价 + ——剩下的数据 ）
 		alert(htmlValPreferential);
 		var orderID = myDate.getTime();
@@ -472,6 +461,8 @@ $(function () {
 				}
 			}else{//如果页面没有prodida值传递进来（结账全部产品）
 				
+				orderCookieValue = "|$|";
+				
 				orderJSONValue = ',"prodArr":[';
 				
 				for(var j = 0; j < abc.length; j++){
@@ -483,11 +474,12 @@ $(function () {
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
 					
 					//订单数组 |$|proID||proName||proParms|$|proID||proName||proParms
-					orderCookieValue = "|$|" + abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
+					orderCookieValue += abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
 					
 					orderJSONValue += '{"proID":' + abc[j].Id.substring(0, abc[j].Id.length - 1) + ',"proName":' + abc[j].Name + ',"proParm":' + abc[j].Parms + '}';
 					//最后一个不加“，”号
 					if(j !== abc.length - 1){
+						orderCookieValue += "|&|";
 						orderJSONValue += ',';
 					}
 				}

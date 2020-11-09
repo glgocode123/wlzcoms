@@ -19,7 +19,7 @@ $(function () {
 	//已完成支付
 	$("#btn-doneBuy").on("click",function(){
 		
-		//wlzName cookie 没有内容
+		//如果用户登录信息不对
 		if(isNullOrUndefined(userCookie)){
 			
 			$.removeCookie("wlzBuy");
@@ -50,6 +50,9 @@ $(function () {
 						case "NSU":
 							$.cookie("wlzName", arr[0] + "||WSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5], { expires: 1 });
 					} 
+					var sourceOrder = $.cookie("wlzOrder");
+					var sourceHistory = $.cookie("wlzNewHistory");
+					$.cookie("wlzNewHistory", sourceHistory + "|$|" + sourceOrder, { expires: 1 });
 					
 					$.removeCookie("wlzOrder");
 					$.removeCookie("wlzBuy");
