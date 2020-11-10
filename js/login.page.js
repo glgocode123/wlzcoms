@@ -223,9 +223,11 @@ $(function () {
 					//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
 					alert(wServerH);
 					if(wServerH){
+						//新用户有买东西true
 						$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
 					}else{
-						$.cookie("wlzName", userMobID + "||NSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+						//新用户没有买东西false
+						$.cookie("wlzName", userMobID + "||NSU||false||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
 					}
 					
 
