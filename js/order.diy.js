@@ -276,7 +276,7 @@ $(function () {
 	// 3、
 	/*=======================================================================================*/
 	
-	//写入数据库并生成cookie
+	//写入数据库并生成订单cookie
 	function submitData(orderCookieProArrValue, orderJSONProArrValue){
 	
 		//生成订单id：订单时间
@@ -618,9 +618,15 @@ $(function () {
 			//今天有操作（w服务器）
 			if(isNewUser){
 				//本地没cookie购买历史
-				if(isNullOrUndefined(wlzNHCookie)){
+				if(isNullOrUndefined(wlzNHCookie)){//本地cookie可能被删除
 					
-					//有wlzNewHistory cookie的时候，与数据库对比
+					$.removeCookie('wlzName',{ path: '/'}); 
+					alert("ERROR!请从新登录！");
+					$(location).attr('href', 'login.html');
+					
+				}else{
+					
+					//有wlzNewHistory cookie的时候，wlzName cookie中的数据与数据库对比
 					if(userWServerPoints.toString() === userPoints && userWServerGolden.toString() === userGolden){
 						
 						submitData(orderCookieValue, orderJSONValue);
@@ -630,10 +636,6 @@ $(function () {
 						$(location).attr('href', '404.html');
 					}
 					
-				}else{//本地cookie可能被删除
-					$.removeCookie('wlzName',{ path: '/'}); 
-					alert("ERROR!请从新登录！");
-					$(location).attr('href', 'login.html');
 				}
 			}else if(!isNewUser){//今天没有操作（w服务器）
 				
