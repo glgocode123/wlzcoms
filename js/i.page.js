@@ -19,7 +19,7 @@ $(function () {
 	/*=======================================================================================*/
 	function getWserverHistory(mobid){
 		$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+mobid, function(jsonData){
-			return jsonData[0];
+			return jsonData;
 		});
 	}
 	
@@ -55,11 +55,6 @@ $(function () {
 						//可写服务器是最新的数据
 						iPoints = jsonData[0].Points;
 						iGolden = jsonData[0].Golden;
-						
-						alert(iPoints);
-						alert(iGolden);
-						alert(userArrInfo[3]);
-						alert(userArrInfo[4]);
 						
 						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
 						if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
@@ -203,7 +198,6 @@ $(function () {
 		
 		//只读数据库历史记录太大不记录cookie，因为cookie最好4K以内
 		//如果有数据，说明第一次访问，还没有记录cookie
-		alert(iHistoryW);
 		if(iHistoryW.length > 0){
 			//写入cookie，同步写入页面显示，可以减少对写入服务器的访问
 			setServerHistory(true, iHistoryW);
