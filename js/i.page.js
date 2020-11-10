@@ -16,13 +16,6 @@ $(function () {
 		return true;
 	}
 	
-	/*=======================================================================================*/
-	function getWserverHistory(mobid){
-		$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+mobid, function(jsonData){
-			alert(jsonData.length);
-			return jsonData;
-		});
-	}
 	
 	/*================*/
 	/* 写页面功能1 - 填写用户基本信息 */
@@ -34,8 +27,8 @@ $(function () {
 		
 		var iPoints = 0,
 			iGolden = 0,
-			iHistoryR,
-			iHistoryW,
+			iHistoryR = [],
+			iHistoryW = [],
 			iCookieHistoryW = [];
 		
 		//有修改：老用户买过东西（修改） 或 新用户买过东西（修改） true = RWSU & WSU
@@ -62,7 +55,10 @@ $(function () {
 							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
-							iHistoryW = getWserverHistory(userArrInfo[0]);
+//							iHistoryW = getWserverHistory();
+							$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
+								iHistoryW = jsonData;
+							});
 						}
 					});
 				}else{//老用户，有数据修改//如果有此cookie，说明有修改数据在本地
@@ -82,7 +78,9 @@ $(function () {
 								alert("error,用户数据不匹配！");
 								$(location).attr("href","404.html");
 							}else{
-								iHistoryW = getWserverHistory(userArrInfo[0]);
+								$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
+								iHistoryW = jsonData;
+								});
 							}
 						});
 					}
@@ -117,7 +115,9 @@ $(function () {
 							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
-							iHistoryW = getWserverHistory(userArrInfo[0]);
+							$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
+								iHistoryW = jsonData;
+							});
 						}
 					});
 				}else{//有修改数据在本地
@@ -135,7 +135,9 @@ $(function () {
 								alert("error,用户数据不匹配！");
 								$(location).attr("href","404.html");
 							}else{
-								iHistoryW = getWserverHistory(userArrInfo[0]);
+								$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
+									iHistoryW = jsonData;
+								});
 							}
 						});
 					}
