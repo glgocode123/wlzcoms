@@ -82,7 +82,7 @@ $(function () {
 							iGolden = jsonData[0].Golden;
 
 							//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-							if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden..toString()){
+							if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
 								alert("error,用户数据不匹配！");
 								$(location).attr("href","404.html");
 							}else{
