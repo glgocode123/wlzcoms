@@ -19,7 +19,7 @@ $(function () {
 	/*=======================================================================================*/
 	function getWserverHistory(mobid){
 		$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+mobid, function(jsonData){
-			return jsonData[0].Order;
+			return jsonData[0];
 		});
 	}
 	
@@ -335,7 +335,7 @@ $(function () {
 //	此处逻辑还么有改过来
 	//设置历史记录块的产品列表：最后一个false，产品ID，产品名称，产品参数
 	function setHistoryShowProduct(prodtype, prodID, prodName,prodParms) {
-		var htmlVarProdImg = "product/" + prodID + "/icon-more.png";
+		var htmlVarProdImg = "product/" + prodID + "/head-img.jpg";
 		var htmlVarProd = '<div class="comment"><img src=' + htmlVarProdImg + ' alt=""><div class="description"><span class="big">' + prodName + '</span><div class="empty-space h10-xs"></div><span>' + prodParms + '</span></div></div>';
 		if(prodtype){
 			htmlVarProd += '<div class="empty-space h25-xs h45-md"></div>';
