@@ -505,6 +505,7 @@ $(function () {
 	//获得数据库用户今日修改数据
 	var isOldUser = false,
 		isNewUser = false,
+		isBuyUser = false,
 		userWServerPoints = 0,
 		userWServerGolden = 0,
 		userItemID = "";
@@ -545,6 +546,7 @@ $(function () {
 		if(jsonData.length > 0){
 			
 			isNewUser = true;
+			isBuyUser = jsonData[0].Buy;
 			userItemID = "/" + jsonData[0].id;
 			userWServerPoints += jsonData[0].Points;
 			userWServerGolden += jsonData[0].Golden;
@@ -622,18 +624,30 @@ $(function () {
 			
 			//今天有操作（w服务器）
 			if(isNewUser){
-				//本地没cookie购买历史
-				if(isNullOrUndefined(wlzNHCookie)){//本地cookie可能被删除
+				//本地没 购买历史cookie
+				if(isNullOrUndefined(wlzNHCookie)){
+					//今天如果有购买状态，但是本地没有购买cookie
 					
-					$.removeCookie('wlzName',{ path: '/'}); 
-					alert("ERROR!请从新登录！");
-					$(location).attr('href', 'login.html');
+					//本地cookie可能被删除
+					if(isBuyUser){
+						
+						$.removeCookie('wlzName',{ path: '/'}); 
+						alert("ERROR!请从新登录！");
+						$(location).attr('href', 'login.html');
+						
+					}else{//也可能是新用户（今天新注册的用户）
+						
+						//写入数据库并生成订单cookie
+						submitData(orderCookieValue, orderJSONValue);
+						
+					}
 					
-				}else{
+				}else{//本地有 购买历史cookie
 					
 					//有wlzNewHistory cookie的时候，wlzName cookie中的数据与数据库对比
 					if(userWServerPoints.toString() === userPoints && userWServerGolden.toString() === userGolden){
 						
+						//写入数据库并生成订单cookie
 						submitData(orderCookieValue, orderJSONValue);
 						
 					}else{//本地或者数据库可能被串改
@@ -647,6 +661,7 @@ $(function () {
 				//本地没有数据
 				if(isNullOrUndefined(wlzNHCookie)){
 					
+					//写入数据库并生成订单cookie
 					submitData(orderCookieValue, orderJSONValue);
 					
 				}else{//但本地有修改数据
