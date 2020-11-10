@@ -489,6 +489,7 @@ $(function () {
 				}
 				
 				orderJSONValue = ']';
+				alert(orderJSONValue);
 				
 			}
 		}else{
