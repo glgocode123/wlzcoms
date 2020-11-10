@@ -19,6 +19,7 @@ $(function () {
 	/*=======================================================================================*/
 	function getWserverHistory(mobid){
 		$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+mobid, function(jsonData){
+			alert(jsonData.length);
 			return jsonData;
 		});
 	}
