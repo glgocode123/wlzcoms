@@ -488,7 +488,7 @@ $(function () {
 					}
 				}
 				
-				orderJSONValue = ']';
+				orderJSONValue += ']';
 				alert(orderJSONValue);
 				
 			}
