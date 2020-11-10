@@ -470,6 +470,8 @@ $(function () {
 					//累计购物车产品的总价
 					htmlValParms += abc[j].Price;
 					
+					alert(htmlValParms);
+					
 					//设置订单信息
 					setBillInfo(abc[j].Id.substring(0, abc[j].Id.length - 1), abc[j].Name, abc[j].Count, abc[j].Price, abc[j].Parms);
 					
