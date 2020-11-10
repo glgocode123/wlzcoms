@@ -203,6 +203,7 @@ $(function () {
 		
 		//只读数据库历史记录太大不记录cookie，因为cookie最好4K以内
 		//如果有数据，说明第一次访问，还没有记录cookie
+		alert(iHistoryW);
 		if(iHistoryW.length > 0){
 			//写入cookie，同步写入页面显示，可以减少对写入服务器的访问
 			setServerHistory(true, iHistoryW);
