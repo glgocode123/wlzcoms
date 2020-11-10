@@ -34,8 +34,8 @@ $(function () {
 		
 		var iPoints = 0,
 			iGolden = 0,
-			iHistoryR = [],
-			iHistoryW = [],
+			iHistoryR,
+			iHistoryW,
 			iCookieHistoryW = [];
 		
 		//有修改：老用户买过东西（修改） 或 新用户买过东西（修改） true = RWSU & WSU
