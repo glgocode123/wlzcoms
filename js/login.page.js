@@ -156,39 +156,38 @@ $(function () {
 				
 				//读取用户订单记录，用于写cookie
 				$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+inputMob, function(jsonDataOrder){
-					alert(inputMob);
 					if(jsonDataOrder.length > 0){
 						var wSource = "";
 
-						for (var j = 0; j < jsonDataOrder[0].Order.length; j++) {
+						for (var j = 0; j < jsonDataOrder.length; j++) {
 
 							//块：记录
 							wSource += 
-								jsonDataOrder[0].Order[j].data + "||" + 
-								jsonDataOrder[0].Order[j].AWB + "||" + 
-								jsonDataOrder[0].Order[j].MobNum + "||" + 
-								jsonDataOrder[0].Order[j].Points[0] + "||" + 
-								jsonDataOrder[0].Order[j].Points[1] + "||" + 
-								jsonDataOrder[0].Order[j].Golden[0] + "||" + 
-								jsonDataOrder[0].Order[j].Golden[1] + "||" + 
-								jsonDataOrder[0].Order[j].Name + "||" + 
-								jsonDataOrder[0].Order[j].Address + "||" + 
-								jsonDataOrder[0].Order[j].price + "||" + 
-								jsonDataOrder[0].Order[j].discount + "||" + 
-								jsonDataOrder[0].Order[j].Total + "|$|";
+								jsonDataOrder[j].data + "||" + 
+								jsonDataOrder[j].AWB + "||" + 
+								jsonDataOrder[j].MobNum + "||" + 
+								jsonDataOrder[j].Points[0] + "||" + 
+								jsonDataOrder[j].Points[1] + "||" + 
+								jsonDataOrder[j].Golden[0] + "||" + 
+								jsonDataOrder[j].Golden[1] + "||" + 
+								jsonDataOrder[j].Name + "||" + 
+								jsonDataOrder[j].Address + "||" + 
+								jsonDataOrder[j].price + "||" + 
+								jsonDataOrder[j].discount + "||" + 
+								jsonDataOrder[j].Total + "|$|";
 
-							for(var k = 0; k < jsonDataOrder[0].Order[j].prodArr.length; k++){
+							for(var k = 0; k < jsonDataOrder[j].prodArr.length; k++){
 
 								//块：产品
 								wSource += 
-									jsonDataOrder[0].Order[j].prodArr[k].proID + "||" + 
-									jsonDataOrder[0].Order[j].prodArr[k].proName + "||" + 
-									jsonDataOrder[0].Order[j].prodArr[k].proParm;
+									jsonDataOrder[j].prodArr[k].proID + "||" + 
+									jsonDataOrder[j].prodArr[k].proName + "||" + 
+									jsonDataOrder[j].prodArr[k].proParm;
 
 								//Order中最后一个产品块
-								if(k === jsonDataOrder[0].Order[j].prodArr.length - 1){
+								if(k === jsonDataOrder[j].prodArr.length - 1){
 									//不是最后一个记录块
-									if(j !== jsonDataOrder[0].Order.length - 1){
+									if(j !== jsonDataOrder.length - 1){
 										wSource += "|$|";
 									}
 								}else{
@@ -197,7 +196,6 @@ $(function () {
 							}
 						}
 						wServerH = true;
-						alert(wSource);
 						//，有则读取cookie======先读取wServer再读取rServer========
 						$.cookie("wlzNewHistory", wSource, { expires: 1 });
 					}else{
