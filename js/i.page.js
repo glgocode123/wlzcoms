@@ -55,7 +55,7 @@ $(function () {
 							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
-//							iHistoryW = getWserverHistory();
+							//iHistoryW
 							$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
 								iHistoryW = jsonData;
 							});
@@ -78,6 +78,7 @@ $(function () {
 								alert("error,用户数据不匹配！");
 								$(location).attr("href","404.html");
 							}else{
+								//iHistoryW
 								$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
 								iHistoryW = jsonData;
 								});
@@ -115,6 +116,7 @@ $(function () {
 							alert("error,用户数据不匹配！");
 							$(location).attr("href","404.html");
 						}else{
+							//iHistoryW
 							$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
 								iHistoryW = jsonData;
 							});
@@ -135,6 +137,7 @@ $(function () {
 								alert("error,用户数据不匹配！");
 								$(location).attr("href","404.html");
 							}else{
+								//iHistoryW
 								$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
 									iHistoryW = jsonData;
 								});
@@ -246,7 +249,7 @@ $(function () {
 				var prodtype = false;
 				
 				//设置产品cookie数据
-				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParms;
+				rSource += historyArray[i].prodArr[j].proID + "||" + historyArray[i].prodArr[j].proName + "||" + historyArray[i].prodArr[j].proParm;
 				//如果是最后一个产品加|$|，不是就加|&|
 				if(j===historyArray[i].prodArr.length - 1){
 					//如果不是最后块，加区分符
@@ -260,7 +263,7 @@ $(function () {
 				}
 				
 				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
-				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
+				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParm);
 			}
 		}
 		alert(rSource);
@@ -275,9 +278,9 @@ $(function () {
 	function setCookieHistory(cookieHistoryArray) {
 		//数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
 		//[0]data||AWB||price||discount||Total
-		//[1]proID||proName||proParms|&|proID||proName||proParms|&|proID||proName||proParms
+		//[1]proID||proName||proParm|&|proID||proName||proParm|&|proID||proName||proParm
 		//[2]data||AWB||price||discount||Total
-		//[3]proID||proName||proParms|&|proID||proName||proParms
+		//[3]proID||proName||proParm|&|proID||proName||proParm
 		//Total为0的情况是一定不会出现的，因为如果没有产品何来总价
 		
 		for(var i = 0; i < cookieHistoryArray.length; i++){
