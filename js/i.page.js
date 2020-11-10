@@ -312,7 +312,8 @@ $(function () {
 	//设置历史记录块的：标题，快递号，原价，优惠，终价
 	function setHistoryShow(title, AWB, price, discount, total) {
 		var titleString = title.toString();
-		var sData = titleString.slice(0,4) + "-" + titleString.slice(4,6) + "-" + titleString.slice(6);//"2020-07-20"
+//		var sData = titleString.slice(0,4) + "-" + titleString.slice(4,6) + "-" + titleString.slice(6);//"2020-07-20"
+		var sData = titleString;//"2020-07-20"
 		var sTracking = "商品将1～2日内发货，并在此查看快递单号";
 		if (AWB !== "" || AWB !== undefined || AWB !== null){
 			sTracking = "订单号：" + AWB;
