@@ -468,7 +468,7 @@ $(function () {
 				for(var j = 0; j < abc.length; j++){
 					
 					//累计购物车产品的总价
-					htmlValParms += abc[j].Price;
+					htmlValParms = htmlValParms + abc[j].Price;
 					
 					alert(htmlValParms);
 					
