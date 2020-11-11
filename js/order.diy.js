@@ -455,7 +455,7 @@ $(function () {
 						//订单数组（|$|proID||proName||proParms）
 						orderCookieValue = "|$|" + abc[i].Id.substring(0, abc[i].Id.length - 1) + "||" + abc[i].Name + "||" + abc[i].Parms;
 		
-						orderJSONValue = ',"prodArr":[{' + '"proID":' + abc[i].Id.substring(0, abc[i].Id.length - 1) + ',"proName":' + abc[i].Name + ',"proParm":' + abc[i].Parms + '}]';
+						orderJSONValue = ',"prodArr":[{' + '"proID":"' + abc[i].Id.substring(0, abc[i].Id.length - 1) + '","proName":"' + abc[i].Name + '","proParm":"' + abc[i].Parms + '"}]';
 						continue;
 					}
 				}
@@ -480,7 +480,7 @@ $(function () {
 					//订单数组 |$|proID||proName||proParms|$|proID||proName||proParms
 					orderCookieValue += abc[j].Id.substring(0, abc[j].Id.length - 1) + "||" + abc[j].Name + "||" + abc[j].Parms;
 					
-					orderJSONValue += '{"proID":' + abc[j].Id.substring(0, abc[j].Id.length - 1) + ',"proName":' + abc[j].Name + ',"proParm":' + abc[j].Parms + '}';
+					orderJSONValue += '{"proID":"' + abc[j].Id.substring(0, abc[j].Id.length - 1) + '","proName":"' + abc[j].Name + '","proParm":"' + abc[j].Parms + '"}';
 					//最后一个不加“，”号
 					if(j !== abc.length - 1){
 						orderCookieValue += "|&|";
