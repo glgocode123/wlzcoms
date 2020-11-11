@@ -55,10 +55,11 @@ $(function () {
 					var sourceOrder = $.cookie("wlzOrder");
 					var sourceHistory = $.cookie("wlzNewHistory");
 					var sourceHistoryVal = "";
+					//如果购买记录是空的，直接写入
 					if(isNullOrUndefined(sourceHistory)){
-						sourceHistoryVal = sourceHistory + "|$|" + sourceOrder;
-					}else{
 						sourceHistoryVal = sourceOrder;
+					}else{//否者，在之前之后写入
+						sourceHistoryVal = sourceHistory + "|$|" + sourceOrder;
 					}
 					$.cookie("wlzNewHistory", sourceHistoryVal, { expires: 1 });
 					
