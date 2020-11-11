@@ -228,17 +228,18 @@ $(function () {
 		//循环产品块
 		for (var i = 0; i < historyArray.length; i++) {
 			//数据结构为：订单|$|内容|$|订单|$|内容 ， 例子：
-			//data||AWB||price||discount||Total|$|
+			//orderID||data||AWB||MobNum||Name||Address||price||discount||Total|$|
 			//proID||proName||proParms|&|
 			//proID||proName||proParms|&|
 			//proID||proName||proParms|$|
-			//data||AWB||price||discount||Total|$|
+			//orderID||data||AWB||MobNum||Name||Address||price||discount||Total|$|
 			//proID||proName||proParms|&|
 			//proID||proName||proParms|&|
 			//proID||proName||proParms
 			
+//		var newCookieData = orderID + "||" + orderDate + "||" + orderAWB + "||" + orderMobNum + "||" + orderUser + "||" + orderAddress + "||" + htmlValPrice + "||" + htmlValPreferential + "||" + (htmlValPrice - htmlValPreferential) +  orderCookieProArrValue;
 			//输入每个产品块的总数据
-			rSource += historyArray[i].data + "||" + historyArray[i].AWB + "||" + historyArray[i].price + "||" + historyArray[i].discount + "||" + historyArray[i].Total + "|$|";
+			rSource += historyArray[i].orderID + "||" + historyArray[i].data + "||" + historyArray[i].AWB + "||" + historyArray[i].MobNum + "||" + historyArray[i].Name + "||" + historyArray[i].Address + "||" + historyArray[i].price + "||" + historyArray[i].discount + "||" + historyArray[i].Total + "|$|";
 			
 			//设置单个（块）记录的显示
 			setHistoryShow(historyArray[i].data, historyArray[i].AWB, historyArray[i].price, historyArray[i].discount, historyArray[i].Total);
