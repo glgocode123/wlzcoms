@@ -288,7 +288,7 @@ $(function () {
 			if((i+2)%2 === 0){
 				alert(cookieHistoryArray[i]);
 				var iDate = cookieHistoryArray[i].split("||");
-				setHistoryShow(iDate[0], iDate[1], iDate[2], iDate[3], iDate[4]);
+				setHistoryShow(iDate[1], iDate[2], iDate[6], iDate[7], iDate[8]);
 			}else{
 				var iProd = cookieHistoryArray[i].split("|&|");
 				for(var j = 0; j < iProd.length; j++){
