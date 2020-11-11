@@ -628,10 +628,11 @@ $(function () {
 				if(isNullOrUndefined(wlzNHCookie)){
 					//今天如果有购买状态，但是本地没有购买cookie
 					
+					alert(isBuyUser);
 					//本地cookie可能被删除
-					if(isBuyUser){ 
+					if(isBuyUser){
 						
-						$.removeCookie('wlzName',{ path: '/'}); 
+						$.removeCookie('wlzName',{ path: '/'});
 						alert("ERROR!请从新登录！");
 						$(location).attr('href', 'login.html');
 						
