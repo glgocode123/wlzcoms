@@ -346,6 +346,7 @@ $(function () {
 					data: newJSONDataOrder,
 					dataType: "json",
 					success: function () {
+						$.removeCookie('wlzCart',{ path: '/'}); 
 						$(location).attr('href', 'pay.html');
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
