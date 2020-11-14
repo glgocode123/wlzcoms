@@ -163,13 +163,10 @@ $(function () {
 
 							//块：记录
 							wSource += 
+								jsonDataOrder[j].orderID + "||" + 
 								jsonDataOrder[j].data + "||" + 
 								jsonDataOrder[j].AWB + "||" + 
 								jsonDataOrder[j].MobNum + "||" + 
-								jsonDataOrder[j].Points[0] + "||" + 
-								jsonDataOrder[j].Points[1] + "||" + 
-								jsonDataOrder[j].Golden[0] + "||" + 
-								jsonDataOrder[j].Golden[1] + "||" + 
 								jsonDataOrder[j].Name + "||" + 
 								jsonDataOrder[j].Address + "||" + 
 								jsonDataOrder[j].price + "||" + 
