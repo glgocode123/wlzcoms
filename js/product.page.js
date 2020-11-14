@@ -87,7 +87,11 @@ $(function () {
 	/* 功能 - 判断参数是否有内容 */
 	/*================*/
 	function isNullOrUndefined(obj){
-		if(obj===null||obj===undefined||obj===""){return false;}return true;
+		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	/*================*/
@@ -113,9 +117,10 @@ $(function () {
 			//设置视频：如果json中有视频路径，设置视频（未完善）
 			var videoPath = jsonData.mainVideo;
 			if(isNullOrUndefined(videoPath)){
-				$("#setMainVideo").attr("src", videoPath);
+				//如果没有视频源，删除视频源的框架
+				$("#setMainVideo").parent().remove();
 			}else{
-				$("#setMainVideo").remove();
+				$("#setMainVideo").attr("src", videoPath);
 			}
 			//设置产品信息
 			$("#setProdInfo").text(jsonData.prodinfo);
