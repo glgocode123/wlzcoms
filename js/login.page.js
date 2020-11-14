@@ -163,7 +163,7 @@ $(function () {
 
 							//块：记录
 							wSource += 
-								jsonDataOrder[j].orderID + "||" + 
+								jsonDataOrder[j].orderID + "||" +
 								jsonDataOrder[j].data + "||" + 
 								jsonDataOrder[j].AWB + "||" + 
 								jsonDataOrder[j].MobNum + "||" + 
