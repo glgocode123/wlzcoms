@@ -20,6 +20,18 @@ $(function () {
 		});
 		$("#qrcode").children("img").css("width","70%").css("float","none").css("margin","0 auto");
 	}
+	
+	if ( $("#shareQRcode").length > 0 ) {
+		new QRCode(document.getElementById("shareQRcode"), {
+			text: location.href,
+			width: 650,
+			height: 650,
+			colorDark : "#000000",
+			colorLight : "#ffffff",
+			correctLevel : QRCode.CorrectLevel.H
+		});
+		$("#shareQRcode").children("img").css("width","70%").css("float","none").css("margin","0 auto");
+	}
 
 //	function makeCode () {      
 //		var elText = document.getElementById("text");
