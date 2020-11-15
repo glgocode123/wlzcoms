@@ -24,8 +24,8 @@ $(function () {
 	if ( $("#shareQRcode").length > 0 ) {
 		new QRCode(document.getElementById("shareQRcode"), {
 			text: location.href,
-			width: 650,
-			height: 650,
+			width: 100,
+			height: 100,
 			colorDark : "#000000",
 			colorLight : "#ffffff",
 			correctLevel : QRCode.CorrectLevel.H
