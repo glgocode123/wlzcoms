@@ -30,7 +30,7 @@ $(function () {
 			colorLight : "#ffffff",
 			correctLevel : QRCode.CorrectLevel.H
 		});
-		$("#shareQRcode").children("img").css("width","70%").css("float","none").css("margin","0 auto");
+		$("#shareQRcode").children("img").css("float","none").css("margin","0 auto");
 	}
 
 //	function makeCode () {      
