@@ -27,15 +27,15 @@ $(function () {
 	/*================*/
 	/* 0 - 弹出菜单功能 */
 	/*================*/
-	function updateTextPopup2(title, text){
-		//判断是否已经弹出了一个相同属性的框，这个是用global.js的关闭改的
-		if($(".overlay-wrapper").hasClass("active")){
-			$('.overlay-wrapper').removeClass('active');
-		}
-		$('.text-popup .text-popup-title').text(title);
-		$('.text-popup .text-popup-message').text(text);
-		$('.text-popup').addClass('active');
-	}
+//	function updateTextPopup2(title, text){
+//		//判断是否已经弹出了一个相同属性的框，这个是用global.js的关闭改的
+//		if($(".overlay-wrapper").hasClass("active")){
+//			$('.overlay-wrapper').removeClass('active');
+//		}
+//		$('.text-popup .text-popup-title').text(title);
+//		$('.text-popup .text-popup-message').text(text);
+//		$('.text-popup').addClass('active');
+//	}
 	
 	
 	/*================*/
@@ -172,7 +172,7 @@ $(function () {
 		if(!isJSON){
 			$(".mycart").remove();
 			$("#setMainVideo").remove();
-			updateTextPopup2("产品信息加载失败","关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********）");
+			alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********）");
 			$(location).attr('href', '../shop.html');
 		}
 	}
@@ -241,7 +241,7 @@ $(function () {
 		//如果页面id不合适，返回原页
 		$(".mycart").remove();
 		$("#setMainVideo").remove();
-		updateTextPopup2("产品信息加载失败","关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********）");
+		alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********）");
 		$(location).attr('href', '../shop.html');
 //		window.history.go(-1);
 	}
