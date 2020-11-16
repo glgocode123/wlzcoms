@@ -13,9 +13,7 @@
 	"showImg":10,
 	"parameter:":[
 		{
-			"type":"t-"
-		},
-		{
+			"tags":["卫衣","连帽","长袖","白色"],
 			"COLOR":["白色"],
 			"SIZE":[true,"M",true,"L",true,"XL",false,"2XL"]
 		}

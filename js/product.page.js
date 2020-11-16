@@ -159,6 +159,13 @@ $(function () {
 				prodCommonImg.eq(imgNum).attr("src", srcOriginal.replace("img", prodid));
 			}
 			
+			//设置标签
+			var tagsHtml = "<span>TAGS</span>";
+			for(var tagsNum = 0; tagsNum < jsonData.parameter.tags.length; tagsNum++){
+				tagsHtml += '<a class="btn-style3">' + jsonData.parameter.tags[tagsNum] + '</a>';
+			}
+			$("div.tags").html(tagsHtml);
+			
 			isJSON = true;
 		});	
 		// 如果没有JSON数据
