@@ -173,7 +173,7 @@ $(function () {
 		if(!isJSON){
 			$(".mycart").remove();
 			$("#setMainVideo").remove();
-			alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********）");
+			alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********1）");
 			$(location).attr('href', '../shop.html');
 		}
 	}
@@ -242,7 +242,7 @@ $(function () {
 		//如果页面id不合适，返回原页
 		$(".mycart").remove();
 		$("#setMainVideo").remove();
-		alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********）");
+		alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********2）");
 		$(location).attr('href', '../shop.html');
 //		window.history.go(-1);
 	}
