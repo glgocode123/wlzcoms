@@ -239,12 +239,4 @@ $(function () {
 //		window.history.go(-1);
 	}
 	
-	$(".fa-wechat").on('click', function(){
-		if( $(".wechat-qrcode").css("display")==='none'){ 
-			$(".wechat-qrcode").show();
-		}else{
-			$(".wechat-qrcode").hide();
-		}
-	});
-	
 });
