@@ -160,7 +160,7 @@ $(function () {
 			}
 			
 			//设置标签
-			alert(jsonData.parameter);
+			alert(jsonData.parameter.length);
 			var tagsHtml = "<span>TAGS</span>";
 			for(var tagsNum = 0; tagsNum < jsonData.parameter.tags.length; tagsNum++){
 				tagsHtml += '<a class="btn-style3">' + jsonData.parameter.tags[tagsNum] + '</a>';
