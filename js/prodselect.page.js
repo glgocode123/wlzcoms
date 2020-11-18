@@ -88,7 +88,7 @@ $(function () {
 					h;
 				var hash = parmsObj.split('#');
 				for (var i = 0; i < hash.length; i++) {
-					sItemHtml = '<div class="empty-space h35-xs"></div>';
+					sItemHtml += '<div class="empty-space h35-xs"></div>';
 					h = hash[i].split("$"); 
 					//设置选项标题
 					sItemHtml += '<h7 class="h7">' + h[0] + '</h7><div class="empty-space h20-xs"></div><div class="selectItem" data-name="' + h[0] + '"><ul>';
