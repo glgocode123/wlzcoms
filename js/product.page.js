@@ -184,6 +184,7 @@ $(function () {
 						parmsVal += ":";
 					}
 				}
+				alert(parmsVal);
 			}
 			
 			$("div.tags").html(tagsHtml);
