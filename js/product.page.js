@@ -166,6 +166,7 @@ $(function () {
 				tagsHtml += '<a class="btn-style3">' + jsonData.tags[tagsNum] + '</a>';
 			}
 			
+			alert("parmsVal");
 			//循环根,获取一共有多少子对象 并 循环
 			for(var parObj = 1; parObj < jsonData.parameter[0].length; parObj++){
 				//对象名(数据结构请查看数据表)
