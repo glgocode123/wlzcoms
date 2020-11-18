@@ -101,7 +101,7 @@ $(function () {
 						for(var j = 0; j < hashSub.length/2; j ++){
 
 							//判断选项是否可用状态
-							if(hashSub[j*2]){
+							if(hashSub[j*2] === "true"){
 								//是否选中
 								if(isActive){
 									isActive = false;
