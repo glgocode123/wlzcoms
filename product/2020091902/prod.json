@@ -14,9 +14,11 @@
 	"tags":["T恤","长袖","白色"],
 	"parameter":[
 		{
-			"ObjName":["COLOR","SIZE"],
-			"COLOR":["白色"],
-			"SIZE":[true,"M",true,"L",true,"XL",false,"2XL"]
+			"ObjName":"COLOR",
+			"ObjVal":["白色"]
+		},{
+			"ObjName":"SIZE",
+			"ObjVal":[true,"M",true,"L",true,"XL",false,"2XL"]
 		}
 	]
 }

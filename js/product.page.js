@@ -166,20 +166,18 @@ $(function () {
 				tagsHtml += '<a class="btn-style3">' + jsonData.tags[tagsNum] + '</a>';
 			}
 			
-			alert("parmsVal:"+jsonData.parameter[0]);
-			alert("parmsVal:"+jsonData.parameter[0].length);
 			//循环根,获取一共有多少子对象 并 循环
-			for(var parObj = 1; parObj < jsonData.parameter[0].length; parObj++){
+			for(var parObj = 0; parObj < jsonData.parameter.length; parObj++){
 				//对象名(数据结构请查看数据表)
 				//参数结构 objName $ objVal:objVal:objVal # objName $ objVal:objVal:objVal
-				parmsVal += jsonData.parameter[0].ObjName[parObj-1] + "$";
+				parmsVal += jsonData.parameter[parObj].ObjName + "$";
 				//循环子属性
-				for(var parSubObj = 0; parSubObj < jsonData.parameter[0][parObj].length; parSubObj++){
-					parmsVal += jsonData.parameter[0][parObj][parSubObj];
+				for(var parSubObj = 0; parSubObj < jsonData.parameter[parObj].ObjVal.length; parSubObj++){
+					parmsVal += jsonData.parameter[parObj].ObjVal[parSubObj];
 					//不是最后一项加入分割
-					if(parSubObj === jsonData.parameter[0][parObj].length - 1){
+					if(parSubObj === jsonData.parameter[parObj].ObjVal.length - 1){
 						//判断是否最后一个块
-						if(parObj !== jsonData.parameter[0].length - 1){
+						if(parObj !== jsonData.parameter.length - 1){
 							parmsVal += "#";
 						}
 					}else{

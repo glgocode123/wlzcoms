@@ -14,9 +14,11 @@
 	"tags":["卫衣","连帽","长袖","黑色"],
 	"parameter":[
 		{
-			"ObjName":["COLOR","SIZE"],
-			"COLOR":["黑色"],
-			"SIZE":[true,"M",true,"L",true,"XL",false,"2XL"]
+			"ObjName":"COLOR",
+			"ObjVal":["黑色"]
+		},{
+			"ObjName":"SIZE",
+			"ObjVal":[true,"M",true,"L",true,"XL",false,"2XL"]
 		}
 	]
 }
