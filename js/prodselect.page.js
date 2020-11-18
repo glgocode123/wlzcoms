@@ -97,8 +97,8 @@ $(function () {
 					if(hashSub.length === 1){
 						sItemHtml += '<li><a class="active" data-name="' + hashSub[0] + '">' + hashSub[0] + '</a></li>';
 					}else{
+						var isActive = true;
 						for(var j = 0; j < hashSub.length/2; j ++){
-							var isActive = true;
 
 							//判断选项是否可用状态
 							if(hashSub[j*2]){
