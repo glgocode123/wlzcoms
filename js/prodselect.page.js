@@ -24,6 +24,16 @@ $(function () {
 		return params;
 	}
 	
+	/*================*/
+	/* 功能 - 判断参数是否有内容 */
+	/*================*/
+	function isNullOrUndefined(obj){
+		if(obj===null||obj===undefined||obj===""||obj==="undefined"||obj==="null"){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	//判断所需参数是否齐全，只读参数，不读cookie，因为只是流程中间页
 	//修改 —— 要读取cookie中的prodid属性，虽然是中间页，但是如果用户记录这个页再进入，那么会走不下去，因为这个页面的下一个页面不是购物车，就是结账页面，如果没有获得实际的prodid和mob，就不应该进入这个页面。
@@ -49,6 +59,8 @@ $(function () {
 		MobID = mobid;
 		return true;
 	}
+	
+	//判断字符型对应布尔型
 	function typeIsBoolean(itype){
 		if(itype==="true"){
 			type = true;
@@ -67,6 +79,44 @@ $(function () {
 	if(cookieProdid === decodeURI(UrlParamHash(url).prodid)){
 		//然后判断是否有参数
 		if(isProdID(decodeURI(UrlParamHash(url).prodid)) && isMobID(decodeURI(UrlParamHash(url).Mob)) && typeIsBoolean(decodeURI(UrlParamHash(url).type))){
+			
+			
+			//设置选项卡(objName $ objVal:objVal:objVal # objName $ objVal:objVal:objVal)
+			var parmsObj = UrlParamHash(url).parms;
+			if(!isNullOrUndefined(parmsObj)){
+				var sItemHtml = "",
+					h;
+				var hash = parmsObj.split('#');
+				for (var i = 0; i < hash.length; i++) {
+					sItemHtml = '<div class="empty-space h35-xs"></div>';
+					h = hash[i].split("$"); 
+					//设置选项标题
+					sItemHtml += '<h7 class="h7">' + h[0] + '</h7><div class="empty-space h20-xs"></div><div class="selectItem" data-name="' + h[0] + '"><ul>';
+					//设置选项内容
+					var hashSub = h[1].split(":");
+					for(var j = 0; j < hashSub.length%2; j ++){
+						var isActive = true;
+						
+						//判断选项是否可用状态
+						if(hashSub[j*2]){
+							//是否选中
+							if(isActive){
+								isActive = false;
+								sItemHtml += '<li><a class="active" data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+							}else{
+								sItemHtml += '<li><a data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+							}
+						}else{
+							sItemHtml += '<li><a class="outStock" data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+						}
+						
+					}
+					sItemHtml += '</ul></div>';
+				}
+				$("#sItem").append(sItemHtml);
+			}
+			
+			
 			//选项卡逻辑
 			$("div.selectItem ul li a").on("click",function(){
 				if(!$(this).is(".outStock")){
@@ -75,6 +125,8 @@ $(function () {
 		//			alert($(this).data('name')+"_"+$(this).parents().parents().parents().data("name"));
 				}
 			});
+			
+			//页面下一步
 			$(".btnNext").on("click", function(){
 				var hrefSelectType = "&";
 //				for(var i = 0; i < $("div.selectItem").length; i++){

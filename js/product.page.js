@@ -97,6 +97,7 @@ $(function () {
 	/*================*/
 	/* 功能 - 设置页面详情 */
 	/*================*/
+	var parmsVal = "";
 	function setProdPageDetails(prodid){
 		var isJSON = false;
 		//设置为同步请求
@@ -161,9 +162,30 @@ $(function () {
 			
 			//设置标签
 			var tagsHtml = "<span>TAGS</span>";
-			for(var tagsNum = 0; tagsNum < jsonData.parameter[0].tags.length; tagsNum++){
-				tagsHtml += '<a class="btn-style3">' + jsonData.parameter[0].tags[tagsNum] + '</a>';
+			for(var tagsNum = 0; tagsNum < jsonData.tags.length; tagsNum++){
+				tagsHtml += '<a class="btn-style3">' + jsonData.tags[tagsNum] + '</a>';
 			}
+			
+			//循环根,获取一共有多少子对象 并 循环
+			for(var parObj = 1; parObj < jsonData.parameter[0].length; parObj++){
+				//对象名(数据结构请查看数据表)
+				//参数结构 objName $ objVal:objVal:objVal # objName $ objVal:objVal:objVal
+				parmsVal += jsonData.parameter[0].ObjName[parObj-1] + "$";
+				//循环子属性
+				for(var parSubObj = 0; parSubObj < jsonData.parameter[0][parObj].length; parSubObj++){
+					parmsVal += jsonData.parameter[0][parObj][parSubObj];
+					//不是最后一项加入分割
+					if(parSubObj === jsonData.parameter[0][parObj].length - 1){
+						//判断是否最后一个块
+						if(parObj !== jsonData.parameter[0].length - 1){
+							parmsVal += "#";
+						}
+					}else{
+						parmsVal += ":";
+					}
+				}
+			}
+			
 			$("div.tags").html(tagsHtml);
 			
 			isJSON = true;
@@ -187,6 +209,7 @@ $(function () {
 		var arr = source.split("||");
 		return arr[0];
 	}
+	
 	function isUser(){
 		var cookieMobID = readCookieMob();
 		if(isMobID(decodeURI(UrlParamHash(url).Mob))){
@@ -214,7 +237,7 @@ $(function () {
 			//页面属性为用户
 			truefalse = true;
 			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "prodselect.html?prodid="+UrlParamHash(url).prodid+"&name="+$("#setProdTitle").text()+"&price="+$("#setProdRMB").text()+"&Mob="+iMob;
+			hrefVal = "prodselect.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
 		}else{
 			//页面属性为非用户
 			truefalse = false;

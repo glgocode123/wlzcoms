@@ -11,9 +11,10 @@
 	"prodinfo":"灵感来源于武者服饰。（其实也是一个场景感受，文化传播）",
 	"details":"TEEBACCO橙色印花图案短袖T恤，基础简约的款型设计，百搭耐看，袖口双车线工艺，舒适不卷边，棉质面料的使用，柔软舒适，出街不错的选择。",
 	"showImg":10,
+	"tags":["卫衣","连帽","长袖","白色"],
 	"parameter":[
 		{
-			"tags":["卫衣","连帽","长袖","白色"],
+			"ObjName":["COLOR","SIZE"],
 			"COLOR":["白色"],
 			"SIZE":[true,"M",true,"L",true,"XL",false,"2XL"]
 		}
