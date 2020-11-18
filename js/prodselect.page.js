@@ -94,22 +94,26 @@ $(function () {
 					sItemHtml += '<h7 class="h7">' + h[0] + '</h7><div class="empty-space h20-xs"></div><div class="selectItem" data-name="' + h[0] + '"><ul>';
 					//设置选项内容
 					var hashSub = h[1].split(":");
-					for(var j = 0; j < hashSub.length%2; j ++){
-						var isActive = true;
-						
-						//判断选项是否可用状态
-						if(hashSub[j*2]){
-							//是否选中
-							if(isActive){
-								isActive = false;
-								sItemHtml += '<li><a class="active" data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+					if(hashSub.length === 1){
+						sItemHtml += '<li><a class="active" data-name="' + hashSub[0] + '">' + hashSub[0] + '</a></li>';
+					}else{
+						for(var j = 0; j < hashSub.length/2; j ++){
+							var isActive = true;
+
+							//判断选项是否可用状态
+							if(hashSub[j*2]){
+								//是否选中
+								if(isActive){
+									isActive = false;
+									sItemHtml += '<li><a class="active" data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+								}else{
+									sItemHtml += '<li><a data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+								}
 							}else{
-								sItemHtml += '<li><a data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+								sItemHtml += '<li><a class="outStock" data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
 							}
-						}else{
-							sItemHtml += '<li><a class="outStock" data-name="' + hashSub[j*2+1] + '">' + hashSub[j*2+1] + '</a></li>';
+
 						}
-						
 					}
 					sItemHtml += '</ul></div>';
 				}
