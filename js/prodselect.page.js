@@ -82,7 +82,7 @@ $(function () {
 			
 			
 			//设置选项卡(objName $ objVal:objVal:objVal # objName $ objVal:objVal:objVal)
-			var parmsObj = UrlParamHash(url).parms;
+			var parmsObj = decodeURI(UrlParamHash(url).parms);
 			if(!isNullOrUndefined(parmsObj)){
 				var sItemHtml = "",
 					h;
