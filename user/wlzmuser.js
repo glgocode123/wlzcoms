@@ -62,6 +62,7 @@ $(function () {
 				$("#ssvMobID").text(jsonTheUser[0].MobID);
 				$("input[name='ssvP']").val(jsonTheUser[0].Points);
 				$("input[name='ssvG']").val(jsonTheUser[0].Golden);
+				$("input[name='ssvAdvance']").val(jsonTheUser[0].Advance);
 				$("input[name='ssvBuy']").val(jsonTheUser[0].Buy);
 				$("input[name='ssvBad']").val(jsonTheUser[0].Bad);
 			}else{
@@ -79,6 +80,7 @@ $(function () {
 	var ssvMobID = 0;
 	var ssvP = 0;
 	var ssvG = 0;
+	var ssvA = false;
 	var ssvBuy = false;
 	var ssvBad = false;
 	//修改
@@ -87,10 +89,11 @@ $(function () {
 		ssvMobID = $("#ssvMobID").text();
 		ssvP = $("input[name='ssvP']").val();
 		ssvG = $("input[name='ssvG']").val();
+		ssvA = $("input[name='ssvAdvance]").val();
 		ssvBuy = $("input[name='ssvBuy']").val();
 		ssvBad = $("input[name='ssvBad']").val();
 		
-		var cJsonData = '{"id":' + ssvid + ',"MobID":' + ssvMobID + ',"Points":' + ssvP + ',"Golden":' + ssvG + ',"Buy":' + ssvBuy + ',"Bad":' + ssvBad + '}';
+		var cJsonData = '{"id":' + ssvid + ',"MobID":' + ssvMobID + ',"Points":' + ssvP + ',"Golden":' + ssvG + ',"Buy":' + ssvBuy + ',"Advance":' + ssvA + ',"Bad":' + ssvBad + '}';
 		
 		alert(cJsonData);
 		$.ajax({
@@ -133,6 +136,7 @@ $(function () {
 				ssvMobID = 0;
 				ssvP = 0;
 				ssvG = 0;
+				ssvA = false;
 				ssvBuy = false;
 				ssvBad = false;
 				
@@ -140,6 +144,7 @@ $(function () {
 				$("#ssvMobID").text("如没有显示，请勿操作！");
 				$("input[name='ssvP']").val("");
 				$("input[name='ssvG']").val("");
+				$("input[name='ssvAdvance]").val();
 				$("input[name='ssvBuy']").val("");
 				$("input[name='ssvBad']").val("");
 //				$("#showTYPEnr").html("内容："+cJsonData);
@@ -161,12 +166,13 @@ $(function () {
 		ssvMobID = $("#ssvMobID").text();
 		ssvP = $("input[name='ssvP']").val();
 		ssvG = $("input[name='ssvG']").val();
+		ssvA = $("input[name='ssvAdvance]").val();
 		ssvBuy = $("input[name='ssvBuy']").val();
 		
 		$("input[name='ssvBad']").val('true');
 		ssvBad = $("input[name='ssvBad']").val();
 		
-		var cJsonData = '{"id":' + ssvid + ',"MobID":' + ssvMobID + ',"Points":' + ssvP + ',"Golden":' + ssvG + ',"Buy":' + ssvBuy + ',"Bad":' + ssvBad + '}';
+		var cJsonData = '{"id":' + ssvid + ',"MobID":' + ssvMobID + ',"Points":' + ssvP + ',"Golden":' + ssvG + ',"Buy":' + ssvBuy + ',"Advance":' + ssvA + ',"Bad":' + ssvBad + '}';
 		
 		alert(cJsonData);
 		$.ajax({
@@ -198,12 +204,13 @@ $(function () {
 		ssvMobID = $("#ssvMobID").text();
 		ssvP = $("input[name='ssvP']").val();
 		ssvG = $("input[name='ssvG']").val();
+		ssvA = $("input[name='ssvAdvance]").val();
 		ssvBuy = $("input[name='ssvBuy']").val();
 		
 		$("input[name='ssvBad']").val('false');
 		ssvBad = $("input[name='ssvBad']").val();
 		
-		var cJsonData = '{"id":' + ssvid + ',"MobID":' + ssvMobID + ',"Points":' + ssvP + ',"Golden":' + ssvG + ',"Buy":' + ssvBuy + ',"Bad":' + ssvBad + '}';
+		var cJsonData = '{"id":' + ssvid + ',"MobID":' + ssvMobID + ',"Points":' + ssvP + ',"Golden":' + ssvG + ',"Buy":' + ssvBuy + ',"Advance":' + ssvA + ',"Bad":' + ssvBad + '}';
 		
 		alert(cJsonData);
 		$.ajax({
