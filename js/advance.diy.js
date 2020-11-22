@@ -42,9 +42,8 @@ $(function () {
 		$.ajaxSettings.async = false;
 		$.getJSON("product/advance/prod.json", function(jsonData){
 			
-			var pubData = jsonData.date.toString();
 			//发布时间
-			$("#setProdDate").text(formatDate(pubData.substring(0,8)));
+			$("#setProdDate").text(formatDate(jsonData.date.substring(0,8)));
 			//产品名
 			$("#setProdTitle").text(jsonData.title);
 			//产品描述
