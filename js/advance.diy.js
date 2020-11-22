@@ -55,7 +55,7 @@ $(function () {
 			$("#setProdDetails").text(jsonData.details);
 			//设置产品详细图
 			//读取showImg的数值
-			var showImg = jsonData.showImg;
+			var showImg = jsonData.showImg + 1;
 			var ProdDetailImgHtml = "";
 			for(var showImgNum = 0; showImgNum < showImg; showImgNum++){
 				//格式化
