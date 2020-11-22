@@ -56,6 +56,7 @@ $(function () {
 			//设置产品详细图
 			//读取showImg的数值
 			var showImg = jsonData.showImg;
+			var ProdDetailImgHtml = "";
 			for(var showImgNum = 0; showImgNum < showImg; showImgNum++){
 				//格式化
 				var doubleDigit = "00";
@@ -66,8 +67,9 @@ $(function () {
 				}
 				//写入图片列
 //				$("div#setProdDetailImg").append("<img class='block' src='product/advance/detail-img_"+doubleDigit+".jpg' alt=''>");
-				$("div#setProdDetailImg").html("<img class='block' src='product/advance/detail-img_"+doubleDigit+".jpg' alt=''>");
+				ProdDetailImgHtml += "<img class='block' src='product/advance/detail-img_"+doubleDigit+".jpg' alt=''>";
 			}
+			$("div#setProdDetailImg").html(ProdDetailImgHtml);
 			
 			
 			//设置视频：如果json中有视频路径，设置视频
