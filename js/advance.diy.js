@@ -103,10 +103,10 @@ $(function () {
 		});	
 		// 如果没有JSON数据
 		if(!isJSON){
-			$(".mycart").remove();
-			$("#setMainVideo").remove();
-			alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********1）");
-			$(location).attr('href', '../shop.html');
+//			$(".mycart").remove();
+//			$("#setMainVideo").remove();
+//			alert("产品信息加载失败————关闭消息框后，将前往SHOP页面，如需反馈可与我们联系，感谢对本站的支持和理解（微信：*********1）");
+//			$(location).attr('href', '../shop.html');
 		}
 	}
 	
@@ -144,7 +144,7 @@ $(function () {
 		//页面属性为用户
 		truefalse = true;
 		//产品属性页面跳转的link为：用户的形态//设置页面标题
-		hrefVal = "prodselect.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
+		hrefVal = "prodselect.html?prodid=advance&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
 	}else{
 		//页面属性为非用户
 		truefalse = false;
