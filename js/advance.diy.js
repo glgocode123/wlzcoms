@@ -42,7 +42,7 @@ $(function () {
 		$.ajaxSettings.async = false;
 		$.getJSON("product/advance/prod.json", function(jsonData){
 			
-			var pubData = jsonData.date;
+			var pubData = jsonData.date.toString();
 			//发布时间
 			$("#setProdDate").text(formatDate(pubData.substring(0,8)));
 			//产品名
