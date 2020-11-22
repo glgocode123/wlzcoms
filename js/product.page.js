@@ -135,7 +135,7 @@ $(function () {
 			$("#setProdDetails").text(jsonData.details);
 			//（img）设置产品详细图
 			//读取showImg的数值
-			var showImg = jsonData.showImg;
+			var showImg = jsonData.showImg + 1;
 			for(var showImgNum = 0; showImgNum < showImg; showImgNum++){
 				//格式化
 				var doubleDigit = "00";
