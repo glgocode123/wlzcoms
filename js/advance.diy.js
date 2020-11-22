@@ -65,7 +65,8 @@ $(function () {
 					doubleDigit = showImgNum+1;
 				}
 				//写入图片列
-				$("div#setProdDetailImg").append("<img class='block' src='product/advance/detail-img_"+doubleDigit+".jpg' alt=''>");
+//				$("div#setProdDetailImg").append("<img class='block' src='product/advance/detail-img_"+doubleDigit+".jpg' alt=''>");
+				$("div#setProdDetailImg").html("<img class='block' src='product/advance/detail-img_"+doubleDigit+".jpg' alt=''>");
 			}
 			
 			
