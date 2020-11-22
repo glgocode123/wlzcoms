@@ -414,7 +414,11 @@ $(function () {
 		var proID = 0;
 		//获得proID
 		if(isNullOrUndefined(prodid) && !isNullOrUndefined(prodida)){
-			proID = prodida.substring(0, prodida.length - 1);
+			if(prodid==="advance"){
+				proID = prodid;
+			}else{
+				proID = prodida.substring(0, prodida.length - 1);
+			}
 		}else{
 			proID = prodid;
 		}
