@@ -97,7 +97,13 @@ $(function () {
 	/*================*/
 	/* 功能 - 设置页面详情 */
 	/*================*/
+	//判断是那个参数（因为需要所有参数均不可选才能false，所以以false初始化）
+	var isParms = false;
+	//参数内容 ———— true
 	var parmsVal = "";
+	//如果参数不用选：每个参数都唯一或者没有参数（一般情况都会设置一个参数） ———— false
+	var parmsOneVal = "";
+	
 	function setProdPageDetails(prodid){
 		var isJSON = false;
 		//设置为同步请求
@@ -166,14 +172,27 @@ $(function () {
 				tagsHtml += '<a class="btn-style3">' + jsonData.tags[tagsNum] + '</a>';
 			}
 			
+			parmsOneVal = "parms=";
 			//循环根,获取一共有多少子对象 并 循环
 			for(var parObj = 0; parObj < jsonData.parameter.length; parObj++){
+				
+				//所有参数项都为空的时候，才是false（只要有一个参数可选，就是true）
+				if(jsonData.parameter[parObj].ObjVal.length > 1){
+					isParms = true;
+				}
+				
 				//对象名(数据结构请查看数据表)
 				//参数结构 objName $ objVal:objVal:objVal # objName $ objVal:objVal:objVal
 				parmsVal += jsonData.parameter[parObj].ObjName + "$";
+				//参数结构 parms=objName:objVal  objName:objVal
+				parmsOneVal += jsonData.parameter[parObj].objName + ":";
 				//循环子属性
 				for(var parSubObj = 0; parSubObj < jsonData.parameter[parObj].ObjVal.length; parSubObj++){
 					parmsVal += jsonData.parameter[parObj].ObjVal[parSubObj];
+					
+					//因为如果不止一个参数的时候不会用这个变量，所以直接加两个空格就好不用做过多判断
+					parmsOneVal += jsonData.parameter[parObj].ObjVal[parSubObj] + "\v\v";
+					
 					//不是最后一项加入分割
 					if(parSubObj === jsonData.parameter[parObj].ObjVal.length - 1){
 						//判断是否最后一个块
@@ -184,7 +203,6 @@ $(function () {
 						parmsVal += ":";
 					}
 				}
-				alert(parmsVal);
 			}
 			
 			$("div.tags").html(tagsHtml);
@@ -237,8 +255,13 @@ $(function () {
 		if(isUser()){
 			//页面属性为用户
 			truefalse = true;
-			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "prodselect.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
+			//产品属性页面跳转的link为：用户的形态
+			//设置页面标题
+			if(isParms){
+				hrefVal = "prodselect.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
+			}else{
+				hrefVal = "order.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsOneVal;
+			}
 		}else{
 			//页面属性为非用户
 			truefalse = false;

@@ -140,21 +140,25 @@ $(function () {
 				}
 				$("#sItem").append(sItemHtml);
 			}else{
-				//如果是直接购买
-				if(type){
-					//advance不可加入购物车，只能是直接购买
-					if(cookieProdid==="advance"){
-						//无选项，直接跳转订单提交页
-						goNextPage("order","");
-					}else{
-						//无选项，直接跳转订单提交页
-						goNextPage("order","");
-					}
-				}else{
-					//无选项，直接跳转购物车
-					goNextPage("cart","");
-				}
+				如果没有参数，在上一个页面就直接跳转到order页了，so，404或上一个页吧
+				window.history.go(-1);
 			}
+//			else{
+//				//如果是直接购买
+//				if(type){
+//					//advance不可加入购物车，只能是直接购买
+//					if(cookieProdid==="advance"){
+//						//无选项，直接跳转订单提交页
+//						goNextPage("advance","");
+//					}else{
+//						//无选项，直接跳转订单提交页
+//						goNextPage("order","");
+//					}
+//				}else{
+//					//无选项，直接跳转购物车
+//					goNextPage("cart","");
+//				}
+//			}
 			
 			
 			//选项卡逻辑
@@ -181,7 +185,7 @@ $(function () {
 					//参数值
 					hrefSelectType += $("div.selectItem").eq(i).children().children().children(".active").data("name");
 					if(i !== $("div.selectItem").length-1){
-						hrefSelectType += "  ";
+						hrefSelectType += "\v\v";
 					}
 				}
 				//如果是直接购买
