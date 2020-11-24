@@ -260,7 +260,7 @@ $(function () {
 			if(isParms){
 				hrefVal = "prodselect.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
 			}else{
-				hrefVal = "order.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsOneVal;
+				hrefVal = "order.html?prodid=" + UrlParamHash(url).prodid + "&name=" + $("#setProdTitle").text() + "&count=1" + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsOneVal;
 			}
 		}else{
 			//页面属性为非用户
