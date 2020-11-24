@@ -205,9 +205,15 @@ $(function () {
 		if(truefalse){
 			
 			$(".wechat-qrcode").show();
-			//点击事件，
-			//马上结账：true （立即购买）
-//			$(location).attr("href", hrefVal + "&type=true&price=" + );
+			
+			//选项卡逻辑
+			$("div.selectItem ul li a").on("click",function(){
+				
+				//马上结账：true （立即购买）
+				$(location).attr("href", hrefVal + "&type=true&price=" + $(this).data("name"));
+				
+			});
+			
 		}else{
 			//非用户跳转到登录页
 			$(location).attr("href", hrefVal);
