@@ -187,7 +187,7 @@ $(function () {
 	}
 	
 	//尾款按钮
-	$("#isOne").on('click', function(){
+	$("#isTwo").on('click', function(){
 		if(truefalse){
 			//马上结账：true （立即购买）
 			$(location).attr("href", hrefVal + "&type=true&price=" + $("#setProdRMB").text());
