@@ -185,7 +185,7 @@ $(function () {
 					//参数值
 					hrefSelectType += $("div.selectItem").eq(i).children().children().children(".active").data("name");
 					if(i !== $("div.selectItem").length-1){
-						hrefSelectType += "\v\v";
+						hrefSelectType += "  ";
 					}
 				}
 				//如果是直接购买

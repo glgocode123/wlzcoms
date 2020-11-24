@@ -113,7 +113,7 @@ $(function () {
 					parmsVal += jsonData.parameter[parObj].ObjVal[parSubObj];
 					
 					//因为如果不止一个参数的时候不会用这个变量，所以直接加两个空格就好不用做过多判断
-					parmsOneVal += jsonData.parameter[parObj].ObjVal[parSubObj] + "\v\v";
+					parmsOneVal += jsonData.parameter[parObj].ObjVal[parSubObj] + "  ";
 					
 					//不是最后一项加入分割
 					if(parSubObj === jsonData.parameter[parObj].ObjVal.length - 1){
