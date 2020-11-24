@@ -174,10 +174,10 @@ $(function () {
 		truefalse = true;
 		if(isParms){
 			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "prodselect.html?prodid=advance&name=" + $("#setProdTitle").text() + "&count=1" + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
+			hrefVal = "prodselect.html?prodid=advance&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
 		}else{
 			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "order.html?prodid=advance&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsOneVal;
+			hrefVal = "order.html?prodid=advance&name=" + $("#setProdTitle").text() + "&count=1" + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsOneVal;
 		}
 	}else{
 		//页面属性为非用户
