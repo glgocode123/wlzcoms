@@ -203,6 +203,9 @@ $(function () {
 	//显示弹框窗（参与按钮，参与的时候才能显示，因为尾款的时候是直接付款的）
 	$("#isOne").on('click', function(){
 		if(truefalse){
+			
+			$(".wechat-qrcode").show();
+			
 			//马上结账：true （立即购买）
 			$(location).attr("href", hrefVal + "&type=true&price=" + );
 		}else{

@@ -140,7 +140,7 @@ $(function () {
 				}
 				$("#sItem").append(sItemHtml);
 			}else{
-				如果没有参数，在上一个页面就直接跳转到order页了，so，404或上一个页吧
+				//如果没有参数，在上一个页面就直接跳转到order页了，so，404或上一个页吧
 				window.history.go(-1);
 			}
 //			else{
