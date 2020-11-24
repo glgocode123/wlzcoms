@@ -205,9 +205,9 @@ $(function () {
 		if(truefalse){
 			
 			$(".wechat-qrcode").show();
-			
+			//点击事件，
 			//马上结账：true （立即购买）
-			$(location).attr("href", hrefVal + "&type=true&price=" + );
+//			$(location).attr("href", hrefVal + "&type=true&price=" + );
 		}else{
 			//非用户跳转到登录页
 			$(location).attr("href", hrefVal);
