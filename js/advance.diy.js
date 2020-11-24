@@ -94,7 +94,7 @@ $(function () {
 				$("#setMainVideo").attr("src", videoPath);
 			}
 			
-			parmsOneVal = "parms=";
+			parmsOneVal = "";
 			//循环根,获取一共有多少子对象 并 循环
 			for(var parObj = 0; parObj < jsonData.parameter.length; parObj++){
 				
@@ -107,7 +107,7 @@ $(function () {
 				//参数结构 objName $ objVal:objVal:objVal # objName $ objVal:objVal:objVal
 				parmsVal += jsonData.parameter[parObj].ObjName + "$";
 				//参数结构 parms=objName:objVal  objName:objVal
-				parmsOneVal += jsonData.parameter[parObj].objName + ":";
+				parmsOneVal += jsonData.parameter[parObj].ObjName + ":";
 				//循环子属性
 				for(var parSubObj = 0; parSubObj < jsonData.parameter[parObj].ObjVal.length; parSubObj++){
 					parmsVal += jsonData.parameter[parObj].ObjVal[parSubObj];
