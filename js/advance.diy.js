@@ -174,10 +174,10 @@ $(function () {
 		truefalse = true;
 		if(isParms){
 			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "prodselect.html?prodid=advance&name=" + $("#setProdTitle").text() + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
+			hrefVal = "prodselect.html?prodid=advance&name=" + $("#setProdTitle").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
 		}else{
 			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "order.html?prodid=advance&name=" + $("#setProdTitle").text() + "&count=1" + "&price=" + $("#setProdRMB").text() + "&Mob=" + iMob + "&parms=" + parmsOneVal;
+			hrefVal = "order.html?prodid=advance&name=" + $("#setProdTitle").text() + "&count=1" + "&Mob=" + iMob + "&parms=" + parmsOneVal;
 		}
 	}else{
 		//页面属性为非用户
@@ -185,24 +185,36 @@ $(function () {
 		//产品属性页面跳转的link为：非用户形态
 		hrefVal = "login.html?fromPageType=advance";
 	}
-	//参与按钮
-	$("#isOne").on('click', function(){
-		if(truefalse){
-			//马上结账：true （立即购买）
-			$(location).attr("href", hrefVal + "&type=true");
-		}else{
-			//
-			$(location).attr("href", hrefVal);
-		}
-	});
+	
 	//尾款按钮
 	$("#isOne").on('click', function(){
 		if(truefalse){
 			//马上结账：true （立即购买）
-			$(location).attr("href", hrefVal + "&type=true");
+			$(location).attr("href", hrefVal + "&type=true&price=" + $("#setProdRMB").text());
 		}else{
-			//
+			//非用户跳转到登录页
 			$(location).attr("href", hrefVal);
+		}
+	});
+	
+	/*================*/
+	/* 价格弹框 - 选择价格的底部弹框 */
+	/*================*/
+	//显示弹框窗（参与按钮，参与的时候才能显示，因为尾款的时候是直接付款的）
+	$("#isOne").on('click', function(){
+		if(truefalse){
+			//马上结账：true （立即购买）
+			$(location).attr("href", hrefVal + "&type=true&price=" + );
+		}else{
+			//非用户跳转到登录页
+			$(location).attr("href", hrefVal);
+		}
+	});
+	//弹框窗隐藏
+	$(document).mouseup(function(e){
+		var _con = $(".wechat-qrcode");   // 设置目标区域
+		if(!_con.is(e.target) && _con.has(e.target).length === 0){ // Mark 1
+			$(".wechat-qrcode").hide();
 		}
 	});
 	
