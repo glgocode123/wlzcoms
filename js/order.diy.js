@@ -310,7 +310,12 @@ $(function () {
 		//计算出获得的积分（当前积分 + 本次购物应获的积分）
 		var countPoints = userWServerPoints + Math.round(htmlValPrice/10);
 			
-		var newJSONDataUser = '{"MobID":' + MobID + ',"Points":' + countPoints + ',"Golden":' + countGolden + ',"Buy":true' + ',"Bad":false}';
+		var newJSONDataUser = '';
+		if(prodid==="advance"){
+			newJSONDataUser = '{"MobID":' + MobID + ',"Points":' + countPoints + ',"Golden":' + countGolden + ',"Buy":true' + ',"Advance":true' + ',"Bad":false}';
+		}else{
+			newJSONDataUser = '{"MobID":' + MobID + ',"Points":' + countPoints + ',"Golden":' + countGolden + ',"Buy":true' + ',"Advance":false' + ',"Bad":false}';
+		}
 		//判断是新增还是修改，只有user才会用，order只使用新增
 		var ajaxType = "";
 		if(userItemID === ""){
@@ -518,10 +523,12 @@ $(function () {
 	//1、首先判断固定服务器（用此顺序因为要判断黑户，防止用户修改可写服务器）
 	$.getJSON("user/" + MobID + ".json", function(jsonDataUserInfo){
 
-		//如果用户是黑户，删除用户登录信息，跳转404
+		//如果用户是黑户，删除用户登录信息
 		if(jsonDataUserInfo.Bad){
 			$.removeCookie('wlzName',{ path: '/'});
-			$(location).attr('href', '404.html');
+			alert("你的账户被冻结，请联系客服人员！");
+			$(location).attr('href', 'contact.html');
+//			$(location).attr('href', '404.html');
 		}
 
 		//老用户
@@ -544,7 +551,9 @@ $(function () {
 		//如果用户是黑户，删除用户登录信息，跳转404
 		if(jsonData[0].Bad){
 			$.removeCookie('wlzName',{ path: '/'});
-			$(location).attr('href', '404.html');
+			alert("你的账户被冻结，请联系客服人员！");
+			$(location).attr('href', 'contact.html');
+//			$(location).attr('href', '404.html');
 		}
 		
 		//如果今天有数据（新注册用户/老用户有修改）

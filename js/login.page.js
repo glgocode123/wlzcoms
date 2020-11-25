@@ -152,7 +152,10 @@ $(function () {
 				
 				var wServerH = false,
 					userPoints = jsonData[0].Points,
-					userGolden = jsonData[0].Golden;
+					userGolden = jsonData[0].Golden,
+					userBuy = jsonData[0].Buy,
+					userAdvance = jsonData[0].Advance,
+					userBad = jsonData[0].Bad;
 				
 				//读取用户订单记录，用于写cookie
 				$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+inputMob, function(jsonDataOrder){
@@ -206,31 +209,44 @@ $(function () {
 				if(rServerUser){
 					//老用户
 					$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
-						//cookie数据：0手机号||1老用户&有修改数据||2可写数据库||3积分||4金池||5历史记录数量
-						//读取用户json，为的是保存数据在cookie
-						$.cookie("wlzName", userMobID + "||RWSU||true||" + userPoints + "||" + userGolden + "||" + jsonDataUserInfo.History.length, { expires: 1 });
+						if(jsonDataUserInfo.Bad){
+							alert("你的账户被冻结，请联系客服人员！");
+							$(location).attr('href', 'contact.html');
+						}else{
+							
+							//cookie数据：0手机号||1老用户&有修改数据||2可写数据库||3积分||4金池||5历史记录数量
+							//cookie增加：6今天是否有购买 || 7是否参与预售 || 8黑名单
+							//读取用户json，为的是保存数据在cookie
+							$.cookie("wlzName", userMobID + "||RWSU||true||" + userPoints + "||" + userGolden + "||" + jsonDataUserInfo.History.length + "||" + userBuy + "||" + userAdvance + "||" + userBad, { expires: 1 });
 
-						//RWSU = Read Write Sever User
-						//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
-						jumpPage(userMobID,"RWSU");
+							//RWSU = Read Write Sever User
+							//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
+							jumpPage(userMobID,"RWSU");
+							
+						}
 					});
 				}else{
-					//新用户
-					//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
-					//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
-					alert(wServerH);
-					if(wServerH){
-						//新用户有买东西true
-						$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
+					if(userBad){
+						alert("你的账户被冻结，请联系客服人员！");
+						$(location).attr('href', 'contact.html');
 					}else{
-						//新用户没有买东西false
-						$.cookie("wlzName", userMobID + "||NSU||false||" + userPoints + "||" + userGolden + "||" + "0" , { expires: 1 });
-					}
-					
+						//新用户
+						//考虑将新购物的内容加入cookie， 这样可以不用经常查询可写服务器, 可以用true判断，有则读取cookie
+						//cookie数据：0手机号||1新用户||2可写数据库||3积分||4金池||5历史记录数量
+						//cookie增加：6今天是否有购买 || 7是否参与预售 || 8黑名单
+	//					alert(wServerH);
+						if(wServerH){
+							//新用户有买东西true
+							$.cookie("wlzName", userMobID + "||WSU||true||" + userPoints + "||" + userGolden + "||" + "0" + "||" + userBuy + "||" + userAdvance + "||" + userBad , { expires: 1 });
+						}else{
+							//新用户没有买东西false
+							$.cookie("wlzName", userMobID + "||NSU||false||" + userPoints + "||" + userGolden + "||" + "0" + "||" + userBuy + "||" + userAdvance + "||" + userBad , { expires: 1 });
+						}
 
-					//RWSU = Read Write Sever User
-					//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
-					jumpPage(userMobID,"WSU");
+						//RWSU = Read Write Sever User
+						//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=WSU");
+						jumpPage(userMobID,"WSU");
+					}
 				}
 			}else{//如果可写服务器没有数据，判断只读服务器
 				
@@ -238,19 +254,26 @@ $(function () {
 				if(rServerUser){
 					//已经是用户
 					$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
-		//				alert(jsonDataUserInfo.Points);
-						//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
-						//读取用户json，为的是保存数据在cookie
-						$.cookie("wlzName", userMobID + "||RSU||false||" + jsonDataUserInfo.Points + "||" + jsonDataUserInfo.Golden + "||" + jsonDataUserInfo.History.length, { expires: 1 });
+						if(jsonDataUserInfo.Bad){
+							alert("你的账户被冻结，请联系客服人员！");
+							$(location).attr('href', 'contact.html');
+						}else{
+							
+							//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
+							//cookie增加：6今天是否有购买 || 7是否参与预售 || 8黑名单
+							//读取用户json，为的是保存数据在cookie
+							$.cookie("wlzName", userMobID + "||RSU||false||" + jsonDataUserInfo.Points + "||" + jsonDataUserInfo.Golden + "||" + jsonDataUserInfo.History.length + "||" + "false" + "||" + jsonDataUserInfo.Advance + "||" + jsonDataUserInfo.Bad, { expires: 1 });
 
-						//RSU = Read Sever User
-		//				$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
-						jumpPage(userMobID,"RSU");
+							//RSU = Read Sever User
+							//$(location).attr('href', 'i.html?Mob=' + userMobID + "&userStatus=RSU");
+							jumpPage(userMobID,"RSU");
+
+						}
 					});
 				}else{//如果只读服务器也没有数据
 					
 					//新注册用户
-					var newJSONData =  '{"MobID":' + inputMob + ',"Points":' + 0 + ',"Golden":' + 0 + ',"Buy":false' + ',"Bad":false}';
+					var newJSONData =  '{"MobID":' + inputMob + ',"Points":' + 0 + ',"Golden":' + 0 + ',"Buy":false' + ',"Advance":false' + ',"Bad":false}';
 					//把来者注册成新用户
 					//发送交易请求到w数据库
 					$.ajax({
@@ -262,8 +285,9 @@ $(function () {
 						dataType: "json",
 						success: function () {
 							//cookie数据：0手机号||1没有修改数据||2可写数据库||3积分||4金池||5历史记录数量
+							//cookie增加：6今天是否有购买 || 7是否参与预售 || 8黑名单
 							//读取用户json，为的是保存数据在cookie
-							$.cookie("wlzName", inputMob + "||NSU||false||" + 0 + "||" + 0 + "||" + 0, { expires: 1 });
+							$.cookie("wlzName", inputMob + "||NSU||false||" + 0 + "||" + 0 + "||" + 0 + "||" + "false" + "||" + "false" + "||" + "false", { expires: 1 });
 
 							//NSU = New Sever User
 			//				$(location).attr('href', 'i.html?Mob=' + inputMob + "&userStatus=NSU");
