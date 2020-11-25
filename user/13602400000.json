@@ -1,6 +1,8 @@
 {
 	"Points":99999,
 	"Golden":100,
+	"Advance":false,
+    "Bad": false,
 	"History":[
 		{
     		"orderID": 1606275602369,

@@ -324,7 +324,6 @@ $(function () {
 		
 		var htmlVal = '<div class="form-wrapper"><div class="empty-space h25-xs h40-md"></div><h7 class="h7">' + sData + '</h7><hr><span class="big">' + sTracking + '</span><div class="empty-space h30-xs"></div><div class="comments-wrapper">' + htmlVarProdMoney + '<div class="empty-space h50-xs"></div></div></div>';
 		
-		alert(htmlVal);
 		//如果已经存在历史记录
 		if($("div.form-wrapper").length > 0){
 			//已有块之后插入兄弟元素

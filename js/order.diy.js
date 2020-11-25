@@ -633,17 +633,17 @@ $(function () {
 				if(isNullOrUndefined(wlzNHCookie)){
 					//今天如果有购买状态，但是本地没有购买cookie
 					
-					//今天有购买，也可能是新用户（今天新注册的用户）
+					//今天有购买
 					if(isBuyUser){
-						
-						//写入数据库并生成订单cookie
-						submitData(orderCookieValue, orderJSONValue);
-						
-					}else{
 						
 						$.removeCookie('wlzName',{ path: '/'});
 						alert("ERROR!请从新登录！");
 						$(location).attr('href', 'login.html');
+						
+					}else{
+						
+						//写入数据库并生成订单cookie
+						submitData(orderCookieValue, orderJSONValue);
 						
 					}
 					
