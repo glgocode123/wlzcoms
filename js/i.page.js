@@ -264,7 +264,7 @@ $(function () {
 				}
 				
 				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
-				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID,  historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
+				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
 			}
 		}
 		alert(rSource);
