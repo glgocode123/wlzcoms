@@ -3,8 +3,6 @@ $(function () {
 
 	"use strict";
 	
-	//设置为同步请求
-	$.ajaxSettings.async = false;
 	
 	/*================*/
 	/* 功能 - 判断手机号格式是否正确 */
@@ -22,6 +20,8 @@ $(function () {
 	/*================*/
 	function setUserInfo(userArrInfo) {
 		
+		//设置为同步请求
+		$.ajaxSettings.async = false;
 		//userInfo - cookie数据：0手机号||1服务器状态||2什么数据库||3积分||4金池||5历史记录数量
 		//如果是只读数据库进来的
 		
