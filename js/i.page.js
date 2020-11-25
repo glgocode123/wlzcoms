@@ -40,7 +40,7 @@ $(function () {
 			//老用户买过东西/修改
 			if(userArrInfo[1] === "RWSU"){
 //				alert("RWSU");
-				alert("RWSU:" + wlzNHCookie);
+//				alert("RWSU:" + wlzNHCookie);
 				
 				//cookie：没有历史记录
 				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
@@ -62,7 +62,7 @@ $(function () {
 						}
 					});
 				}else{//老用户，有数据修改//如果有此cookie，说明有修改数据在本地
-					alert(wlzNHCookie);
+//					alert(wlzNHCookie);
 					if(wlzNHCookie.split("|$|").length > 0){
 						//有内容
 						iCookieHistoryW = wlzNHCookie.split("|$|");
