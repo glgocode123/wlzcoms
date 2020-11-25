@@ -264,7 +264,7 @@ $(function () {
 				}
 				
 				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
-				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
+//				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParms);
 			}
 		}
 		alert(rSource);
@@ -296,9 +296,9 @@ $(function () {
 					var jDate = iProd[j].split("||");
 					//如果不是最后一个
 					if(j !== iProd[j].length - 1){
-						setHistoryShowProduct(true, jDate[0], jDate[1], jDate[2]);
+//						setHistoryShowProduct(true, jDate[0], jDate[1], jDate[2]);
 					}else{
-						setHistoryShowProduct(false, jDate[0], jDate[1], jDate[2]);
+//						setHistoryShowProduct(false, jDate[0], jDate[1], jDate[2]);
 					}
 					
 				}
