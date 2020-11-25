@@ -89,7 +89,7 @@ $(function () {
 		ssvMobID = $("#ssvMobID").text();
 		ssvP = $("input[name='ssvP']").val();
 		ssvG = $("input[name='ssvG']").val();
-		ssvA = $("input[name='ssvAdvance]").val();
+		ssvA = $("input[name='ssvAdvance']").val();
 		ssvBuy = $("input[name='ssvBuy']").val();
 		ssvBad = $("input[name='ssvBad']").val();
 		
@@ -144,7 +144,7 @@ $(function () {
 				$("#ssvMobID").text("如没有显示，请勿操作！");
 				$("input[name='ssvP']").val("");
 				$("input[name='ssvG']").val("");
-				$("input[name='ssvAdvance]").val();
+				$("input[name='ssvAdvance']").val();
 				$("input[name='ssvBuy']").val("");
 				$("input[name='ssvBad']").val("");
 //				$("#showTYPEnr").html("内容："+cJsonData);
@@ -166,7 +166,7 @@ $(function () {
 		ssvMobID = $("#ssvMobID").text();
 		ssvP = $("input[name='ssvP']").val();
 		ssvG = $("input[name='ssvG']").val();
-		ssvA = $("input[name='ssvAdvance]").val();
+		ssvA = $("input[name='ssvAdvance']").val();
 		ssvBuy = $("input[name='ssvBuy']").val();
 		
 		$("input[name='ssvBad']").val('true');
@@ -204,7 +204,7 @@ $(function () {
 		ssvMobID = $("#ssvMobID").text();
 		ssvP = $("input[name='ssvP']").val();
 		ssvG = $("input[name='ssvG']").val();
-		ssvA = $("input[name='ssvAdvance]").val();
+		ssvA = $("input[name='ssvAdvance']").val();
 		ssvBuy = $("input[name='ssvBuy']").val();
 		
 		$("input[name='ssvBad']").val('false');
