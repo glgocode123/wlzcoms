@@ -273,10 +273,12 @@ $(function () {
 			hrefVal = "login.html?fromPageType=product&prodID="+UrlParamHash(url).prodid;
 		}
 		$("#setAddCart").on('click', function(){
+			//如果是用户
 			if(truefalse){
 				//马上结账：false （加入购物车）
 				$(location).attr("href", hrefVal + "&type=false");
 			}else{
+				//跳转到login
 				$(location).attr("href", hrefVal);
 			}
 		});
@@ -285,6 +287,7 @@ $(function () {
 				//马上结账：true （立即购买）
 				$(location).attr("href", hrefVal + "&type=true");
 			}else{
+				//跳转到login
 				$(location).attr("href", hrefVal);
 			}
 		});

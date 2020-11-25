@@ -93,10 +93,8 @@ $(function () {
 		}
 	}
 	
-	//模拟cookie，稍后需要改成读取cookie
-	var cookieProdid = decodeURI(UrlParamHash(url).prodid);
-	//首先判断cookie有没有记录prodid，并且判断是否于参数的prodid相同，没有视为用户保存的标签打开的
-	if(cookieProdid === decodeURI(UrlParamHash(url).prodid)){
+	//判断的过程会赋值（下一步的prodid）
+	if(isProdID(decodeURI(UrlParamHash(url).prodid))){
 		//然后判断是否有参数
 		if(isMobID(decodeURI(UrlParamHash(url).Mob)) && typeIsBoolean(decodeURI(UrlParamHash(url).type))){
 			
