@@ -147,6 +147,7 @@ $(function () {
 	//获取用户id
 	var userCookieVal = readNameCookie();
 	
+	//黑名单
 	if(userCookieVal[8]==="true"){
 		$.removeCookie('wlzName',{ path: '/'});
 		alert("你的账户被冻结，请联系客服人员！");
@@ -214,7 +215,7 @@ $(function () {
 		if(truefalse){
 			
 			//判断是否已经参与预售
-			if(iAdvance){
+			if(iAdvance === "true"){
 				
 				if(confirm("你的名额已使用，如有异议请与管理员联系,现在要联系管理员吗？")){
 					$(location).attr("href", "contact.html");
