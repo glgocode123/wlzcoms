@@ -33,6 +33,7 @@ $(function () {
 	//如果参数不用选：每个参数都唯一或者没有参数（一般情况都会设置一个参数） ———— false
 	var parmsOneVal = "";
 	
+	//设置页面展示
 	function setProdPageDetails(){
 		var isJSON = false;
 		//设置为同步请求
@@ -134,16 +135,26 @@ $(function () {
 		}
 	}
 	
-	//判断是否登录
-	var iMob="";
-	function readCookieMob(){
+	function readNameCookie(){
 		var source = $.cookie("wlzName");
 		if (source === null || source === "" || source === undefined) {
-			return 0;
+			//连登录cookie都没有，直接跳转到登录页
+			$(location).attr("href", "login.html?fromPageType=advance");
 		}
 		var arr = source.split("||");
-		return arr[0];
+		return arr;
 	}
+	//获取用户id
+	var userCookieVal = readNameCookie();
+	
+	if(userCookieVal[8]==="true"){
+		$.removeCookie('wlzName',{ path: '/'});
+		alert("你的账户被冻结，请联系客服人员！");
+		$(location).attr('href', 'contact.html');
+	}
+	
+	var iMobID = userCookieVal[0],
+		iAdvance = userCookieVal[7];
 	
 	/*================*/
 	/* 功能 - 判断Mob格式是否正确 */
@@ -162,17 +173,18 @@ $(function () {
 	var hrefVal = "";
 	//目前情况：不管是不是用户都现实页面内容
 	//设置页面，此时hrefVal在之后才能获取正确的值
-	setProdPageDetails();
 	//如果是用户
-	if(isMobID(readCookieMob())){
+	if(isMobID(iMobID)){
+		//设置页面展示
+		setProdPageDetails();
 		//页面属性为用户
 		truefalse = true;
 		if(isParms){
 			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "prodselect.html?prodid=advance&name=" + $("#setProdTitle").text() + "&Mob=" + iMob + "&parms=" + parmsVal;
+			hrefVal = "prodselect.html?prodid=advance&name=" + $("#setProdTitle").text() + "&Mob=" + iMobID + "&parms=" + parmsVal;
 		}else{
 			//产品属性页面跳转的link为：用户的形态//设置页面标题
-			hrefVal = "order.html?prodid=advance&name=" + $("#setProdTitle").text() + "&count=1" + "&Mob=" + iMob + "&parms=" + parmsOneVal;
+			hrefVal = "order.html?prodid=advance&name=" + $("#setProdTitle").text() + "&count=1" + "&Mob=" + iMobID + "&parms=" + parmsOneVal;
 		}
 	}else{
 		//页面属性为非用户
@@ -201,19 +213,32 @@ $(function () {
 		//用户登录状态
 		if(truefalse){
 			
-			$(".advance-class").show();
+			//判断是否已经参与预售
+			if(iAdvance){
+				
+				if(confirm("你的名额已使用，如有异议请与管理员联系,现在要联系管理员吗？")){
+					$(location).attr("href", "contact.html");
+				}
 			
-			//选项卡逻辑
-			$("div.selectItem ul li a").on("click",function(){
+			}else{
 				
-				//马上结账：true （立即购买）
-				$(location).attr("href", hrefVal + "&type=true&price=" + $(this).data("name"));
+				$(".advance-class").show();
+
+				//选项卡逻辑
+				$("div.selectItem ul li a").on("click",function(){
+
+					//马上结账：true （立即购买）
+					$(location).attr("href", hrefVal + "&type=true&price=" + $(this).data("name"));
+
+				});
 				
-			});
+			}
 			
 		}else{
+			
 			//非用户跳转到登录页
 			$(location).attr("href", hrefVal);
+			
 		}
 	});
 	//弹框窗隐藏

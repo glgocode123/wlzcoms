@@ -46,88 +46,11 @@ $(function () {
 				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
 					//访问可写数据库
 					$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
-						//可写服务器是最新的数据
-						iPoints = jsonData[0].Points;
-						iGolden = jsonData[0].Golden;
-						
-						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-						if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
-							alert("error,用户数据不匹配！");
-							$(location).attr("href","404.html");
+						if(jsonData[0].Bad){
+							$.removeCookie('wlzName',{ path: '/'});
+							alert("你的账户被冻结，请联系客服人员！");
+							$(location).attr('href', 'contact.html');
 						}else{
-							//iHistoryW
-							$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
-								iHistoryW = jsonData;
-							});
-						}
-					});
-				}else{//老用户，有数据修改//如果有此cookie，说明有修改数据在本地
-//					alert(wlzNHCookie);
-					if(wlzNHCookie.split("|$|").length > 0){
-						//有内容
-						iCookieHistoryW = wlzNHCookie.split("|$|");
-					}else{
-						//访问可写数据库
-						$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
-							//可写服务器是最新的数据
-							iPoints = jsonData[0].Points;
-							iGolden = jsonData[0].Golden;
-
-							//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-							if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
-								alert("error,用户数据不匹配！");
-								$(location).attr("href","404.html");
-							}else{
-								//iHistoryW
-								$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
-								iHistoryW = jsonData;
-								});
-							}
-						});
-					}
-				}
-				//访问只读数据库
-				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
-					//可写服务器才是最新的数据，如果为0，说明获取不到可写数据库数据
-					if(iPoints === 0 ){iPoints = jsonData.Points;}
-					if(iGolden === 0 ){iGolden = jsonData.Golden;}
-
-					//这里无需判断points和golden的数据是否匹配，因为RWSU最新数据是在写入服务器的
-					iHistoryR = jsonData.History;
-				});
-			}else if(userArrInfo[1]==="WSU"){
-				//新用户买过东西/修改
-				
-				alert("WSU1");
-				//刚刚注册的用户，没有买过东西
-				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
-					//访问可写数据库
-					$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
-						//可写服务器是最新的数据
-						iPoints = jsonData[0].Points;
-						iGolden = jsonData[0].Golden;
-						
-						alert(userArrInfo[3]);
-						alert(iPoints);
-						alert(userArrInfo[4]);
-						alert(iGolden);
-						//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
-						if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
-							alert("error,用户数据不匹配！");
-							$(location).attr("href","404.html");
-						}else{
-							//iHistoryW
-							$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
-								iHistoryW = jsonData;
-							});
-						}
-					});
-				}else{//有修改数据在本地
-					if(wlzNHCookie.split("|$|").length > 0){
-						iCookieHistoryW = wlzNHCookie.split("|$|");
-					}else{
-						//访问可写数据库
-						$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
 							//可写服务器是最新的数据
 							iPoints = jsonData[0].Points;
 							iGolden = jsonData[0].Golden;
@@ -142,6 +65,113 @@ $(function () {
 									iHistoryW = jsonData;
 								});
 							}
+						}
+					});
+				}else{//老用户，有数据修改//如果有此cookie，说明有修改数据在本地
+//					alert(wlzNHCookie);
+					if(wlzNHCookie.split("|$|").length > 0){
+						//有内容
+						iCookieHistoryW = wlzNHCookie.split("|$|");
+					}else{
+						//访问可写数据库
+						$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
+							if(jsonData[0].Bad){
+								$.removeCookie('wlzName',{ path: '/'});
+								alert("你的账户被冻结，请联系客服人员！");
+								$(location).attr('href', 'contact.html');
+							}else{
+								//可写服务器是最新的数据
+								iPoints = jsonData[0].Points;
+								iGolden = jsonData[0].Golden;
+
+								//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+								if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
+									alert("error,用户数据不匹配！");
+									$(location).attr("href","404.html");
+								}else{
+									//iHistoryW
+									$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
+									iHistoryW = jsonData;
+									});
+								}
+							}
+						});
+					}
+				}
+				//访问只读数据库
+				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
+					if(jsonData.Bad){
+						$.removeCookie('wlzName',{ path: '/'});
+						alert("你的账户被冻结，请联系客服人员！");
+						$(location).attr('href', 'contact.html');
+					}else{
+						//可写服务器才是最新的数据，如果为0，说明获取不到可写数据库数据
+						if(iPoints === 0 ){iPoints = jsonData.Points;}
+						if(iGolden === 0 ){iGolden = jsonData.Golden;}
+
+						//这里无需判断points和golden的数据是否匹配，因为RWSU最新数据是在写入服务器的
+						iHistoryR = jsonData.History;
+					}
+				});
+			}else if(userArrInfo[1]==="WSU"){
+				//新用户买过东西/修改
+				
+				alert("WSU1");
+				//刚刚注册的用户，没有买过东西
+				if(wlzNHCookie === null || wlzNHCookie === "" || wlzNHCookie === undefined || wlzNHCookie === "undefined"){
+					//访问可写数据库
+					$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
+						if(jsonData[0].Bad){
+							$.removeCookie('wlzName',{ path: '/'});
+							alert("你的账户被冻结，请联系客服人员！");
+							$(location).attr('href', 'contact.html');
+						}else{
+							//可写服务器是最新的数据
+							iPoints = jsonData[0].Points;
+							iGolden = jsonData[0].Golden;
+
+							alert(userArrInfo[3]);
+							alert(iPoints);
+							alert(userArrInfo[4]);
+							alert(iGolden);
+							//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+							if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
+								alert("error,用户数据不匹配！");
+								$(location).attr("href","404.html");
+							}else{
+								//iHistoryW
+								$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
+									iHistoryW = jsonData;
+								});
+							}
+						}
+					});
+				}else{//有修改数据在本地
+					if(wlzNHCookie.split("|$|").length > 0){
+						iCookieHistoryW = wlzNHCookie.split("|$|");
+					}else{
+						//访问可写数据库
+						$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
+							if(jsonData[0].Bad){
+								$.removeCookie('wlzName',{ path: '/'});
+								alert("你的账户被冻结，请联系客服人员！");
+								$(location).attr('href', 'contact.html');
+							}else{
+								//可写服务器是最新的数据
+								iPoints = jsonData[0].Points;
+								iGolden = jsonData[0].Golden;
+
+								//用户cookie中的数据 !== 获得的服务器数据 = 用户端&可写服务端有被篡改嫌疑
+								if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
+									alert("error,用户数据不匹配！");
+									$(location).attr("href","404.html");
+								}else{
+									//iHistoryW
+									$.getJSON("http://d3j1728523.wicp.vip/order?MobID="+userArrInfo[0], function(jsonData){
+										iHistoryW = jsonData;
+									});
+								}
+							}
 						});
 					}
 				}
@@ -152,15 +182,21 @@ $(function () {
 				//老用户，今天数据没有任何修改
 				//访问只读数据库
 				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
-					//可写服务器才是最新的数据
-					if(iPoints === 0 ){iPoints = jsonData.Points;}
-					if(iGolden === 0 ){iGolden = jsonData.Golden;}
-					//用户cookie中的数据 !== 获得的服务器数据 = 用户端有被篡改嫌疑
-					if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
-						alert("error,用户数据不匹配！");
-						$(location).attr("href","404.html");
+					if(jsonData.Bad){
+						$.removeCookie('wlzName',{ path: '/'});
+						alert("你的账户被冻结，请联系客服人员！");
+						$(location).attr('href', 'contact.html');
 					}else{
-						iHistoryR = jsonData.History;
+						//可写服务器才是最新的数据
+						if(iPoints === 0 ){iPoints = jsonData.Points;}
+						if(iGolden === 0 ){iGolden = jsonData.Golden;}
+						//用户cookie中的数据 !== 获得的服务器数据 = 用户端有被篡改嫌疑
+						if(userArrInfo[3] !== iPoints.toString() || userArrInfo[4] !== iGolden.toString()){
+							alert("error,用户数据不匹配！");
+							$(location).attr("href","404.html");
+						}else{
+							iHistoryR = jsonData.History;
+						}
 					}
 				});
 			}else if(userArrInfo[1]==="NSU"){
@@ -365,7 +401,15 @@ $(function () {
 	/* 页面配置 - 判断获取的用户Mobid是否正确，如果正确执行页面数据获取填充 */
 	/*================*/
 	
+	
 	if(isMobID(decodeURI(userArr[0]))){
+		
+		if(userArr[8]==="true"){
+			$.removeCookie('wlzName',{ path: '/'});
+			alert("你的账户被冻结，请联系客服人员！");
+			$(location).attr('href', 'contact.html');
+		}
+		
 		setUserInfo(userArr);
 	}else{
 		//如果页面id不合适，返回原页

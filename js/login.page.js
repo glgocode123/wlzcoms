@@ -207,26 +207,38 @@ $(function () {
 				//如果只读服务器存在
 				//是老用户并且有修改（可写服务器）
 				if(rServerUser){
-					//老用户
-					$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
-						if(jsonDataUserInfo.Bad){
-							alert("你的账户被冻结，请联系客服人员！");
-							$(location).attr('href', 'contact.html');
-						}else{
+					
+					//如果可写服务器有，直接禁
+					if(userBad){
+						$.removeCookie('wlzName',{ path: '/'});
+						alert("你的账户被冻结，请联系客服人员！");
+						$(location).attr('href', 'contact.html');
+					}else{
+						//老用户
+						$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
 							
-							//cookie数据：0手机号||1老用户&有修改数据||2可写数据库||3积分||4金池||5历史记录数量
-							//cookie增加：6今天是否有购买 || 7是否参与预售 || 8黑名单
-							//读取用户json，为的是保存数据在cookie
-							$.cookie("wlzName", userMobID + "||RWSU||true||" + userPoints + "||" + userGolden + "||" + jsonDataUserInfo.History.length + "||" + userBuy + "||" + userAdvance + "||" + userBad, { expires: 1 });
+							//就算可写没有，固定有也禁
+							if(jsonDataUserInfo.Bad){
+								$.removeCookie('wlzName',{ path: '/'});
+								alert("你的账户被冻结，请联系客服人员！");
+								$(location).attr('href', 'contact.html');
+							}else{
 
-							//RWSU = Read Write Sever User
-							//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
-							jumpPage(userMobID,"RWSU");
-							
-						}
-					});
+								//cookie数据：0手机号||1老用户&有修改数据||2可写数据库||3积分||4金池||5历史记录数量
+								//cookie增加：6今天是否有购买 || 7是否参与预售 || 8黑名单
+								//读取用户json，为的是保存数据在cookie
+								$.cookie("wlzName", userMobID + "||RWSU||true||" + userPoints + "||" + userGolden + "||" + jsonDataUserInfo.History.length + "||" + userBuy + "||" + userAdvance + "||" + userBad, { expires: 1 });
+
+								//RWSU = Read Write Sever User
+								//$(location).attr('href', "i.html?Mob="+userMobID+"&userStatus=RWSU");
+								jumpPage(userMobID,"RWSU");
+
+							}
+						});
+					}
 				}else{
 					if(userBad){
+						$.removeCookie('wlzName',{ path: '/'});
 						alert("你的账户被冻结，请联系客服人员！");
 						$(location).attr('href', 'contact.html');
 					}else{
@@ -255,6 +267,7 @@ $(function () {
 					//已经是用户
 					$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
 						if(jsonDataUserInfo.Bad){
+							$.removeCookie('wlzName',{ path: '/'});
 							alert("你的账户被冻结，请联系客服人员！");
 							$(location).attr('href', 'contact.html');
 						}else{

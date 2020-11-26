@@ -45,9 +45,18 @@ $(function () {
 	function isProdID(prodid){
 		var pattern = new RegExp(/^2[0-9]{9}$/);
 //		alert(pattern.exec(prodid));
-		if (!pattern.exec(prodid)){return false;}
-		prodID = prodid;
-		return true;
+		if (!pattern.exec(prodid)){
+			//如果不是有效prodid数值，判断是不是预售过来的
+			if(prodid === "advance"){
+				prodID = prodid;
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			prodID = prodid;
+			return true;
+		}
 	}
 	/*================*/
 	/* 功能 - 判断Mob格式是否正确 */
@@ -145,7 +154,7 @@ $(function () {
 //				//如果是直接购买
 //				if(type){
 //					//advance不可加入购物车，只能是直接购买
-//					if(cookieProdid==="advance"){
+//					if(prodID==="advance"){
 //						//无选项，直接跳转订单提交页
 //						goNextPage("advance","");
 //					}else{
@@ -189,7 +198,7 @@ $(function () {
 				//如果是直接购买
 				if(type){
 					//advance不可加入购物车，只能是直接购买
-					if(cookieProdid==="advance"){
+					if(prodID==="advance"){
 						//有选项，直接跳转订单提交页
 						goNextPage("advance",hrefSelectType);
 					}else{

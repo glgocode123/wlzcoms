@@ -35,20 +35,21 @@ $(function () {
 			
 			$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+arr[0], function(jsonData){
 				if(jsonData.length > 0){
+						
 					alert(arr[1]);
 					
 					switch (arr[1]) {
 						case "RWSU":
-							$.cookie("wlzName", arr[0] + "||RWSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5], { expires: 1 });
+							$.cookie("wlzName", arr[0] + "||RWSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5] + "||" + jsonData[0].Buy + "||" + jsonData[0].Advance + "||" + jsonData[0].Bad, { expires: 1 });
 							break;
 						case "WSU":
-							$.cookie("wlzName", arr[0] + "||WSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5], { expires: 1 });
-							 break;
+							$.cookie("wlzName", arr[0] + "||WSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5] + "||" + jsonData[0].Buy + "||" + jsonData[0].Advance + "||" + jsonData[0].Bad, { expires: 1 });
+							break;
 						case "RSU":
-							$.cookie("wlzName", arr[0] + "||RWSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5], { expires: 1 });
-							 break;
+							$.cookie("wlzName", arr[0] + "||RWSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5] + "||" + jsonData[0].Buy + "||" + jsonData[0].Advance + "||" + jsonData[0].Bad, { expires: 1 });
+							break;
 						case "NSU":
-							$.cookie("wlzName", arr[0] + "||WSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5], { expires: 1 });
+							$.cookie("wlzName", arr[0] + "||WSU||true||" + jsonData[0].Points + "||" + jsonData[0].Golden + "||" + arr[5] + "||" + jsonData[0].Buy + "||" + jsonData[0].Advance + "||" + jsonData[0].Bad, { expires: 1 });
 					} 
 					
 					
@@ -105,7 +106,7 @@ $(function () {
 				
 				if(jsonData.length > 0){
 					
-					var newJSONDataUser = '{"MobID":' + arr[0] + ',"Points":' + arr[3] + ',"Golden":' + arr[4] + '}';
+					var newJSONDataUser = '{"MobID":' + arr[0] + ',"Points":' + arr[3] + ',"Golden":' + arr[4] + ',"Buy":' + arr[6]  + ',"Advance":' + arr[7] + ',"Bad":true' + '}';
 					$.ajax({
 						type: "PUT",
 						url: "http://d3j1728523.wicp.vip/user/" + jsonData[0].id,
@@ -114,7 +115,9 @@ $(function () {
 						data: newJSONDataUser,
 						dataType: "json",
 						success: function () {
-
+							//冻结了账户，所以也要删除用户cookie
+							$.removeCookie('wlzName',{ path: '/'});
+							
 							$.removeCookie("wlzOrder");
 							$.removeCookie("wlzBuy");
 							$(location).attr('href', 'contact.html');
