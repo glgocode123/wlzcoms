@@ -233,7 +233,8 @@ $(function () {
 	var userData = $.cookie("wlzName");
 	if (userData === null || userData === "" || userData === undefined || userData === "null") {
 		//删除cookie
-		$.cookie("wlzCart", null);
+//		$.cookie("wlzCart", null);
+		$.removeCookie("wlzCart");
 		//如果用户没有登录
 		$(location).attr('href', 'login.html?fromPageType=cart');
 	}
@@ -245,9 +246,11 @@ $(function () {
 	
 	if(!isMobID(decodeURI(arr[0]))){
 		//删除cookie
-		$.cookie("wlzName", null);
+//		$.cookie("wlzName", null);
+		$.removeCookie("wlzName");
 		//删除cookie
-		$.cookie("wlzCart", null);
+//		$.cookie("wlzCart", null);
+		$.removeCookie("wlzCart");
 		//如果页面id不合适
 		$(location).attr('href', 'login.html?fromPageType=cart');
 	}

@@ -183,6 +183,7 @@ $(function () {
 	
 	//尾款按钮
 	$("#isTwo").on('click', function(){
+		//用户登录状态
 		if(truefalse){
 			//马上结账：true （立即购买）
 			$(location).attr("href", hrefVal + "&type=true&price=" + $("#setProdRMB").text());
@@ -197,9 +198,10 @@ $(function () {
 	/*================*/
 	//显示弹框窗（参与按钮，参与的时候才能显示，因为尾款的时候是直接付款的）
 	$("#isOne").on('click', function(){
+		//用户登录状态
 		if(truefalse){
 			
-			$(".wechat-qrcode").show();
+			$(".advance-class").show();
 			
 			//选项卡逻辑
 			$("div.selectItem ul li a").on("click",function(){
@@ -216,9 +218,9 @@ $(function () {
 	});
 	//弹框窗隐藏
 	$(document).mouseup(function(e){
-		var _con = $(".wechat-qrcode");   // 设置目标区域
+		var _con = $(".advance-class");   // 设置目标区域
 		if(!_con.is(e.target) && _con.has(e.target).length === 0){ // Mark 1
-			$(".wechat-qrcode").hide();
+			$(".advance-class").hide();
 		}
 	});
 	
