@@ -526,7 +526,7 @@ $(function () {
 		//如果用户是黑户，删除用户登录信息
 		if(jsonDataUserInfo.Bad){
 			$.removeCookie('wlzName',{ path: '/'});
-			alert("你的账户被冻结，请联系客服人员！");
+			alert("你的账户有问题未解决，请联系客服人员！");
 			$(location).attr('href', 'contact.html');
 //			$(location).attr('href', '404.html');
 		}
@@ -551,7 +551,7 @@ $(function () {
 		//如果用户是黑户，删除用户登录信息，跳转404
 		if(jsonData[0].Bad){
 			$.removeCookie('wlzName',{ path: '/'});
-			alert("你的账户被冻结，请联系客服人员！");
+			alert("你的账户有问题未解决，请联系客服人员！");
 			$(location).attr('href', 'contact.html');
 //			$(location).attr('href', '404.html');
 		}

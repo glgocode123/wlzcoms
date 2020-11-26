@@ -211,7 +211,7 @@ $(function () {
 					//如果可写服务器有，直接禁
 					if(userBad){
 						$.removeCookie('wlzName',{ path: '/'});
-						alert("你的账户被冻结，请联系客服人员！");
+						alert("你的账户有问题未解决，请联系客服人员！");
 						$(location).attr('href', 'contact.html');
 					}else{
 						//老用户
@@ -220,7 +220,7 @@ $(function () {
 							//就算可写没有，固定有也禁
 							if(jsonDataUserInfo.Bad){
 								$.removeCookie('wlzName',{ path: '/'});
-								alert("你的账户被冻结，请联系客服人员！");
+								alert("你的账户有问题未解决，请联系客服人员！");
 								$(location).attr('href', 'contact.html');
 							}else{
 
@@ -239,7 +239,7 @@ $(function () {
 				}else{
 					if(userBad){
 						$.removeCookie('wlzName',{ path: '/'});
-						alert("你的账户被冻结，请联系客服人员！");
+						alert("你的账户有问题未解决，请联系客服人员！");
 						$(location).attr('href', 'contact.html');
 					}else{
 						//新用户
@@ -268,7 +268,7 @@ $(function () {
 					$.getJSON("user/" + userMobID + ".json", function(jsonDataUserInfo){
 						if(jsonDataUserInfo.Bad){
 							$.removeCookie('wlzName',{ path: '/'});
-							alert("你的账户被冻结，请联系客服人员！");
+							alert("你的账户有问题未解决，请联系客服人员！");
 							$(location).attr('href', 'contact.html');
 						}else{
 							

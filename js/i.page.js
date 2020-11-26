@@ -48,7 +48,7 @@ $(function () {
 					$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
 						if(jsonData[0].Bad){
 							$.removeCookie('wlzName',{ path: '/'});
-							alert("你的账户被冻结，请联系客服人员！");
+							alert("你的账户有问题未解决，请联系客服人员！");
 							$(location).attr('href', 'contact.html');
 						}else{
 							//可写服务器是最新的数据
@@ -77,7 +77,7 @@ $(function () {
 						$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
 							if(jsonData[0].Bad){
 								$.removeCookie('wlzName',{ path: '/'});
-								alert("你的账户被冻结，请联系客服人员！");
+								alert("你的账户有问题未解决，请联系客服人员！");
 								$(location).attr('href', 'contact.html');
 							}else{
 								//可写服务器是最新的数据
@@ -102,7 +102,7 @@ $(function () {
 				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
 					if(jsonData.Bad){
 						$.removeCookie('wlzName',{ path: '/'});
-						alert("你的账户被冻结，请联系客服人员！");
+						alert("你的账户有问题未解决，请联系客服人员！");
 						$(location).attr('href', 'contact.html');
 					}else{
 						//可写服务器才是最新的数据，如果为0，说明获取不到可写数据库数据
@@ -123,7 +123,7 @@ $(function () {
 					$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
 						if(jsonData[0].Bad){
 							$.removeCookie('wlzName',{ path: '/'});
-							alert("你的账户被冻结，请联系客服人员！");
+							alert("你的账户有问题未解决，请联系客服人员！");
 							$(location).attr('href', 'contact.html');
 						}else{
 							//可写服务器是最新的数据
@@ -154,7 +154,7 @@ $(function () {
 						$.getJSON("http://d3j1728523.wicp.vip/user?MobID="+userArrInfo[0], function(jsonData){
 							if(jsonData[0].Bad){
 								$.removeCookie('wlzName',{ path: '/'});
-								alert("你的账户被冻结，请联系客服人员！");
+								alert("你的账户有问题未解决，请联系客服人员！");
 								$(location).attr('href', 'contact.html');
 							}else{
 								//可写服务器是最新的数据
@@ -184,7 +184,7 @@ $(function () {
 				$.getJSON("user/" + userArrInfo[0] + ".json", function(jsonData){
 					if(jsonData.Bad){
 						$.removeCookie('wlzName',{ path: '/'});
-						alert("你的账户被冻结，请联系客服人员！");
+						alert("你的账户有问题未解决，请联系客服人员！");
 						$(location).attr('href', 'contact.html');
 					}else{
 						//可写服务器才是最新的数据
@@ -406,7 +406,7 @@ $(function () {
 		
 		if(userArr[8]==="true"){
 			$.removeCookie('wlzName',{ path: '/'});
-			alert("你的账户被冻结，请联系客服人员！");
+			alert("你的账户有问题未解决，请联系客服人员！");
 			$(location).attr('href', 'contact.html');
 		}
 		

@@ -150,7 +150,7 @@ $(function () {
 	//黑名单
 	if(userCookieVal[8]==="true"){
 		$.removeCookie('wlzName',{ path: '/'});
-		alert("你的账户被冻结，请联系客服人员！");
+		alert("你的账户有问题未解决，请联系客服人员！");
 		$(location).attr('href', 'contact.html');
 	}
 	
