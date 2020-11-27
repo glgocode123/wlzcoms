@@ -206,7 +206,11 @@ $(function () {
 				//目前还没有完成，这个判断究竟具体怎么用（提示优惠活动，或者显示用户导向提示）
 				alert("你获得新用户首单买一赠一资格！即日起在本站购买任何产品都将获赠：屁眼儿菊花残笔记本一份！");
 				
-				$("#setHistory").html("<div class='form-wrapper'><div class='empty-space h25-xs h40-md'></div><h7 class='h7'>购物后才有历史记录！</h7><span class='big'>你还没有买过任何产品，购物后将在此显示你的历史购物清单。</span><div class='empty-space h30-xs'></div></div>");
+				$("#setHistoryW").before('<div class="col-md-6"><div class="form-wrapper"><div class="empty-space h25-xs h40-md"></div><h7 class="h7">购物后才有历史记录！</h7><span class="big">你还没有买过任何产品，购物后将在此显示你的历史购物清单。</span><div class="empty-space h30-xs"></div></div></div>');
+				
+				$("#setHistoryW").remove();
+				$("#setHistoryR").remove();
+				
 			}else{
 				$(location).attr("href","404.html");
 			}
@@ -277,8 +281,13 @@ $(function () {
 			//输入每个产品块的总数据
 			rSource += historyArray[i].orderID + "||" + historyArray[i].data + "||" + historyArray[i].AWB + "||" + historyArray[i].MobNum + "||" + historyArray[i].Name + "||" + historyArray[i].Address + "||" + historyArray[i].price + "||" + historyArray[i].discount + "||" + historyArray[i].Total + "|$|";
 			
-			//设置单个（块）记录的显示
-			setHistoryShow(historyArray[i].data, historyArray[i].AWB, historyArray[i].price, historyArray[i].discount, historyArray[i].Total);
+			if(takeCookie){
+				//设置单个（块）记录的显示
+				setHistoryShow("W", historyArray[i].data, historyArray[i].AWB, historyArray[i].price, historyArray[i].discount, historyArray[i].Total);
+			}else{
+				//设置单个（块）记录的显示
+				setHistoryShow("R", historyArray[i].data, historyArray[i].AWB, historyArray[i].price, historyArray[i].discount, historyArray[i].Total);
+			}
 			
 			//循环产品列表
 			for(var j = 0; j < historyArray[i].prodArr.length; j++){
@@ -299,8 +308,13 @@ $(function () {
 					prodtype = true;
 				}
 				
-				//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
-				setHistoryShowProduct( prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParm);
+				if(takeCookie){
+					//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
+					setHistoryShowProduct("W", prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParm);
+				}else{
+					//设置单个（块）记录的产品：是否最后一个产品，产品id，产品名称，产品参数
+					setHistoryShowProduct("R", prodtype, historyArray[i].prodArr[j].proID, historyArray[i].prodArr[j].proName, historyArray[i].prodArr[j].proParm);
+				}
 			}
 		}
 //		alert(rSource);
@@ -325,16 +339,16 @@ $(function () {
 			if(i%2 === 0){
 //				alert(cookieHistoryArray[i]);
 				var iDate = cookieHistoryArray[i].split("||");
-				setHistoryShow(iDate[1], iDate[2], iDate[6], iDate[7], iDate[8]);
+				setHistoryShow("W", iDate[1], iDate[2], iDate[6], iDate[7], iDate[8]);
 			}else{
 				var iProd = cookieHistoryArray[i].split("|&|");
 				for(var j = 0; j < iProd.length; j++){
 					var jDate = iProd[j].split("||");
 					//如果不是最后一个
 					if(j !== iProd[j].length - 1){
-						setHistoryShowProduct(true, jDate[0], jDate[1], jDate[2]);
+						setHistoryShowProduct("W", true, jDate[0], jDate[1], jDate[2]);
 					}else{
-						setHistoryShowProduct(false, jDate[0], jDate[1], jDate[2]);
+						setHistoryShowProduct("W", false, jDate[0], jDate[1], jDate[2]);
 					}
 					
 				}
@@ -348,7 +362,7 @@ $(function () {
 	/* 设置prod页面显示 —— 分为两种方法：历史块 和 块产品列表 */
 	/*================*/
 	//设置历史记录块的：标题，快递号，原价，优惠，终价
-	function setHistoryShow(title, AWB, price, discount, total) {
+	function setHistoryShow(isWR, title, AWB, price, discount, total) {
 		var titleString = title.toString();
 //		var sData = titleString.slice(0,4) + "-" + titleString.slice(4,6) + "-" + titleString.slice(6);//"2020-07-20"
 		var sData = titleString;//"2020-07-20"
@@ -360,26 +374,31 @@ $(function () {
 		
 		var htmlVal = '<div class="form-wrapper"><div class="empty-space h25-xs h40-md"></div><h7 class="h7">' + sData + '</h7><hr><span class="big">' + sTracking + '</span><div class="empty-space h30-xs"></div><div class="comments-wrapper">' + htmlVarProdMoney + '<div class="empty-space h50-xs"></div></div></div>';
 		
-		//如果已经存在历史记录
-		if($("div.form-wrapper").length > 0){
-			//已有块之后插入兄弟元素
-			$("div.form-wrapper:last").after(htmlVal);
+		var DivID = "#setHistory" + isWR;
+		//如果已经存在历史记录,在第一个元素的前面添加
+		if($(DivID + " div.form-wrapper").length > 0){
+			//已有块之后插入兄弟元素（不用这个）
+//			$("div.form-wrapper:last").after(htmlVal);
+			$(DivID + " div.form-wrapper:first").before(htmlVal);
 		}else{
-//			$("#setHistory").append(htmlVal);
-			$("#setHistory").html(htmlVal);
+//			$("").append(htmlVal);
+			$(DivID).html(htmlVal);
 		}
 		
 	}
 //	此处逻辑还么有改过来
 	//设置历史记录块的产品列表：最后一个false，产品ID，产品名称，产品参数
-	function setHistoryShowProduct(prodtype, prodID, prodName,prodParms) {
+	function setHistoryShowProduct(isWR, prodtype, prodID, prodName,prodParms) {
 		var htmlVarProdImg = "product/" + prodID + "/head-img.jpg";
 		var htmlVarProd = '<div class="comment"><img src=' + htmlVarProdImg + ' alt=""><div class="description"><span class="big">' + prodName + '</span><div class="empty-space h10-xs"></div><span>' + prodParms + '</span></div></div>';
 		if(prodtype){
 			htmlVarProd += '<div class="empty-space h25-xs h45-md"></div>';
 		}
-		//在块中的价格comment前加入元素，第一个元素comment永远在第一个，价格comment永远在最后
-		$("div.form-wrapper:last .comment:last").before(htmlVarProd);
+		
+		var DivID = "#setHistory" + isWR;
+		//在块中的价格comment前加入元素，第一个元素comment永远在第一个，价格comment永远在最后(不用这个)
+//		$("div.form-wrapper:last .comment:last").before(htmlVarProd);
+		$(DivID + " div.form-wrapper:first .comment:last").before(htmlVarProd);
 	}
 	
 	
