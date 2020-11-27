@@ -226,7 +226,7 @@ $(function () {
 				$(".advance-class").show();
 
 				//选项卡逻辑
-				$("div.selectItem ul li a").on("click",function(){
+				$("div.advance-class div.selectItem ul li a").on("click",function(){
 
 					//马上结账：true （立即购买）
 					$(location).attr("href", hrefVal + "&type=true&price=" + $(this).data("name"));
