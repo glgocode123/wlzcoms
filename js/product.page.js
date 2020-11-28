@@ -121,6 +121,8 @@ $(function () {
 			$("#setProdInt").text(jsonData.int);
 			//（img）设置PC专有的头图
 			
+			
+			
 			//设置视频：如果json中有视频路径，设置视频（未完善）
 			var videoPath = jsonData.mainVideo;
 			if(isNullOrUndefined(videoPath)){
@@ -136,6 +138,12 @@ $(function () {
 			//（img）设置产品基本信息
 			
 			//（img）设置产品尺寸信息
+			
+			//如果只有一张图
+			if(jsonData.isNotLR){
+				//删除右图
+				$(".lrShow").children().eq(1).remove();
+			}
 			
 			//设置产品详情
 			$("#setProdDetails").text(jsonData.details);
